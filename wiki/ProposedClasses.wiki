@@ -37,6 +37,7 @@ For the side-scrolling aspect, we'd also want a class to handle non-colliding sc
 
 We also want a class to handle all of status bars - health, ammo, score
   * Player
+Maybe this class would also handle destruction of objects as they scrolled off the left side of the screen. Makes sense because it would already have to count the number of customers that didn't get tacos. 
 
 = Possible collisions =
 
