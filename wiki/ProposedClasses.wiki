@@ -46,7 +46,7 @@ For collision detection, we could iterate through these pairs to check for each 
   * tacocopter - ground
   * tacocopter - burrito missile
   * tacocopter - powerup
-When a collision is detected, each instance would pass the other colliding party to its own method. For example, if there was a taco - customer collision, we would call both `taco1.collideWith(customer1)` and `customer1.collideWith(taco1)`.
+Idea: when a collision is detected, each instance would pass the other colliding party to its own method. For example, if there was a taco - customer collision, we would call both `taco1.collideWith(customer1)` and `customer1.collideWith(taco1)`. I will do some reading in the game design book to see if it's actually done this way.
 
 = Side-scrolling mechanism =
 
