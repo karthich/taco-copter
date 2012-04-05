@@ -1,0 +1,52 @@
+#summary Here's the game structure we talked about yesterday.
+#labels Phase-Design
+
+= Introduction =
+
+Yesterday, we met, proposed a list of game features for Ian, and talked briefly about the structure of the game. Here are some of the classes and their members that we talked about. 
+
+
+= Class design =
+
+This is a list of proposed classes:
+  * Object
+    * This would be a general parent class for all of our game objects. 
+    * Data members:
+      * sprite map
+      * no. sprites
+      * location
+      * velocity
+      * acceleration
+    * Member functions
+      * constructor
+      * init()
+      * load_resources()
+      * update()
+      * draw()
+
+The following would be subclasses of Object:
+  * Tacocopter
+  * TacoProjectile
+  * Customer
+  * BurritoMissile
+  * Powerup
+
+For the side-scrolling aspect, we'd also want a class to handle non-colliding scenery (e.g. buildings, clouds) and a class to handle the ground (where the Tacocopter could potentially crash)
+  * Scenery
+  * Ground (with sidewalk sprite)
+
+We also want a class to handle all of status bars - health, ammo, score
+  * Player
+
+= Possible collisions =
+
+For collision detection, we could iterate through these pairs to check for each type of collision. 
+  * taco - customer
+  * taco - ground
+  * tacocopter - ground
+  * tacocopter - burrito missile
+  * tacocopter - powerup
+
+= Side-scrolling mechanism =
+
+We should all do a bit of reading about this, but in my head, I envisioned there being the space in the game window visible to the player, and maybe a hundred pixels to the right of that space, we'd have invisible "generators" that would create instances of Customers, Burrito Missiles, etc. And these generators would generate at a random interval of time (e.g. between 10 and 20 seconds), which would decrease as the game went on to increase the difficulty. 
