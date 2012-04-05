@@ -51,4 +51,4 @@ Idea: when a collision is detected, each instance would pass the other colliding
 
 = Side-scrolling mechanism =
 
-We should all do a bit of reading about this, but in my head, I envisioned there being the space in the game window visible to the player, and maybe a hundred pixels to the right of that space, we'd have invisible "generators" that would create instances of Customers, Burrito Missiles, etc. And these generators would generate at a random interval of time (e.g. between 10 and 20 seconds), which would decrease as the game went on to increase the difficulty. 
+We should all do a bit of reading about this, but in my head, I envisioned there being the space in the game window visible to the player, and maybe a hundred pixels to the right of that space, we'd have invisible "generators" that would create instances of Customers, Burrito Missiles, etc. And these generators would generate at a random interval of time (e.g. between 10 and 20 seconds), which would decrease as the game went on, in order to increase the difficulty. 
