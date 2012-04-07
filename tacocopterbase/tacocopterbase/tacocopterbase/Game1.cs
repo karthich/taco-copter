@@ -18,12 +18,30 @@ namespace tacocopterbase
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        
+        
+        const int windowHeight = 720, windowWidth = 1280;
+
+
+
+        /** this is the place we will declare the object classes**/
+        Object baseObject;
+
+
+
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferHeight = windowHeight;
+            graphics.PreferredBackBufferWidth = windowWidth;
+            
+            
+            baseObject = new Object(new State2D(new Vector2(windowWidth / 2 - 500, windowHeight / 2), new Vector2(0, 0), new Vector2(0, 0), 0), this);
+            
         }
+
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -34,7 +52,7 @@ namespace tacocopterbase
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            baseObject.Initialize();
             base.Initialize();
         }
 
@@ -46,6 +64,7 @@ namespace tacocopterbase
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            //baseObject.LoadContent();
 
             // TODO: use this.Content to load your game content here
         }
@@ -84,7 +103,7 @@ namespace tacocopterbase
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            baseObject.Draw(gameTime);
             base.Draw(gameTime);
         }
     }
