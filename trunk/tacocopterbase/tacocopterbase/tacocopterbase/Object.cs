@@ -1,43 +1,72 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
+namespace tacocopterbase
+{
+    class Object : DrawableGameComponent
+    {
+        private State2D currentState;
 
-namespace tacocopterbase {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
-    public class Object : Microsoft.Xna.Framework.GameComponent {
-        public Object(Game game)
-            : base(game) {
-            // TODO: Construct any child components here
+        private Texture2D sprite;
+        private SpriteBatch spriteBatch;
+        protected Game thisGame;
+
+        public Object(Game g):base(g)
+        { 
+            currentState = new State2D();
+            thisGame = g;
         }
 
-        /// <summary>
-        /// Allows the game component to perform any initialization it needs to before starting
-        /// to run.  This is where it can query for any required services and load content.
-        /// </summary>
-        public override void Initialize() {
-            // TODO: Add your initialization code here
+        public Object(State2D s,Game g) :base(g)
+        { 
+            currentState = s;
+            thisGame = g;
+         }
 
+        public override void Initialize()
+        {
+            spriteBatch = new SpriteBatch(this.Game.GraphicsDevice);
+            LoadContent();
             base.Initialize();
         }
+        public override void Draw(GameTime gametime)
+        {
+            Vector2 offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
+            spriteBatch.Begin();
+            spriteBatch.Draw(sprite, currentState.Position1, null, Color.White, 0, new Vector2(0, 0), (Single)0.3, SpriteEffects.None, 0);
+            spriteBatch.End();
+        }
+        protected override void LoadContent()
+        {
+            sprite = thisGame.Content.Load<Texture2D>("black_box");
+            base.LoadContent();
+        }
 
-        /// <summary>
-        /// Allows the game component to update itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        public override void Update(GameTime gameTime) {
-            // TODO: Add your update code here
+        public void Update(State2D s)
+        {
+            currentState = s;
+        }
 
-            base.Update(gameTime);
+        protected Texture2D Sprite
+        {
+            get { return sprite; }
+            set { sprite = value; }
+        }
+
+        public SpriteBatch Spritebatch
+        {
+            get { return spriteBatch; }
+            set { spriteBatch = value; }
+        }
+
+        protected State2D S0
+        {
+            get { return currentState; }
+            set { currentState = value; }
         }
     }
 }
