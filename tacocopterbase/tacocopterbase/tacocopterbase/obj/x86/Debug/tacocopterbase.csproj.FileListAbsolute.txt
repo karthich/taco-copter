@@ -1,0 +1,7 @@
+C:\Users\Karthic\Documents\Visual Studio 2010\Projects\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Karthic\Documents\Visual Studio 2010\Projects\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Karthic\Documents\Visual Studio 2010\Projects\tacocopterbase\tacocopterbase\tacocopterbase\bin\x86\Debug\Content\black_box.xnb
+C:\Users\Karthic\Documents\Visual Studio 2010\Projects\tacocopterbase\tacocopterbase\tacocopterbase\bin\x86\Debug\tacocopterbase.exe
+C:\Users\Karthic\Documents\Visual Studio 2010\Projects\tacocopterbase\tacocopterbase\tacocopterbase\bin\x86\Debug\tacocopterbase.pdb
+C:\Users\Karthic\Documents\Visual Studio 2010\Projects\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\tacocopterbase.exe
+C:\Users\Karthic\Documents\Visual Studio 2010\Projects\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\tacocopterbase.pdb
