@@ -23,7 +23,6 @@ namespace tacocopterbase
         const int windowHeight = 720, windowWidth = 1280;
 
         /** this is the place we will declare the object classes**/
-        Object baseObject;
 
         public Game1()
         {

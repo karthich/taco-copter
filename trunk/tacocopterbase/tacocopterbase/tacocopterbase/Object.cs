@@ -35,7 +35,6 @@ namespace tacocopterbase
         {
             spriteBatch = new SpriteBatch(this.Game.GraphicsDevice);
 			// calculate offset
-			offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
             LoadContent();
             base.Initialize();
         }
@@ -51,6 +50,7 @@ namespace tacocopterbase
         protected override void LoadContent()
         {
             sprite = thisGame.Content.Load<Texture2D>("black_box");
+			offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
             base.LoadContent();
         }
 
