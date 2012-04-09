@@ -44,7 +44,7 @@ namespace tacocopterbase
         {
             spriteBatch.Begin();
             spriteBatch.Draw(sprite, State.Position - offset, null, Color.White, 0, 
-				new Vector2(0, 0), (Single)0.3, SpriteEffects.None, 0);
+				new Vector2(0, 0), 0.3f, SpriteEffects.None, 0);
             spriteBatch.End();
         }
 
