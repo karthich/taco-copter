@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using WindowsGame1;
 
 namespace tacocopterbase
 {
@@ -18,17 +19,11 @@ namespace tacocopterbase
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
-        
+				
         const int windowHeight = 720, windowWidth = 1280;
-
-
 
         /** this is the place we will declare the object classes**/
         Object baseObject;
-
-
-
 
         public Game1()
         {
@@ -36,10 +31,8 @@ namespace tacocopterbase
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferHeight = windowHeight;
             graphics.PreferredBackBufferWidth = windowWidth;
-            
-            
-            baseObject = new Object(new State2D(new Vector2(windowWidth / 2 - 500, windowHeight / 2), new Vector2(0, 0), new Vector2(0, 0), 0), this);
-            
+
+			Components.Add(new Object(new State2D(windowWidth/2, windowHeight/2, 0, 0, 0, 0, 0), this));
         }
 
 
@@ -52,7 +45,6 @@ namespace tacocopterbase
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            baseObject.Initialize();
             base.Initialize();
         }
 
@@ -103,7 +95,6 @@ namespace tacocopterbase
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            baseObject.Draw(gameTime);
             base.Draw(gameTime);
         }
     }

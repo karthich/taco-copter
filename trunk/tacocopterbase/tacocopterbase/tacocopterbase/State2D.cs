@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -15,45 +15,26 @@ using Microsoft.Xna.Framework.Media;
  * Vec2 Acceleration = acceleration of the object
  * Vec2 Velocity = velocity of the object
  * **/
-namespace tacocopterbase
+namespace WindowsGame1
 {
     public class State2D
     {
+		public double Mass { get; set; }
+		public Vector2 Position { get; set; }
+		public Vector2 Acceleration { get; set; }
+		public Vector2 Velocity { get; set; }
+		static Vector2 NULL_VECTOR = new Vector2(0,0);
 
-        Vector2 Position;
-        double mass;
-        private Vector2 acceleration;
-        private Vector2 velocity;
-        static Vector2 NULL_VECTOR = new Vector2(0,0);
-
-        public Vector2 Position1
+		// default constructor
+		public State2D()
         {
-            get { return Position; }
-            set { Position = value; }
-        }
-        
-        
-
-        public double Mass
-        {
-            get { return mass; }
-            set { mass = value; }
-        }
-        
-        
-        public Vector2 Acceleration
-        {
-            get { return acceleration; }
-            set { acceleration = value; }
-        }
-        
-
-        public Vector2 Velocity
-        {
-            get { return velocity; }
-            set { velocity = value; }
+            Mass = 0;
+            Position = NULL_VECTOR;
+            Acceleration = NULL_VECTOR;
+            Velocity = NULL_VECTOR;
         }
 
+		// constructor that takes Vector2s
         public State2D(Vector2 pos, Vector2 acc, Vector2 vel, double mass)
         {
             Mass = mass;
@@ -62,13 +43,16 @@ namespace tacocopterbase
             Velocity = vel;
         }
 
-        public State2D()
-        {
-            Mass = 0;
-            Position = NULL_VECTOR;
-            Acceleration = NULL_VECTOR;
-            Velocity = NULL_VECTOR;
-        }
+		// another, simpler constructor
+		public State2D(float posX, float posY, float accX, float accY, float velX, 
+			float velY, double mass)
+		{
+			Mass = mass;
+			Position = new Vector2(posX, posY);
+			Acceleration = new Vector2(accX, accY);
+			Velocity = new Vector2(velX, velY);
+		}
+
         public void Update(Vector2 pos, Vector2 acc, Vector2 vel, double mass)
         {
             Mass = mass;
@@ -76,6 +60,5 @@ namespace tacocopterbase
             Acceleration = acc;
             Velocity = vel;            
         }
-
-       }
+    }
 }
