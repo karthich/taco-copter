@@ -10,8 +10,8 @@
         <Data Key="ColorKeyColor">255, 255, 255, 255</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>C:\Users\Sheng\Desktop\Tacocopter\taco-copter\tacocopterbase\tacocopterbase\tacocopterbase\bin\x86\Debug\Content\black_box.xnb</Output>
-      <Time>2012-04-09T14:02:55.3510386-05:00</Time>
+      <Output>C:\Users\Matt\Desktop\Taco-copter\Tacocopter\tacocopterbase\tacocopterbase\tacocopterbase\bin\x86\Debug\Content\black_box.xnb</Output>
+      <Time>2012-04-09T20:34:18.9612347-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -20,10 +20,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Sheng\Desktop\Tacocopter\taco-copter\tacocopterbase\tacocopterbase\tacocopterbaseContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Sheng\Desktop\Tacocopter\taco-copter\tacocopterbase\tacocopterbase\tacocopterbase\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Sheng\Desktop\Tacocopter\taco-copter\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Sheng\Desktop\Tacocopter\taco-copter\tacocopterbase\tacocopterbase\tacocopterbase\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Matt\Desktop\Taco-copter\Tacocopter\tacocopterbase\tacocopterbase\tacocopterbaseContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Matt\Desktop\Taco-copter\Tacocopter\tacocopterbase\tacocopterbase\tacocopterbase\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Matt\Desktop\Taco-copter\Tacocopter\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Matt\Desktop\Taco-copter\Tacocopter\tacocopterbase\tacocopterbase\tacocopterbase\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -52,7 +52,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2012-03-29T11:00:43.960954-05:00</Value>
+        <Value>2012-03-28T13:02:53.7933734-05:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

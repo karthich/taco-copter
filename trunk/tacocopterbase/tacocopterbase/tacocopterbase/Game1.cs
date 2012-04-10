@@ -19,6 +19,7 @@ namespace tacocopterbase
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private Tacocopter copter;
 				
         const int windowHeight = 720, windowWidth = 1280;
 
@@ -31,7 +32,7 @@ namespace tacocopterbase
             graphics.PreferredBackBufferHeight = windowHeight;
             graphics.PreferredBackBufferWidth = windowWidth;
 
-			Components.Add(new Object(new State2D(windowWidth/2, windowHeight/2, 0, 0, 0, 0, 0), this));
+
         }
 
 
@@ -44,6 +45,10 @@ namespace tacocopterbase
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            
+            //Components.Add(new Tacocopter(new State2D(800, 200, 0, 0, 0, 0, 0), this));
+            copter = new Tacocopter(new State2D(400, 200, 0, 0, 0, 0, 0), this);
+            copter.Initialize();
             base.Initialize();
         }
 
@@ -81,7 +86,7 @@ namespace tacocopterbase
                 this.Exit();
 
             // TODO: Add your update logic here
-
+            copter.Update();
             base.Update(gameTime);
         }
 
@@ -94,6 +99,7 @@ namespace tacocopterbase
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            copter.Draw(gameTime);
             base.Draw(gameTime);
         }
     }

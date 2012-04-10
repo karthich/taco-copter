@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using WindowsGame1;
 
 namespace tacocopterbase
@@ -18,12 +19,14 @@ namespace tacocopterbase
 
 		// commented this out because State2D does not
 		// have a default constructor and it was an error
-		/*
+		
+        
         public Object(Game g):base(g)
         { 
-            currentState = new State2D();
+            State = new State2D();
             thisGame = g;
-        }*/
+        }
+         
 
         public Object(State2D s,Game g) :base(g)
         { 
@@ -54,6 +57,55 @@ namespace tacocopterbase
             base.LoadContent();
         }
 
-        public void Update(State2D s) { State = s; }
+        public virtual void Update(State2D s) { State = s; }
+    }
+
+    class Tacocopter : Object
+    {
+        private Vector2 offset;
+
+        public Tacocopter(State2D s, Game g)
+            : base(g)
+        {
+            thisGame = g;
+            State = s;
+        }
+
+        protected override void LoadContent()
+        {
+            sprite = this.Game.Content.Load<Texture2D>("black_box");
+            offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
+            base.LoadContent();
+        }
+         
+
+        public void Update()
+        {
+            KeyboardState k = Keyboard.GetState();
+            Vector2 nextPosition = new Vector2(0,0);
+
+            
+                if (k.IsKeyDown(Keys.Left) && State.Position.X > 100)
+                {
+                    nextPosition.X += -5;
+                }
+                if (k.IsKeyDown(Keys.Right) && State.Position.X <640)
+                {
+                    nextPosition.X += 5;
+                }
+                if (k.IsKeyDown(Keys.Up) && State.Position.Y > 100)
+                {
+                    nextPosition.Y += -5;
+                }
+                if (k.IsKeyDown(Keys.Down) && State.Position.Y < 360)
+                {
+                    nextPosition.Y += 5;
+                }
+            
+
+            State.Position += nextPosition;
+            base.Update(State);
+        }
+
     }
 }
