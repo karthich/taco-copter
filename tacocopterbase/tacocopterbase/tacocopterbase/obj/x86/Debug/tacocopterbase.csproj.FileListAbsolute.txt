@@ -1,17 +1,7 @@
-<<<<<<< .mine
-C:\Users\Sheng\Desktop\Tacocopter\taco-copter\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\Sheng\Desktop\Tacocopter\taco-copter\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\Users\Sheng\Desktop\Tacocopter\taco-copter\tacocopterbase\tacocopterbase\tacocopterbase\bin\x86\Debug\Content\black_box.xnb
-C:\Users\Sheng\Desktop\Tacocopter\taco-copter\tacocopterbase\tacocopterbase\tacocopterbase\bin\x86\Debug\tacocopterbase.exe
-C:\Users\Sheng\Desktop\Tacocopter\taco-copter\tacocopterbase\tacocopterbase\tacocopterbase\bin\x86\Debug\tacocopterbase.pdb
-C:\Users\Sheng\Desktop\Tacocopter\taco-copter\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\tacocopterbase.exe
-C:\Users\Sheng\Desktop\Tacocopter\taco-copter\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\tacocopterbase.pdb
-=======
-C:\Users\Karthic\Documents\Visual Studio 2010\Projects\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\Karthic\Documents\Visual Studio 2010\Projects\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\Users\Karthic\Documents\Visual Studio 2010\Projects\tacocopterbase\tacocopterbase\tacocopterbase\bin\x86\Debug\Content\black_box.xnb
-C:\Users\Karthic\Documents\Visual Studio 2010\Projects\tacocopterbase\tacocopterbase\tacocopterbase\bin\x86\Debug\tacocopterbase.exe
-C:\Users\Karthic\Documents\Visual Studio 2010\Projects\tacocopterbase\tacocopterbase\tacocopterbase\bin\x86\Debug\tacocopterbase.pdb
-C:\Users\Karthic\Documents\Visual Studio 2010\Projects\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\tacocopterbase.exe
-C:\Users\Karthic\Documents\Visual Studio 2010\Projects\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\tacocopterbase.pdb
->>>>>>> .r18
+C:\Users\Matt\Desktop\Taco-copter\Tacocopter\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Matt\Desktop\Taco-copter\Tacocopter\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Matt\Desktop\Taco-copter\Tacocopter\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\tacocopterbase.exe
+C:\Users\Matt\Desktop\Taco-copter\Tacocopter\tacocopterbase\tacocopterbase\tacocopterbase\bin\x86\Debug\Content\black_box.xnb
+C:\Users\Matt\Desktop\Taco-copter\Tacocopter\tacocopterbase\tacocopterbase\tacocopterbase\bin\x86\Debug\tacocopterbase.exe
+C:\Users\Matt\Desktop\Taco-copter\Tacocopter\tacocopterbase\tacocopterbase\tacocopterbase\bin\x86\Debug\tacocopterbase.pdb
+C:\Users\Matt\Desktop\Taco-copter\Tacocopter\tacocopterbase\tacocopterbase\tacocopterbase\obj\x86\Debug\tacocopterbase.pdb

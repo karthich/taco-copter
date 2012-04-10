@@ -1,5 +1,1 @@
-<<<<<<< .mine
-C:\Users\Sheng\Desktop\Tacocopter\taco-copter\tacocopterbase\tacocopterbase\tacocopterbaseContent\obj\x86\Debug\ResolveAssemblyReference.cache
-=======
-C:\Users\Karthic\Documents\Visual Studio 2010\Projects\tacocopterbase\tacocopterbase\tacocopterbaseContent\obj\x86\Debug\ResolveAssemblyReference.cache
->>>>>>> .r18
+C:\Users\Matt\Desktop\Taco-copter\Tacocopter\tacocopterbase\tacocopterbase\tacocopterbaseContent\obj\x86\Debug\ResolveAssemblyReference.cache
