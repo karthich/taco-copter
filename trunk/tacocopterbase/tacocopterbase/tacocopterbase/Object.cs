@@ -24,7 +24,6 @@ namespace tacocopterbase
 			thisGame = g;
 		}
 
-
 		public Object(State2D s, Game g)
 			: base(g) {
 			State = s;
@@ -53,9 +52,8 @@ namespace tacocopterbase
 			base.LoadContent();
 		}
 
-
-		// updates position of the Object based on velocity;
-		// updates velocity of the Object based on acceleration
+		// updates position of the Object based on velocity
+		// and updates velocity of the Object based on acceleration
 		public override void Update(GameTime gameTime) {
 			float timeInterval = (float)gameTime.ElapsedGameTime.TotalSeconds;
 			State.Position += State.Velocity * timeInterval;
@@ -69,138 +67,118 @@ namespace tacocopterbase
 		}
 	}
 
-    class Tacocopter : Object
-    {
-        private Vector2 offset;
-        private TimeSpan lastFire;
-        private int fireRate = 100;
-        public List<Taco> tacos = new List<Taco>();
 
-        public Tacocopter(State2D s, Game g)
-            : base(g)
-        {
-            thisGame = g;
-            State = s;
-        }
-        
+	/// <summary>
+	/// Handles control of the player's Tacocopter. 
+	/// </summary>
+	class Tacocopter : Object
+	{
+		private Vector2 offset;
+		private TimeSpan lastFire;
+		private int fireRate = 100;
+		public List<Taco> tacos = new List<Taco>();
 
-        protected override void LoadContent()
-        {
-            sprite = this.Game.Content.Load<Texture2D>("black_box");
-            offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
-            base.LoadContent();
-        }
+		public Tacocopter(State2D s, Game g)
+			: base(g)
+		{
+			thisGame = g;
+			State = s;
+		}
+		
 
-        protected void FireTaco()
-        {
-           // if (gameTime.TotalGameTime.Subtract(lastFire).TotalMilliseconds >= fireRate)
-            {
-                Taco taco = null;
-                taco = new Taco(thisGame, new State2D(State.Position.X, State.Position.Y, 0, 0, 0, 5, 0));
-                
-                tacos.Add(taco);
-                Game.Components.Add(taco);
+		protected override void LoadContent()
+		{
+			sprite = this.Game.Content.Load<Texture2D>("black_box");
+			offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
+			base.LoadContent();
+		}
 
-                //lastFire = gameTime.TotalGameTime;
-            }
-        }
+		protected void FireTaco()
+		{
+		   // if (gameTime.TotalGameTime.Subtract(lastFire).TotalMilliseconds >= fireRate)
+			{
+				Taco taco = null;
+				taco = new Taco(thisGame, new State2D(State.Position.X, State.Position.Y, 0, 30, 0, 50, 0));
+				
+				tacos.Add(taco);
+				Game.Components.Add(taco);
 
-        protected void CheckTacos()
-        {
-            List<Taco> removed = new List<Taco>();
+				//lastFire = gameTime.TotalGameTime;
+			}
+		}
 
-            foreach (Taco taco in tacos)
-            {
-                if (taco.OffScreen)
-                {
-                    Game.Components.Remove(taco);
-                    removed.Add(taco);
-                }
-            }
+		protected void CheckTacos() {
+			List<Taco> removed = new List<Taco>();
 
-            foreach (Taco taco in removed)
-            {
-                tacos.Remove(taco);
-            }
-        }
+			foreach (Taco taco in tacos) {
+				if (taco.Offscreen) {
+					Game.Components.Remove(taco);
+					removed.Add(taco);
+				}
+			}
+
+			foreach (Taco taco in removed) {
+				tacos.Remove(taco);
+			}
+		}
 
 
 		// Matt, I've rewritten this to be compatible with the gameTime
 		// style of Update functions
-        public override void Update(GameTime gameTime)
-        {
-            KeyboardState k = Keyboard.GetState();
-            Vector2 nextPosition = new Vector2(0,0);
+		public override void Update(GameTime gameTime) {
+			KeyboardState k = Keyboard.GetState();
+			Vector2 nextPosition = new Vector2(0,0);
+			if (k.IsKeyDown(Keys.Left) && State.Position.X > 100) {
+				nextPosition.X += -5;
+			}
+			if (k.IsKeyDown(Keys.Right) && State.Position.X <640) {
+				nextPosition.X += 5;
+			}
+			if (k.IsKeyDown(Keys.Up) && State.Position.Y > 100) {
+				nextPosition.Y += -5;
+			}
+			if (k.IsKeyDown(Keys.Down) && State.Position.Y < 360) {
+				nextPosition.Y += 5;
+			}
+			if (k.IsKeyDown(Keys.Space)){
+				FireTaco();
+			}
 
-            
-                if (k.IsKeyDown(Keys.Left) && State.Position.X > 100)
-                {
-                    nextPosition.X += -5;
-                }
-                if (k.IsKeyDown(Keys.Right) && State.Position.X <640)
-                {
-                    nextPosition.X += 5;
-                }
-                if (k.IsKeyDown(Keys.Up) && State.Position.Y > 100)
-                {
-                    nextPosition.Y += -5;
-                }
-                if (k.IsKeyDown(Keys.Down) && State.Position.Y < 360)
-                {
-                    nextPosition.Y += 5;
-                }
-                if (k.IsKeyDown(Keys.Space))
-                {
-                    FireTaco();
+			// delete offscreen tacos
+			CheckTacos();
 
-                }
+			foreach (Taco taco in tacos) {
+				taco.Update(gameTime);
+			}
+			State.Position += nextPosition;
+			base.Update(gameTime);
+		}
+	}
 
+	class Taco : Object {
+		private Vector2 offset;
+		private bool offscreen;
+		public bool Offscreen { 
+			get { return offscreen;} 
+		}
 
-            CheckTacos();
-            foreach (Taco taco in tacos)
-            {
-                taco.Update();
-            }
-            State.Position += nextPosition;
-            base.Update(gameTime);
-        }
-    }
+		public Taco(Game g, State2D s)
+			: base(g) {
+			thisGame = g;
+			State = s;
+		}
 
-    class Taco : Object
-    {
-        private Vector2 offset;
-        private bool offscreen = false;
+		protected override void LoadContent() {
+			sprite = this.Game.Content.Load<Texture2D>("black_box");
+			offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
+			base.LoadContent();
+		}
 
-        public Taco(Game g, State2D s)
-            : base(g)
-        {
-            thisGame = g;
-            State = s;
-        }
-
-        protected override void LoadContent()
-        {
-            sprite = this.Game.Content.Load<Texture2D>("black_box");
-            offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
-            base.LoadContent();
-        }
-
-        public bool OffScreen
-        {
-            get { return offscreen; }
-        }
-
-        public void Update()
-        {
-            State.Position += State.Velocity;
-
-            if (State.Position.Y > 700)
-            {
-                offscreen = true;
-            }
-
-        }
-            
-    }
-
+		public override void Update(GameTime gameTime) {
+			if (State.Position.Y > 700) {
+				offscreen = true;
+			}
+			base.Update(gameTime);
+		}
+	}
 }

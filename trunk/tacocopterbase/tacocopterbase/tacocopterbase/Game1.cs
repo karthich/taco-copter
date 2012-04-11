@@ -19,10 +19,7 @@ namespace tacocopterbase
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private Tacocopter copter;
-        
-        
-				
+			
         const int windowHeight = 720, windowWidth = 1280;
 
         /** this is the place we will declare the object classes**/
@@ -42,6 +39,9 @@ namespace tacocopterbase
 			// create an objectgenerator to test its functionality
 			var testObj = new Customer(new State2D(windowWidth-100, windowHeight-100, 0, 0, -10, -10, 0), this);
 			Components.Add(new ObjectGenerator(testObj, .2f, this));
+
+			// add a Tacocopter for the player to manipulate
+			Components.Add(new Tacocopter(new State2D(400, 200, 0, 0, 0, 0, 0), this));
         }
 
 
@@ -54,8 +54,7 @@ namespace tacocopterbase
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            
-            Components.Add(new Tacocopter(new State2D(400, 200, 0, 0, 0, 0, 0), this));
+
             base.Initialize();
         }
 
