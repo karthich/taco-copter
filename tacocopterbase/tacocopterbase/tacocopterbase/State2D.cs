@@ -43,7 +43,7 @@ namespace WindowsGame1
             Velocity = vel;
         }
 
-		// another, simpler constructor
+		// a simpler constructor that directly takes floats
 		public State2D(float posX, float posY, float accX, float accY, float velX, 
 			float velY, double mass)
 		{
@@ -52,13 +52,5 @@ namespace WindowsGame1
 			Acceleration = new Vector2(accX, accY);
 			Velocity = new Vector2(velX, velY);
 		}
-
-        public void Update(Vector2 pos, Vector2 acc, Vector2 vel, double mass)
-        {
-            Mass = mass;
-            Position = pos;
-            Acceleration = acc;
-            Velocity = vel;            
-        }
     }
 }

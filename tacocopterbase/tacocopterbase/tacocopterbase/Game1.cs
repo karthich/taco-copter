@@ -29,12 +29,19 @@ namespace tacocopterbase
 
         public Game1()
         {
+			// set screen Size
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferHeight = windowHeight;
             graphics.PreferredBackBufferWidth = windowWidth;
 
+			// show Mouse cursor for debugging
+			this.IsMouseVisible = true;
 
+			// create an object with a person sprite moving left
+			// create an objectgenerator to test its functionality
+			var testObj = new Customer(new State2D(windowWidth-100, windowHeight-100, 0, 0, -10, -10, 0), this);
+			Components.Add(new ObjectGenerator(testObj, .2f, this));
         }
 
 
@@ -48,9 +55,7 @@ namespace tacocopterbase
         {
             // TODO: Add your initialization logic here
             
-            //Components.Add(new Tacocopter(new State2D(800, 200, 0, 0, 0, 0, 0), this));
-            copter = new Tacocopter(new State2D(400, 200, 0, 0, 0, 0, 0), this);
-            copter.Initialize();
+            Components.Add(new Tacocopter(new State2D(400, 200, 0, 0, 0, 0, 0), this));
             base.Initialize();
         }
 
@@ -88,8 +93,6 @@ namespace tacocopterbase
                 this.Exit();
 
             // TODO: Add your update logic here
-            
-            copter.Update();
             base.Update(gameTime);
         }
 
@@ -102,8 +105,13 @@ namespace tacocopterbase
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            copter.Draw(gameTime);
             base.Draw(gameTime);
         }
+
+		// this method handles offscreen objects so that 
+		// they can be destroyed when appropriate
+		private void ClearOffscreen() {
+
+		}
     }
 }
