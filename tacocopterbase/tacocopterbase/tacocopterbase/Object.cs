@@ -67,15 +67,12 @@ namespace tacocopterbase
 		}
 	}
 
-
-	/// <summary>
-	/// Handles control of the player's Tacocopter. 
-	/// </summary>
 	class Tacocopter : Object
 	{
 		private TimeSpan lastFire;
 		private int fireRate = 100;
 		public List<Taco> tacos = new List<Taco>();
+		public int Speed { get; set; }
 
         private AnimatedTexture SpriteTexture;
         private const float Rotation = 0;
@@ -87,6 +84,8 @@ namespace tacocopterbase
 		{
 			thisGame = g;
 			State = s;
+			Speed = 5;
+
             SpriteTexture = new AnimatedTexture(Vector2.Zero,
                 Rotation, Scale, Depth);
 		}
@@ -105,7 +104,7 @@ namespace tacocopterbase
 		   // if (gameTime.TotalGameTime.Subtract(lastFire).TotalMilliseconds >= fireRate)
 			{
 				Taco taco = null;
-				taco = new Taco(thisGame, new State2D(State.Position.X, State.Position.Y, 0, 30, 0, 50, 0));
+				taco = new Taco(thisGame, new State2D(State.Position.X, State.Position.Y, 0, 120, 0, 200, 0));
 				
 				tacos.Add(taco);
 				Game.Components.Add(taco);
@@ -142,16 +141,16 @@ namespace tacocopterbase
 			Vector2 nextPosition = new Vector2(0,0);
 			
             if (k.IsKeyDown(Keys.Left) && State.Position.X > 10) {
-				nextPosition.X += -5;
+				nextPosition.X += -Speed;
 			}
 			if (k.IsKeyDown(Keys.Right) && State.Position.X <640) {
-				nextPosition.X += 5;
+				nextPosition.X += Speed;
 			}
 			if (k.IsKeyDown(Keys.Up) && State.Position.Y > 10) {
-				nextPosition.Y += -5;
+				nextPosition.Y += -Speed;
 			}
 			if (k.IsKeyDown(Keys.Down) && State.Position.Y < 360) {
-				nextPosition.Y += 5;
+				nextPosition.Y += Speed;
 			}
 			if (k.IsKeyDown(Keys.Space)){
 				FireTaco();
@@ -166,11 +165,12 @@ namespace tacocopterbase
 			// delete offscreen tacos
 			CheckTacos();
 
-			// Tacos are already updated because they're in Game1.Components
+			// Tacos are already updated because they're in Components
+			/*
 			foreach (Taco taco in tacos) {
 				taco.Update(gameTime);
 			}
-
+			*/
 
 			State.Position += nextPosition;
 			base.Update(gameTime);

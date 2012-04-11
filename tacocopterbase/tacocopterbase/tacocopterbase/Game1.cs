@@ -36,7 +36,7 @@ namespace tacocopterbase
 			var testObj = new Object(new State2D(windowWidth-100, windowHeight-100, 0, 0, -10, -10, 0), this);
 			//Components.Add(new ObjectGenerator<Object>(new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -10, -10, 0), this));
 
-			Components.Add(new Customer(new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -10, -10, 0), this));
+			//Components.Add(new Customer(new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -10, -10, 0), this));
 
 			// add a Tacocopter for the player to manipulate
 			Components.Add(new Tacocopter(new State2D(400, 200, 0, 0, 0, 0, 0), this));
