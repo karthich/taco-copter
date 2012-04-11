@@ -7,7 +7,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Karthic\Documents\Visual Studio 2010\AnimatedSprite_4_0\AnimatedSpriteWindows\AnimatedSpriteWindows\bin\x86\Debug\Content\shipanimated.xnb</Output>
+      <Output>C:\Users\Karthic\Documents\Visual Studio 2010\ taco-copter --username karthich@gmail.com\Parts of a 2D game\AnimatedSprite_4_0\AnimatedSpriteWindows\AnimatedSpriteWindows\bin\x86\Debug\Content\shipanimated.xnb</Output>
       <Time>2010-08-26T13:57:28-05:00</Time>
     </Item>
     <Item>
@@ -16,8 +16,32 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Karthic\Documents\Visual Studio 2010\AnimatedSprite_4_0\AnimatedSpriteWindows\AnimatedSpriteWindows\bin\x86\Debug\Content\explosion1.xnb</Output>
+      <Output>C:\Users\Karthic\Documents\Visual Studio 2010\ taco-copter --username karthich@gmail.com\Parts of a 2D game\AnimatedSprite_4_0\AnimatedSpriteWindows\AnimatedSpriteWindows\bin\x86\Debug\Content\explosion1.xnb</Output>
       <Time>2012-04-09T15:43:13.9097984-05:00</Time>
+    </Item>
+    <Item>
+      <Source>helicopter.png</Source>
+      <Name>helicopter</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor">5, 5, 5, 255</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\Karthic\Documents\Visual Studio 2010\ taco-copter --username karthich@gmail.com\Parts of a 2D game\AnimatedSprite_4_0\AnimatedSpriteWindows\AnimatedSpriteWindows\bin\x86\Debug\Content\helicopter.xnb</Output>
+      <Time>2012-04-11T16:06:12.4546416-05:00</Time>
+    </Item>
+    <Item>
+      <Source>main_helicopter.png</Source>
+      <Name>main_helicopter</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor">255, 255, 255, 255</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\Karthic\Documents\Visual Studio 2010\ taco-copter --username karthich@gmail.com\Parts of a 2D game\AnimatedSprite_4_0\AnimatedSpriteWindows\AnimatedSpriteWindows\bin\x86\Debug\Content\main_helicopter.xnb</Output>
+      <Time>2012-04-11T18:06:46.1808774-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -26,10 +50,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Karthic\Documents\Visual Studio 2010\AnimatedSprite_4_0\AnimatedSpriteWindows\AnimatedSpriteWindowsContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Karthic\Documents\Visual Studio 2010\AnimatedSprite_4_0\AnimatedSpriteWindows\AnimatedSpriteWindows\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Karthic\Documents\Visual Studio 2010\AnimatedSprite_4_0\AnimatedSpriteWindows\AnimatedSpriteWindows\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Karthic\Documents\Visual Studio 2010\AnimatedSprite_4_0\AnimatedSpriteWindows\AnimatedSpriteWindows\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Karthic\Documents\Visual Studio 2010\ taco-copter --username karthich@gmail.com\Parts of a 2D game\AnimatedSprite_4_0\AnimatedSpriteWindows\AnimatedSpriteWindowsContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Karthic\Documents\Visual Studio 2010\ taco-copter --username karthich@gmail.com\Parts of a 2D game\AnimatedSprite_4_0\AnimatedSpriteWindows\AnimatedSpriteWindows\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Karthic\Documents\Visual Studio 2010\ taco-copter --username karthich@gmail.com\Parts of a 2D game\AnimatedSprite_4_0\AnimatedSpriteWindows\AnimatedSpriteWindows\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Karthic\Documents\Visual Studio 2010\ taco-copter --username karthich@gmail.com\Parts of a 2D game\AnimatedSprite_4_0\AnimatedSpriteWindows\AnimatedSpriteWindows\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

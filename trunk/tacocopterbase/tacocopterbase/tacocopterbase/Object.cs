@@ -38,11 +38,11 @@ namespace tacocopterbase
 		}
 
 		// draw the Object at State.Position, factoring in an offset
-		public override void Draw(GameTime gametime) {
-			spriteBatch.Begin();
-			spriteBatch.Draw(sprite, State.Position + offset, null, Color.White, 0,
+		public virtual void Draw(SpriteBatch batch, GameTime gametime) {
+			
+			batch.Draw(sprite, State.Position + offset, null, Color.White, 0,
 				new Vector2(0, 0), 0.3f, SpriteEffects.None, 0);
-			spriteBatch.End();
+			
 		}
 
 		// load the default sprite
@@ -77,19 +77,27 @@ namespace tacocopterbase
 		private int fireRate = 100;
 		public List<Taco> tacos = new List<Taco>();
 
+        private AnimatedTexture SpriteTexture;
+        private const float Rotation = 0;
+        private const float Scale = 0.5f;
+        private const float Depth = 0.5f;
+
 		public Tacocopter(State2D s, Game g)
 			: base(g)
 		{
 			thisGame = g;
 			State = s;
+            SpriteTexture = new AnimatedTexture(Vector2.Zero,
+                Rotation, Scale, Depth);
 		}
 		
 
-		protected override void LoadContent()
+		public void LoadContent()
 		{
-			sprite = this.Game.Content.Load<Texture2D>("black_box");
-			offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
-			base.LoadContent();
+			//sprite = this.Game.Content.Load<Texture2D>("helicopter1");
+
+			//offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
+            SpriteTexture.Load(thisGame.Content, "main_helicopter", 5, 5, new Vector2(3, 2));
 		}
 
 		protected void FireTaco()
@@ -119,20 +127,27 @@ namespace tacocopterbase
 				tacos.Remove(taco);
 			}*/
 		}
+        public override void Draw(SpriteBatch batch,GameTime gameTime)
+        {
+
+            SpriteTexture.DrawFrame(batch, State.Position);
+        }
 
 
 		// Matt, I've rewritten this to be compatible with the gameTime
 		// style of Update functions
 		public override void Update(GameTime gameTime) {
+
 			KeyboardState k = Keyboard.GetState();
 			Vector2 nextPosition = new Vector2(0,0);
-			if (k.IsKeyDown(Keys.Left) && State.Position.X > 100) {
+			
+            if (k.IsKeyDown(Keys.Left) && State.Position.X > 10) {
 				nextPosition.X += -5;
 			}
 			if (k.IsKeyDown(Keys.Right) && State.Position.X <640) {
 				nextPosition.X += 5;
 			}
-			if (k.IsKeyDown(Keys.Up) && State.Position.Y > 100) {
+			if (k.IsKeyDown(Keys.Up) && State.Position.Y > 10) {
 				nextPosition.Y += -5;
 			}
 			if (k.IsKeyDown(Keys.Down) && State.Position.Y < 360) {
@@ -141,6 +156,12 @@ namespace tacocopterbase
 			if (k.IsKeyDown(Keys.Space)){
 				FireTaco();
 			}
+
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            // TODO: Add your game logic here.
+            SpriteTexture.UpdateFrame(elapsed);
+           
 
 			// delete offscreen tacos
 			CheckTacos();
