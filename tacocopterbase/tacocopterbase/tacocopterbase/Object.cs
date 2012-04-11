@@ -63,6 +63,9 @@ namespace tacocopterbase
     class Tacocopter : Object
     {
         private Vector2 offset;
+        private TimeSpan lastFire;
+        private int fireRate = 100;
+        public List<Taco> tacos = new List<Taco>();
 
         public Tacocopter(State2D s, Game g)
             : base(g)
@@ -70,6 +73,7 @@ namespace tacocopterbase
             thisGame = g;
             State = s;
         }
+        
 
         protected override void LoadContent()
         {
@@ -77,7 +81,42 @@ namespace tacocopterbase
             offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
             base.LoadContent();
         }
-         
+
+        protected void FireTaco()
+        {
+           // if (gameTime.TotalGameTime.Subtract(lastFire).TotalMilliseconds >= fireRate)
+            {
+                Taco taco = null;
+                taco = new Taco(thisGame, new State2D(State.Position.X, State.Position.Y, 0, 0, 0, 5, 0));
+                
+                tacos.Add(taco);
+                Game.Components.Add(taco);
+
+                //lastFire = gameTime.TotalGameTime;
+            }
+        }
+
+        protected void CheckTacos()
+        {
+            List<Taco> removed = new List<Taco>();
+
+            foreach (Taco taco in tacos)
+            {
+                if (taco.OffScreen)
+                {
+                    Game.Components.Remove(taco);
+                    removed.Add(taco);
+                }
+
+            }
+
+            foreach (Taco taco in removed)
+            {
+                tacos.Remove(taco);
+            }
+        }
+
+
 
         public void Update()
         {
@@ -101,11 +140,59 @@ namespace tacocopterbase
                 {
                     nextPosition.Y += 5;
                 }
-            
+                if (k.IsKeyDown(Keys.Space))
+                {
+                    FireTaco();
 
+                }
+
+
+            CheckTacos();
+            foreach (Taco taco in tacos)
+            {
+                taco.Update();
+            }
             State.Position += nextPosition;
             base.Update(State);
         }
 
     }
+
+    class Taco : Object
+    {
+        private Vector2 offset;
+        private bool offscreen = false;
+
+        public Taco(Game g, State2D s)
+            : base(g)
+        {
+            thisGame = g;
+            State = s;
+        }
+
+        protected override void LoadContent()
+        {
+            sprite = this.Game.Content.Load<Texture2D>("black_box");
+            offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
+            base.LoadContent();
+        }
+
+        public bool OffScreen
+        {
+            get { return offscreen; }
+        }
+
+        public void Update()
+        {
+            State.Position += State.Velocity;
+
+            if (State.Position.Y > 700)
+            {
+                offscreen = true;
+            }
+
+        }
+            
+    }
+
 }

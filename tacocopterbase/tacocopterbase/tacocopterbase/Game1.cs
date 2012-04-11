@@ -20,6 +20,8 @@ namespace tacocopterbase
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private Tacocopter copter;
+        
+        
 				
         const int windowHeight = 720, windowWidth = 1280;
 
@@ -86,6 +88,7 @@ namespace tacocopterbase
                 this.Exit();
 
             // TODO: Add your update logic here
+            
             copter.Update();
             base.Update(gameTime);
         }
