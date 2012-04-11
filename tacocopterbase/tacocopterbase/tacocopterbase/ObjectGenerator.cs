@@ -7,15 +7,19 @@ using Microsoft.Xna.Framework.Graphics;
 using WindowsGame1;
 
 namespace tacocopterbase {
-	// generates one type of object at a specific interval
-	// will generate the Object at the location specified in the Object
-	class ObjectGenerator : GameComponent {
+
+	/// <summary>
+	/// An ObjectGenerator generates one type of object at a specific interval.
+	/// This can be used to 
+	/// </summary>
+	class ObjectGenerator<T> : GameComponent
+	where T : IGameComponent, new() {
 
 		// interval in seconds at which to generate the object
-		// object to be generated at interval Interval
+		// state of object to be generated at interval Interval
 		// need thisGame to add Objects to the game
 		protected float Interval;
-		protected Object Obj;
+		protected State2D GenState;
 		protected Game thisGame;
 		
 		// this variable is used to determine when to generate the Obj
@@ -25,9 +29,8 @@ namespace tacocopterbase {
 
 		// create a new ObjectGenerator at location l,
 		// to generate Object o at an interval i
-		public ObjectGenerator(Object o, float i, Game g) : base(g) {
-			Obj = o;
-			Interval = i;
+		public ObjectGenerator(State2D s, Game g) : base(g) {
+			GenState = s;
 			thisGame = g;
 			// generate an object right away
 			generateTime = 0f;
@@ -38,15 +41,10 @@ namespace tacocopterbase {
 		// TODO: fix this so there's no risk of overflow
 		public override void Update(GameTime gameTime) {
 			if (gameTime.TotalGameTime.TotalSeconds > generateTime) {
-				thisGame.Components.Add(Obj.Copy());
+				//thisGame.Components.Add(new T(GenState, thisGame));
 				generateTime += Interval;
 			}
 			base.Update(gameTime);
-		}
-		
-		// default methods that don't do anything
-		public override void Initialize() {
-			base.Initialize();
 		}
 	}
 }
