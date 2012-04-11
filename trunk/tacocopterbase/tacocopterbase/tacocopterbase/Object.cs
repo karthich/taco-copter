@@ -9,56 +9,65 @@ using WindowsGame1;
 
 namespace tacocopterbase
 {
-    class Object : DrawableGameComponent
-    {
+	class Object : DrawableGameComponent {
 		protected State2D State { get; set; }
-		protected Texture2D sprite { get; set; }
+		protected Texture2D sprite;
 		public SpriteBatch spriteBatch { get; set; }
 		private Vector2 offset;
-        protected Game thisGame;
+		protected Game thisGame;
 
 		// commented this out because State2D does not
 		// have a default constructor and it was an error
-		
-        
-        public Object(Game g):base(g)
-        { 
-            State = new State2D();
-            thisGame = g;
-        }
-         
+		public Object(Game g)
+			: base(g) {
+			State = new State2D();
+			thisGame = g;
+		}
 
-        public Object(State2D s,Game g) :base(g)
-        { 
-            State = s;
-            thisGame = g;
-         }
 
-        public override void Initialize()
-        {
-            spriteBatch = new SpriteBatch(this.Game.GraphicsDevice);
-			// calculate offset
-            LoadContent();
-            base.Initialize();
-        }
+		public Object(State2D s, Game g)
+			: base(g) {
+			State = s;
+			thisGame = g;
+		}
 
-        public override void Draw(GameTime gametime)
-        {
-            spriteBatch.Begin();
-            spriteBatch.Draw(sprite, State.Position - offset, null, Color.White, 0, 
+		// create a SpriteBatch for drawing and load the sprite
+		public override void Initialize() {
+			spriteBatch = new SpriteBatch(this.Game.GraphicsDevice);
+			LoadContent();
+			base.Initialize();
+		}
+
+		// draw the Object at State.Position, factoring in an offset
+		public override void Draw(GameTime gametime) {
+			spriteBatch.Begin();
+			spriteBatch.Draw(sprite, State.Position + offset, null, Color.White, 0,
 				new Vector2(0, 0), 0.3f, SpriteEffects.None, 0);
-            spriteBatch.End();
-        }
+			spriteBatch.End();
+		}
 
-        protected override void LoadContent()
-        {
-            sprite = thisGame.Content.Load<Texture2D>("black_box");
+		// load the default sprite
+		protected override void LoadContent() {
+			sprite = thisGame.Content.Load<Texture2D>("black_box");
 			offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
-            base.LoadContent();
-        }
+			base.LoadContent();
+		}
 
-        public virtual void Update(State2D s) { State = s; }
-    }
+
+		// updates position of the Object based on velocity;
+		// updates velocity of the Object based on acceleration
+		public override void Update(GameTime gameTime) {
+			float timeInterval = (float)gameTime.ElapsedGameTime.TotalSeconds;
+			State.Position += State.Velocity * timeInterval;
+			State.Velocity += State.Acceleration * timeInterval;
+			base.Update(gameTime);
+		}
+
+		// return a new copy of the Object with the same attributes
+		public Object Copy() {
+			return new Object(State, thisGame);
+		}
+	}
 
     class Tacocopter : Object
     {
@@ -107,7 +116,6 @@ namespace tacocopterbase
                     Game.Components.Remove(taco);
                     removed.Add(taco);
                 }
-
             }
 
             foreach (Taco taco in removed)
@@ -117,8 +125,9 @@ namespace tacocopterbase
         }
 
 
-
-        public void Update()
+		// Matt, I've rewritten this to be compatible with the gameTime
+		// style of Update functions
+        public override void Update(GameTime gameTime)
         {
             KeyboardState k = Keyboard.GetState();
             Vector2 nextPosition = new Vector2(0,0);
@@ -153,9 +162,8 @@ namespace tacocopterbase
                 taco.Update();
             }
             State.Position += nextPosition;
-            base.Update(State);
+            base.Update(gameTime);
         }
-
     }
 
     class Taco : Object
