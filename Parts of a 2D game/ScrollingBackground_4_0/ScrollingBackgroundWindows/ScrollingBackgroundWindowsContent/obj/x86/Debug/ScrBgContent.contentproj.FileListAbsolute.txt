@@ -1,0 +1,1 @@
+C:\Users\Karthic\Documents\Visual Studio 2010\ taco-copter --username karthich@gmail.com\Parts of a 2D game\ScrollingBackground_4_0\ScrollingBackgroundWindows\ScrollingBackgroundWindowsContent\obj\x86\Debug\ResolveAssemblyReference.cache

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>starfield.dds</Source>
+      <Name>starfield</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Karthic\Documents\Visual Studio 2010\ taco-copter --username karthich@gmail.com\Parts of a 2D game\ScrollingBackground_4_0\ScrollingBackgroundWindows\ScrollingBackgroundWindows\bin\x86\Debug\Content\starfield.xnb</Output>
+      <Time>2010-08-26T13:57:30-05:00</Time>
+    </Item>
+    <Item>
+      <Source>train_bgimg.jpg</Source>
+      <Name>train_bgimg</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Karthic\Documents\Visual Studio 2010\ taco-copter --username karthich@gmail.com\Parts of a 2D game\ScrollingBackground_4_0\ScrollingBackgroundWindows\ScrollingBackgroundWindows\bin\x86\Debug\Content\train_bgimg.xnb</Output>
+      <Time>2012-04-09T22:02:44.1268907-05:00</Time>
+    </Item>
+    <Item>
+      <Source>city.jpg</Source>
+      <Name>city</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Karthic\Documents\Visual Studio 2010\ taco-copter --username karthich@gmail.com\Parts of a 2D game\ScrollingBackground_4_0\ScrollingBackgroundWindows\ScrollingBackgroundWindows\bin\x86\Debug\Content\city.xnb</Output>
+      <Time>2012-04-11T14:40:54.5147613-05:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <ContentProjectGUID>{76BD4D89-5B2E-4521-A2B7-80C00D38B502}</ContentProjectGUID>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>Reach</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>C:\Users\Karthic\Documents\Visual Studio 2010\ taco-copter --username karthich@gmail.com\Parts of a 2D game\ScrollingBackground_4_0\ScrollingBackgroundWindows\ScrollingBackgroundWindowsContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Karthic\Documents\Visual Studio 2010\ taco-copter --username karthich@gmail.com\Parts of a 2D game\ScrollingBackground_4_0\ScrollingBackgroundWindows\ScrollingBackgroundWindows\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Karthic\Documents\Visual Studio 2010\ taco-copter --username karthich@gmail.com\Parts of a 2D game\ScrollingBackground_4_0\ScrollingBackgroundWindows\ScrollingBackgroundWindows\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Karthic\Documents\Visual Studio 2010\ taco-copter --username karthich@gmail.com\Parts of a 2D game\ScrollingBackground_4_0\ScrollingBackgroundWindows\ScrollingBackgroundWindows\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2012-03-28T11:03:39.989994-05:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
