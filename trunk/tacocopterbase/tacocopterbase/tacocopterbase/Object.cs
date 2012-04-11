@@ -10,10 +10,10 @@ using WindowsGame1;
 namespace tacocopterbase
 {
 	class Object : DrawableGameComponent {
-		protected State2D State { get; set; }
+		public State2D State { get; set; }
 		protected Texture2D sprite;
-		public SpriteBatch spriteBatch { get; set; }
-		private Vector2 offset;
+		protected SpriteBatch spriteBatch { get; set; }
+		protected Vector2 offset;
 		protected Game thisGame;
 
 		// commented this out because State2D does not
@@ -73,7 +73,6 @@ namespace tacocopterbase
 	/// </summary>
 	class Tacocopter : Object
 	{
-		private Vector2 offset;
 		private TimeSpan lastFire;
 		private int fireRate = 100;
 		public List<Taco> tacos = new List<Taco>();
@@ -107,7 +106,7 @@ namespace tacocopterbase
 			}
 		}
 
-		protected void CheckTacos() {
+		protected void CheckTacos() {/*
 			List<Taco> removed = new List<Taco>();
 
 			foreach (Taco taco in tacos) {
@@ -116,10 +115,9 @@ namespace tacocopterbase
 					removed.Add(taco);
 				}
 			}
-
 			foreach (Taco taco in removed) {
 				tacos.Remove(taco);
-			}
+			}*/
 		}
 
 
@@ -147,16 +145,18 @@ namespace tacocopterbase
 			// delete offscreen tacos
 			CheckTacos();
 
+			// Tacos are already updated because they're in Game1.Components
 			foreach (Taco taco in tacos) {
 				taco.Update(gameTime);
 			}
+
+
 			State.Position += nextPosition;
 			base.Update(gameTime);
 		}
 	}
 
 	class Taco : Object {
-		private Vector2 offset;
 		private bool offscreen;
 		public bool Offscreen { 
 			get { return offscreen;} 
