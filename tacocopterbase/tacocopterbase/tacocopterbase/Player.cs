@@ -4,18 +4,14 @@ namespace tacocopterbase
 {
     public class Player
     {
-        int score;
+        private int score{ get; set; }
 
         public Player()
         {
             score = 0;
         }
 
-        public int getScore()
-        { return score; }
-
-        public void setScore(int n)
-        { score = n; }
+       
 
 
     }

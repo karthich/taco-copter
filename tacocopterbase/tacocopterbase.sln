@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tacocopterbase", "tacocopterbase\tacocopterbase\tacocopterbase.csproj", "{96AFB23E-7AC7-4905-8471-F5CA6106B2CD}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "tacocopterbaseContent", "tacocopterbase\tacocopterbaseContent\tacocopterbaseContent.contentproj", "{F418A891-C3BA-4A37-BDCB-E543934F0914}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tacocopterbaseContent", "tacocopterbase\tacocopterbaseContent\tacocopterbaseContent.contentproj", "{F418A891-C3BA-4A37-BDCB-E543934F0914}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0C7FEC8C-D88B-428F-AADC-FAD47AA1E569}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

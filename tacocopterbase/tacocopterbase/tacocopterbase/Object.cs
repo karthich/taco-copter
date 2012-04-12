@@ -160,7 +160,7 @@ namespace tacocopterbase
 
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            // TODO: Add your game logic here.
+            
             SpriteTexture.UpdateFrame(elapsed);
            
 			// delete offscreen tacos
