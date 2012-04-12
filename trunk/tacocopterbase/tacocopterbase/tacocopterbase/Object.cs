@@ -202,35 +202,18 @@ namespace tacocopterbase
 		}
 	}
 
+	/// <summary>
+	/// The way I have Object generation set up, many of these
+	/// classes will just be placeholders for sprites, essentially. 
+	/// </summary>
     class Burrito : Object
     {
-        private bool offscreen;
-
-        public bool OffScreen
-        {
-            get { return offscreen; }
-        }
-
-        public Burrito(Game g, State2D s) :
-            base(g)
-        {
-            thisGame = g;
-            State = s;
-        }
+		public Burrito(State2D s, Game g) : base(s, g) { }
 
         protected override void LoadContent() 
         {
             sprite = this.Game.Content.Load<Texture2D>("burritomissile");
             offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            if (State.Position.X < 0)
-            {
-                offscreen = true;
-            }
-            base.Update(gameTime);
         }
     }
 }

@@ -99,7 +99,10 @@ namespace tacocopterbase {
 				// random y where minY <= y <= maxY
 				stateCopy.Position = new Vector2(GenState.Position.X, random.Next(minY, maxY));
 				thisGame.Components.Add(factory(stateCopy, thisGame));
-				generateTime += Interval;
+
+				// don't generate at regular intervals
+				float newInterval = Interval * ((float)random.NextDouble() + .5f);
+				generateTime += newInterval;
 			}
 			base.Update(gameTime);
 		}
