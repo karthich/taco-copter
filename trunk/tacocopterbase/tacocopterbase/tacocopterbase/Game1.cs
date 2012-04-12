@@ -35,6 +35,8 @@ namespace tacocopterbase
 			graphics.PreferredBackBufferHeight = windowHeight;
 			graphics.PreferredBackBufferWidth = windowWidth;
 
+            this.graphics.IsFullScreen = true;
+
 			// show Mouse cursor for debugging
 			this.IsMouseVisible = true;
 
@@ -126,7 +128,7 @@ namespace tacocopterbase
             // The time since Update was called last.
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            myBackground.Update(elapsed * 100);
+            myBackground.Update(elapsed * 50);
 
 			ClearOffscreenObjects();
 			base.Update(gameTime);
