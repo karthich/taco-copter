@@ -97,6 +97,19 @@ namespace tacocopterbase
 		protected override void Draw(GameTime gameTime) {
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
+			// is this a kludge?
+			spriteBatch.Begin();
+			Object o;
+			foreach (var c in Components)
+			{
+				o = c as Object;
+				if (o != null)
+				{
+					o.Draw(spriteBatch, gameTime);
+				}
+			}
+			spriteBatch.End();
+
 			// TODO: Add your drawing code here
 			base.Draw(gameTime);
 		}
