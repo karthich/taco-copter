@@ -19,8 +19,10 @@ namespace tacocopterbase
 		SpriteBatch spriteBatch;
 		State2D genState;
 
+        SpriteFont gameOver;
         ScrollingBackground myBackground;
-        SpriteFont playerScore; 
+        SpriteFont playerScore;
+        bool youLose = false;
 
 
         Player p1;
@@ -131,8 +133,10 @@ namespace tacocopterbase
 
             myBackground.Update(elapsed * 50);
 
+            // Check for collisions and remove and unnecessary objects
             CheckCollisions();
 			ClearOffscreenObjects();
+
 			base.Update(gameTime);
 		}
 
@@ -143,9 +147,21 @@ namespace tacocopterbase
 		protected override void Draw(GameTime gameTime) {
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            // Check if game is over, if so, display font;
+
+
 			// is this a kludge?
 			spriteBatch.Begin();
             myBackground.Draw(spriteBatch);
+
+            if (youLose)
+            {
+                
+                string endGame = "GAME OVER";
+                spriteBatch.DrawString(Content.Load<SpriteFont>("gameOver"), endGame, new Vector2(450, 50), Color.Blue);
+
+            }
+
 			Object o;
 			foreach (var c in Components)
 			{
@@ -219,6 +235,7 @@ namespace tacocopterbase
                                 {
                                     toRemove.Add(tc);
                                     toRemove.Add(br);
+                                    youLose = true;
                                 }
                             }
                         }
