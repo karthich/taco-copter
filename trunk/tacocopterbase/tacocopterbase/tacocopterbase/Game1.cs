@@ -18,15 +18,17 @@ namespace tacocopterbase
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		State2D genState;
+        Player p1;
 
         SpriteFont gameOver;
+
         ScrollingBackground myBackground;
         SpriteFont playerScore;
         bool youLose = false;
+        int numScore;
 
 
-        Player p1;
-        
+     
 		const int windowHeight = 720, windowWidth = 1280;
 
 		/** this is the place we will declare the object classes**/
@@ -162,6 +164,11 @@ namespace tacocopterbase
 
             }
 
+            
+            string score =  "Profit: $" + p1.score.ToString();
+            spriteBatch.DrawString(Content.Load<SpriteFont>("playerScore"), score, new Vector2(1000, 25), Color.Blue);
+            
+
 			Object o;
 			foreach (var c in Components)
 			{
@@ -228,6 +235,8 @@ namespace tacocopterbase
 
                             br = o as Burrito;
                             tc = p as Tacocopter;
+
+                            
 
                             if (br != null && tc != null)
                             {
