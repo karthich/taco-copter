@@ -39,10 +39,8 @@ namespace tacocopterbase
 
 		// draw the Object at State.Position, factoring in an offset
 		public virtual void Draw(SpriteBatch batch, GameTime gametime) {
-			
 			batch.Draw(sprite, State.Position + offset, null, Color.White, 0,
 				new Vector2(0, 0), 0.3f, SpriteEffects.None, 0);
-			
 		}
 
 		// load the default sprite
@@ -91,10 +89,9 @@ namespace tacocopterbase
 		}
 		
 
-		public void LoadContent()
+		protected override void LoadContent()
 		{
 			//sprite = this.Game.Content.Load<Texture2D>("helicopter1");
-
 			//offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
             SpriteTexture.Load(thisGame.Content, "main_helicopter", 5, 5, new Vector2(3, 2));
 		}
@@ -128,7 +125,6 @@ namespace tacocopterbase
 		}
         public override void Draw(SpriteBatch batch,GameTime gameTime)
         {
-
             SpriteTexture.DrawFrame(batch, State.Position);
         }
 
@@ -161,7 +157,6 @@ namespace tacocopterbase
             // TODO: Add your game logic here.
             SpriteTexture.UpdateFrame(elapsed);
            
-
 			// delete offscreen tacos
 			CheckTacos();
 
