@@ -62,7 +62,7 @@ namespace tacocopterbase
         // Checks for collisions between GameObjects
         static void CheckForCollisions()
         {
-            int size = 
+            
         }
 
 		// return a new copy of the Object with the same attributes
@@ -185,9 +185,7 @@ namespace tacocopterbase
 		}
 
 		public Taco(Game g, State2D s)
-			: base(g) {
-			thisGame = g;
-			State = s;
+			: base(s, g) {
 		}
 
 		protected override void LoadContent() {

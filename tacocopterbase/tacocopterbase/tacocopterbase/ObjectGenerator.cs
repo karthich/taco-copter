@@ -12,8 +12,10 @@ namespace tacocopterbase {
 	/// An ObjectGenerator generates one type of object at a specific interval.
 	/// This basic version generates objects with constructors that take a State2D only. 
 	/// </summary>
+	/// <typeparam name="T">Should be an Object constructed with a State2D (and a Game).</typeparam>
 	class ObjectGenerator<T> : GameComponent
-	where T : IGameComponent {
+		where T : IGameComponent 
+	{
 
 		// this code makes T's constructor with args work correctly
 		private Func<State2D, Game, T> factory;
@@ -54,4 +56,65 @@ namespace tacocopterbase {
 			base.Update(gameTime);
 		}
 	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <typeparam name="T">Should be a burrito missile or powerup.</typeparam>
+	class BurritoGenerator<T> : GameComponent
+		where T : IGameComponent
+	{
+		private Func<State2D, Game, T> factory;
+		protected float Interval;
+		protected State2D GenState;
+		protected Game thisGame;
+		private float generateTime;
+
+		// these ints define the vertical range
+		// in which the Burritos will be randomly generated
+		private int minY, maxY;
+		Random random;
+
+		public BurritoGenerator(Func<State2D, Game, T> f, State2D st, float i,
+			int min, int max, Game g)
+			: base(g)
+		{
+			factory = f;
+			GenState = st;
+			Interval = i;
+			thisGame = g;
+			minY = min;
+			maxY = max;
+			generateTime = 0f;
+			random = new Random();
+		}
+
+		// with the current implementation, generates an object
+		// at a maximum frequency of the refresh rate
+		// TODO: fix this so there's no risk of overflow
+		public override void Update(GameTime gameTime) {
+			if (gameTime.TotalGameTime.TotalSeconds > generateTime) {
+				var stateCopy = GenState.Copy();
+				// change the Position.Y of this State2D to 
+				// random y where minY <= y <= maxY
+				stateCopy.Position = new Vector2(GenState.Position.X, random.Next(minY, maxY));
+				thisGame.Components.Add(factory(stateCopy, thisGame));
+				generateTime += Interval;
+			}
+			base.Update(gameTime);
+		}
+	}
+	
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <typeparam name="T">Should be a piece of scenery, something with a Z-index.</typeparam>
+	// TODO: NOT SURE IF THIS IS NECESSARY
+	/*
+	class SceneryGenerator<T> : GameComponent
+		where T : IGameComponent
+	{
+
+	}
+	 * */
 }
