@@ -58,7 +58,8 @@ namespace tacocopterbase {
 	}
 
 	/// <summary>
-	/// 
+	/// Generates Burrito missiles randomly between a specified range of
+	/// Y-coordinates, at a somewhat random interval. 
 	/// </summary>
 	/// <typeparam name="T">Should be a burrito missile or powerup.</typeparam>
 	class BurritoGenerator<T> : GameComponent
@@ -109,17 +110,48 @@ namespace tacocopterbase {
 			base.Update(gameTime);
 		}
 	}
-	
+
+
 	/// <summary>
-	/// 
+	/// Generates Customers at random but controlled intervals. 
 	/// </summary>
-	/// <typeparam name="T">Should be a piece of scenery, something with a Z-index.</typeparam>
-	// TODO: NOT SURE IF THIS IS NECESSARY
-	/*
-	class SceneryGenerator<T> : GameComponent
+	/// <typeparam name="T">Should be a customer.</typeparam>
+	class CustomerGenerator<T> : GameComponent
 		where T : IGameComponent
 	{
+		private Func<State2D, Game, T> factory;
+		protected float IntervalMin;
+		protected float IntervalMax;
+		protected State2D GenState;
+		protected Game thisGame;
+		private float generateTime;
+		Random random;
 
+		public CustomerGenerator(Func<State2D, Game, T> f, State2D st, float minI,
+			float maxI, Game g)
+			: base(g)
+		{
+			factory = f;
+			GenState = st;
+			IntervalMin = minI;
+			IntervalMax = maxI;
+			thisGame = g;
+			generateTime = 0f;
+			random = new Random();
+		}
+
+		// with the current implementation, generates an object
+		// at a maximum frequency of the refresh rate
+		// TODO: fix this so there's no risk of overflow
+		public override void Update(GameTime gameTime)
+		{
+			if (gameTime.TotalGameTime.TotalSeconds > generateTime)
+			{
+				thisGame.Components.Add(factory(GenState.Copy(), thisGame));
+				// generate objects at an interval between IntervalMin and IntervalMax
+				generateTime += (IntervalMax - IntervalMin) * (float)random.NextDouble() + IntervalMin;
+			}
+			base.Update(gameTime);
+		}
 	}
-	*/
 }

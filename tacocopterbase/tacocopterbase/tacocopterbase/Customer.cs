@@ -31,7 +31,7 @@ namespace tacocopterbase {
 
 		// load a generic person sprite
 		protected override void LoadContent() {
-			SpriteTexture.Load(thisGame.Content, "gb_walk_left", 6, 3, new Vector2(1, 6));
+			SpriteTexture.Load(thisGame.Content, "gb_walk_left", 6, 4, new Vector2(1, 6));
             
 		}
 
