@@ -1,0 +1,5 @@
+#summary One-sentence summary of this page.
+
+Controls
+
+Hello Controls for the games. Use arrow keys to move the tacocopter around. Hit Space bar to release the taco onto the customer below. 
