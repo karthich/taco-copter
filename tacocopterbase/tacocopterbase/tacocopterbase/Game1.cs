@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using WindowsGame1;
 
+
 namespace tacocopterbase
 {
 	public class Game1 : Microsoft.Xna.Framework.Game
@@ -130,6 +131,7 @@ namespace tacocopterbase
 
             myBackground.Update(elapsed * 50);
 
+            CheckCollisions();
 			ClearOffscreenObjects();
 			base.Update(gameTime);
 		}
@@ -177,5 +179,24 @@ namespace tacocopterbase
 			foreach (Object r in toRemove)
 				Components.Remove(r);
 		}
+
+        private void CheckCollisions()
+        {
+            foreach (Object c1 in Components)
+            {
+                foreach (Object c2 in Components)
+                {
+                    if (c1 != c2 && Math.Abs(c1.State.Position.X - c2.State.Position.X) < 10
+                        && Math.Abs(c1.State.Position.Y - c2.State.Position.Y) < 10)
+                    {
+                        if ((c1 is Taco) && (c2 is Customer))
+                        {
+                            Components.Remove(c2);
+                            Components.Remove(c1);
+                        }
+                    }
+                }
+            }
+        }
 	}
 }
