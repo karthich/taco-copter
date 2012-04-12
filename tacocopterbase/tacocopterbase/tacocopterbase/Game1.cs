@@ -16,6 +16,7 @@ namespace tacocopterbase
 	{
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
+		State2D genState;
 			
 		const int windowHeight = 720, windowWidth = 1280;
 
@@ -33,20 +34,31 @@ namespace tacocopterbase
 
 			// create an object with a person sprite moving left
 			// create an objectgenerator to test its functionality
-			var testObj = new Object(new State2D(windowWidth-100, windowHeight-100, 0, 0, -10, -10, 0), this);
-			var genState = new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -100, -100, 0);
+			genState = new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -100, 0, 0);
 
 			// to use an ObjectGenerator, you must show it how to 
-			// use the constructor for the type T
-			// e.g. (a, b) => new Object(a, b)
+			// use the constructor for the type T that you want to generate
+			// e.g. (a, b) => new Object(a, b) [shown below]
+			/*
 			Components.Add(new ObjectGenerator<Object>(
 				(a, b) => new Object(a, b),
 				genState, 0.2f, this));
-
-			//Components.Add(new Customer(new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -10, -10, 0), this));
-
+			*/
+			
 			// add a Tacocopter for the player to manipulate
 			Components.Add(new Tacocopter(new State2D(400, 200, 0, 0, 0, 0, 0), this));
+
+			// generate some sidewalk
+			genState = new State2D(windowWidth + 50, windowHeight - 50, 0, 0, -100, 0, 0);
+			Components.Add(new ObjectGenerator<Sidewalk>(
+				(a, b) => new Sidewalk(a, b),
+				genState, .1f, this));
+
+			// generate some generic people
+			genState = new State2D(windowWidth - 50, windowHeight - 230, 0, 0, -100, 0, 0);
+			Components.Add(new ObjectGenerator<Customer>(
+				(a, b) => new Customer(a, b),
+				genState, 2, this));
 		}
 
 
