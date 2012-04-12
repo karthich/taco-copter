@@ -11,7 +11,7 @@ namespace tacocopterbase
 {
 	class Scenery : Object
 	{
-		protected int ZIndex;
+		// protected int ZIndex;
 
 		public Scenery(State2D s, Game g)
 			: base(s, g)
