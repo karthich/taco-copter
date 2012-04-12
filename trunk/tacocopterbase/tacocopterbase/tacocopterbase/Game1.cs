@@ -34,7 +34,14 @@ namespace tacocopterbase
 			// create an object with a person sprite moving left
 			// create an objectgenerator to test its functionality
 			var testObj = new Object(new State2D(windowWidth-100, windowHeight-100, 0, 0, -10, -10, 0), this);
-			//Components.Add(new ObjectGenerator<Object>(new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -10, -10, 0), this));
+			var genState = new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -100, -100, 0);
+
+			// to use an ObjectGenerator, you must show it how to 
+			// use the constructor for the type T
+			// e.g. (a, b) => new Object(a, b)
+			Components.Add(new ObjectGenerator<Object>(
+				(a, b) => new Object(a, b),
+				genState, 0.2f, this));
 
 			//Components.Add(new Customer(new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -10, -10, 0), this));
 
@@ -122,7 +129,7 @@ namespace tacocopterbase
 				o = c as Object;
 				if (o != null) {
 					if (o.State.Position.X < -100 ||
-						o.State.Position.X > windowWidth + 100 ||
+						o.State.Position.X > windowWidth + 200 ||
 						o.State.Position.Y < -100 ||
 						o.State.Position.Y > windowHeight + 100) {
 						toRemove.Add(o);
