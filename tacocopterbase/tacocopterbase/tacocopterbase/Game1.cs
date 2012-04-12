@@ -19,6 +19,10 @@ namespace tacocopterbase
 		State2D genState;
 
         ScrollingBackground myBackground;
+        SpriteFont playerScore; 
+
+
+        Player p1;
         
 		const int windowHeight = 720, windowWidth = 1280;
 
@@ -62,6 +66,9 @@ namespace tacocopterbase
 				(a, b) => new Customer(a, b),
 				genState, 2, this));
             
+            //player class to hold score ---- very rudimentary
+            p1 = new Player();
+
             myBackground = new ScrollingBackground();
             
 		}
