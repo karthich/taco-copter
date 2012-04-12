@@ -36,7 +36,7 @@ namespace tacocopterbase
 			graphics.PreferredBackBufferHeight = windowHeight;
 			graphics.PreferredBackBufferWidth = windowWidth;
 
-            this.graphics.IsFullScreen = true;
+            //this.graphics.IsFullScreen = true;
 
 			// show Mouse cursor for debugging
 			this.IsMouseVisible = true;
@@ -182,21 +182,39 @@ namespace tacocopterbase
 
         private void CheckCollisions()
         {
-            foreach (Object c1 in Components)
+            Object o, p;
+            Taco ct;
+            Customer cc;
+            var toRemove = new List<Object>();
+            foreach (var c in Components)
             {
-                foreach (Object c2 in Components)
+                o = c as Object;
+                if (o != null)
                 {
-                    if (c1 != c2 && Math.Abs(c1.State.Position.X - c2.State.Position.X) < 10
-                        && Math.Abs(c1.State.Position.Y - c2.State.Position.Y) < 10)
+                    foreach (var d in Components)
                     {
-                        if ((c1 is Taco) && (c2 is Customer))
+                        p = d as Object;
+                        if (d != null)
                         {
-                            Components.Remove(c2);
-                            Components.Remove(c1);
+                            ct = o as Taco;
+                            cc = p as Customer;
+                            if (ct != null && cc != null)
+                            {
+                                if (Vector2.Distance(ct.State.Position, cc.State.Position) < 50)
+                                {
+                                    toRemove.Add(ct);
+                                    toRemove.Add(cc);
+                                }
+                            }
                         }
                     }
                 }
             }
+
+            
+            foreach (Object r in toRemove)
+                Components.Remove(r);
+            
         }
 	}
 }
