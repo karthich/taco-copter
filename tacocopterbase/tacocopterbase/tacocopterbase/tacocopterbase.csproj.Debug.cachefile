@@ -1,5 +1,6 @@
 Content\black_box.xnb
 Content\badsidewalk1.xnb
+Content\main_helicopter.xnb
 Content\taco-sprite.xnb
 Content\gb_stand_left.xnb
 Content\gb_stand_right.xnb
@@ -7,7 +8,6 @@ Content\gb_walk_left.xnb
 Content\gb_walk_right.xnb
 Content\burritomissile.xnb
 Content\chic_final.xnb
-Content\Arial.xnb
-Content\main_helicopter.xnb
 Content\chic2.xnb
 Content\gameOver.xnb
+Content\playerScore.xnb

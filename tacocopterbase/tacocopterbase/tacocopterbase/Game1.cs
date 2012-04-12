@@ -62,7 +62,7 @@ namespace tacocopterbase
 			Components.Add(new Tacocopter(new State2D(400, 200, 0, 0, 0, 0, 0), this));
 
 			// generate some sidewalk
-			genState = new State2D(windowWidth + 50, windowHeight - 50, 0, 0, -100, 0, 0);
+			genState = new State2D(windowWidth , windowHeight, 0, 0, -100, 0, 0);
 			Components.Add(new ObjectGenerator<Sidewalk>(
 				(a, b) => new Sidewalk(a, b),
 				genState, .1f, this));
