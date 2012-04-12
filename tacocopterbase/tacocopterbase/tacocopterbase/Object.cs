@@ -185,7 +185,7 @@ namespace tacocopterbase
 		}
 
 		protected override void LoadContent() {
-			sprite = this.Game.Content.Load<Texture2D>("tacosprite");
+			sprite = this.Game.Content.Load<Texture2D>("taco-sprite");
 			offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
 			
 		}
