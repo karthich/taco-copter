@@ -204,6 +204,7 @@ namespace tacocopterbase
                             {
                                 if (Vector2.Distance(ct.State.Position, cc.State.Position) < 50)
                                 {
+                                    p1.score++;
                                     toRemove.Add(ct);
                                     toRemove.Add(cc);
                                 }
