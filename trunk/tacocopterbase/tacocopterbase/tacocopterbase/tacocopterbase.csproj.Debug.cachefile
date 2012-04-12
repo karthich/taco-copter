@@ -1,6 +1,12 @@
 Content\black_box.xnb
-Content\gb_walk.xnb
 Content\badsidewalk1.xnb
 Content\main_helicopter.xnb
 Content\taco-sprite.xnb
+<<<<<<< .mine
+Content\gb_stand_left.xnb
+Content\gb_stand_right.xnb
+Content\gb_walk_left.xnb
+Content\gb_walk_right.xnb
+=======
 Content\burritomissile.xnb
+>>>>>>> .r38

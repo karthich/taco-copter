@@ -38,13 +38,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="gb_walk.png">
-      <Name>gb_walk</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="badsidewalk1.png">
       <Name>badsidewalk1</Name>
       <Importer>TextureImporter</Importer>
@@ -65,6 +58,28 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_ColorKeyColor>255, 255, 255, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="gb_stand_left.png">
+      <Name>gb_stand_left</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="gb_stand_right.png">
+      <Name>gb_stand_right</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="gb_walk_left.png">
+      <Name>gb_walk_left</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="gb_walk_right.png">
+      <Name>gb_walk_right</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>

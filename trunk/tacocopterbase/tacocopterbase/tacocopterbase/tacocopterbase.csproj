@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimatedTexture.cs" />
+    <Compile Include="Scenery.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="ObjectGenerator.cs" />
     <Compile Include="Object.cs" />
