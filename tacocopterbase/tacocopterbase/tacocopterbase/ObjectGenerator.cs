@@ -10,13 +10,13 @@ namespace tacocopterbase {
 
 	/// <summary>
 	/// An ObjectGenerator generates one type of object at a specific interval.
-	/// This can be used to 
+	/// This basic version generates objects with constructors that take a State2D only. 
 	/// </summary>
 	class ObjectGenerator<T> : GameComponent
 	where T : IGameComponent {
 
 		// this code makes T's constructor with args work correctly
-		private readonly Func<State2D, Game, T> factory;
+		private Func<State2D, Game, T> factory;
 
 		// interval in seconds at which to generate the object
 		// state of object to be generated at interval Interval
@@ -30,10 +30,12 @@ namespace tacocopterbase {
 		// increment generateTime by Interval when this happens
 		private float generateTime;
 
-		// create a new ObjectGenerator at location l,
-		// to generate Object o at an interval i
-		public ObjectGenerator(Func<State2D, Game, T> f, float i, Game g) : base(g) {
-			//GenState = s;
+		// create a new ObjectGenerator to generate an object at interval i
+		public ObjectGenerator(Func<State2D, Game, T> f, State2D st, float i, Game g)
+			: base(g)
+		{
+			factory = f;
+			GenState = st;
 			Interval = i;
 			thisGame = g;
 			// generate an object right away
@@ -45,8 +47,8 @@ namespace tacocopterbase {
 		// TODO: fix this so there's no risk of overflow
 		public override void Update(GameTime gameTime) {
 			if (gameTime.TotalGameTime.TotalSeconds > generateTime) {
-				T newObj = factory(GenState, thisGame);
-				thisGame.Components.Add(newObj);
+				// must deep copy the state for each new object
+				thisGame.Components.Add(factory(GenState.Copy(), thisGame));
 				generateTime += Interval;
 			}
 			base.Update(gameTime);

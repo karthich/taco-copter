@@ -57,5 +57,11 @@ namespace WindowsGame1
 			Acceleration = new Vector2(0, 0);
 			Velocity = new Vector2(0, 0);
 		}
+
+		// returns a new copy of this state
+		public State2D Copy()
+		{
+			return new State2D(Position, Acceleration, Velocity, Mass);
+		}
 	}
 }
