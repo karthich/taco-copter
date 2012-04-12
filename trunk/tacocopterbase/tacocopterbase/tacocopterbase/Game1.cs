@@ -88,7 +88,7 @@ namespace tacocopterbase
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 
-            Texture2D backgroundTexture = Content.Load<Texture2D>("chic_final");
+            Texture2D backgroundTexture = Content.Load<Texture2D>("chic2");
             myBackground.Load(GraphicsDevice, backgroundTexture);
 		}
 
