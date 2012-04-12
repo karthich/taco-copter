@@ -92,8 +92,10 @@ namespace tacocopterbase {
 		// with the current implementation, generates an object
 		// at a maximum frequency of the refresh rate
 		// TODO: fix this so there's no risk of overflow
-		public override void Update(GameTime gameTime) {
-			if (gameTime.TotalGameTime.TotalSeconds > generateTime) {
+		public override void Update(GameTime gameTime) 
+		{
+			if (gameTime.TotalGameTime.TotalSeconds > generateTime) 
+			{
 				var stateCopy = GenState.Copy();
 				// change the Position.Y of this State2D to 
 				// random y where minY <= y <= maxY
@@ -119,5 +121,5 @@ namespace tacocopterbase {
 	{
 
 	}
-	 * */
+	*/
 }

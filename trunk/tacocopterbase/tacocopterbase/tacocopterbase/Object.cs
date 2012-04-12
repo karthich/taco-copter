@@ -13,7 +13,7 @@ namespace tacocopterbase
 		public State2D State { get; set; }
 		protected Texture2D sprite;
 		protected SpriteBatch spriteBatch { get; set; }
-		protected Vector2 offset;
+		protected Vector2 origin;
 		protected Game thisGame;
 
 		// commented this out because State2D does not
@@ -37,16 +37,16 @@ namespace tacocopterbase
 			base.Initialize();
 		}
 
-		// draw the Object at State.Position, factoring in an offset
+		// draw the Object at State.Position, factoring in an origin
 		public virtual void Draw(SpriteBatch batch, GameTime gametime) {
-			batch.Draw(sprite, State.Position + offset, null, Color.White, 0,
-				new Vector2(0, 0), 0.3f, SpriteEffects.None, 0);
+			batch.Draw(sprite, State.Position, null, Color.White, 0,
+				origin, 0.3f, SpriteEffects.None, 0);
 		}
 
 		// load the default sprite
 		protected override void LoadContent() {
 			sprite = thisGame.Content.Load<Texture2D>("black_box");
-			offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
+			origin = new Vector2(sprite.Height / 2, sprite.Width / 2);
 			base.LoadContent();
 		}
 
@@ -98,7 +98,7 @@ namespace tacocopterbase
 		protected override void LoadContent()
 		{
 			//sprite = this.Game.Content.Load<Texture2D>("helicopter1");
-			//offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
+			//origin = new Vector2(sprite.Height / 2, sprite.Width / 2);
             SpriteTexture.Load(thisGame.Content, "main_helicopter", 5, 5, new Vector2(3, 2));
 		}
 
@@ -190,7 +190,7 @@ namespace tacocopterbase
 
 		protected override void LoadContent() {
 			sprite = this.Game.Content.Load<Texture2D>("taco-sprite");
-			offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
+			origin = new Vector2(sprite.Height / 2, sprite.Width / 2);
 			
 		}
 
@@ -213,7 +213,7 @@ namespace tacocopterbase
         protected override void LoadContent() 
         {
             sprite = this.Game.Content.Load<Texture2D>("burritomissile");
-            offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
+            origin = new Vector2(sprite.Height / 2, sprite.Width / 2);
         }
     }
 }
