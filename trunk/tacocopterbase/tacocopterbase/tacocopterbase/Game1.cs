@@ -20,13 +20,13 @@ namespace tacocopterbase
 		State2D genState;
         Player p1;
 
-        SpriteFont gameOver;
 
         ScrollingBackground myBackground;
-        SpriteFont playerScore;
         bool youLose = false;
         int numScore;
 
+		// for drawing on screen
+		SpriteFont Arial;
 
      
 		const int windowHeight = 720, windowWidth = 1280;
@@ -47,7 +47,7 @@ namespace tacocopterbase
 
 			// create an object with a person sprite moving left
 			// create an objectgenerator to test its functionality
-			genState = new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -100, 0, 0);
+			// genState = new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -100, 0, 0);
 
 			// to use an ObjectGenerator, you must show it how to 
 			// use the constructor for the type T that you want to generate
@@ -59,7 +59,7 @@ namespace tacocopterbase
 			*/
 			
 			// add a Tacocopter for the player to manipulate
-			Components.Add(new Tacocopter(new State2D(400, 200, 0, 0, 0, 0, 0), this));
+			Components.Add(new Tacocopter(new State2D(400, 200), this));
 
 			// generate some sidewalk
 			genState = new State2D(windowWidth , windowHeight, 0, 0, -100, 0, 0);
@@ -68,16 +68,16 @@ namespace tacocopterbase
 				genState, .1f, this));
 
 			// generate some generic people
-			genState = new State2D(windowWidth - 50, windowHeight - 50, 0, 0, -100, 0, 0);
-			Components.Add(new ObjectGenerator<Customer>(
+			genState = new State2D(windowWidth - 50, windowHeight - 47, 0, 0, -100, 0, 0);
+			Components.Add(new CustomerGenerator<Customer>(
 				(a, b) => new Customer(a, b),
-				genState, 2, this));
+				genState, 1, 4, this));
 
 			// test out Burrito missiles
-			genState = new State2D(windowWidth - 50, windowHeight - 230, 0, 0, -300, 0, 0);
+			genState = new State2D(windowWidth + 50, windowHeight /* doesn't matter */, 0, 0, -800, 0, 0);
 			Components.Add(new BurritoGenerator<Burrito>(
 				(a, b) => new Burrito(a, b),
-				genState, 3, 10, windowHeight, this));
+				genState, 4f, 25, windowHeight - 100, this));
             
             //player class to hold score ---- very rudimentary
             p1 = new Player();
@@ -107,7 +107,10 @@ namespace tacocopterbase
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
+			// load Arial font for writing on screen
+			Arial = Content.Load<SpriteFont>("Arial");
 
+			// load scrolling background
             Texture2D backgroundTexture = Content.Load<Texture2D>("chic2");
             myBackground.Load(GraphicsDevice, backgroundTexture);
 		}
@@ -149,22 +152,16 @@ namespace tacocopterbase
 		protected override void Draw(GameTime gameTime) {
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // Check if game is over, if so, display font;
-
-
 			// is this a kludge?
 			spriteBatch.Begin();
             myBackground.Draw(spriteBatch);
 
+			// draw the game over condition
             if (youLose)
             {
-                
                 string endGame = "GAME OVER";
                 spriteBatch.DrawString(Content.Load<SpriteFont>("gameOver"), endGame, new Vector2(450, 50), Color.Blue);
-
             }
-
-            
             string score =  "Profit: $" + p1.score.ToString();
             spriteBatch.DrawString(Content.Load<SpriteFont>("playerScore"), score, new Vector2(1000, 25), Color.Blue);
             
@@ -225,7 +222,7 @@ namespace tacocopterbase
                             cc = p as Customer;
                             if (ct != null && cc != null)
                             {
-                                if (Vector2.Distance(ct.State.Position, cc.State.Position) < 50)
+                                if (Object.AreColliding(ct, cc))
                                 {
                                     p1.score++;
                                     toRemove.Add(ct);
@@ -240,7 +237,7 @@ namespace tacocopterbase
 
                             if (br != null && tc != null)
                             {
-                                if (Vector2.Distance(br.State.Position, tc.State.Position) < 10)
+                                if (Object.AreColliding(br, tc))
                                 {
                                     toRemove.Add(tc);
                                     toRemove.Add(br);

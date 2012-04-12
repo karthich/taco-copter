@@ -105,6 +105,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Arial.spritefont">
+      <Name>Arial</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="gameOver.spritefont">
       <Name>gameOver</Name>
       <Importer>FontDescriptionImporter</Importer>

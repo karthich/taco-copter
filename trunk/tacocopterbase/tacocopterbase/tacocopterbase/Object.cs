@@ -15,38 +15,36 @@ namespace tacocopterbase
 		protected SpriteBatch spriteBatch { get; set; }
 		protected Vector2 origin;
 		protected Game thisGame;
+		public Rectangle Box { get; set; } // the bounding box
 
-		// commented this out because State2D does not
-		// have a default constructor and it was an error
-		public Object(Game g)
-			: base(g) {
+		public Object(Game g) : base(g) {
 			State = new State2D();
 			thisGame = g;
 		}
 
-		public Object(State2D s, Game g)
-			: base(g) {
+		public Object(State2D s, Game g) : base(g) {
 			State = s;
 			thisGame = g;
 		}
 
-		// create a SpriteBatch for drawing and load the sprite
 		public override void Initialize() {
 			spriteBatch = new SpriteBatch(this.Game.GraphicsDevice);
 			LoadContent();
 			base.Initialize();
 		}
 
-		// draw the Object at State.Position, factoring in an origin
+		// draw the Object at State.Position with origin
 		public virtual void Draw(SpriteBatch batch, GameTime gametime) {
 			batch.Draw(sprite, State.Position, null, Color.White, 0,
 				origin, 0.3f, SpriteEffects.None, 0);
 		}
 
-		// load the default sprite
 		protected override void LoadContent() {
-			sprite = thisGame.Content.Load<Texture2D>("black_box");
-			origin = new Vector2(sprite.Height / 2, sprite.Width / 2);
+			sprite = thisGame.Content.Load<Texture2D>("black_box"); // the default sprite
+			origin = new Vector2(sprite.Height, sprite.Width) / 2;
+			Box = new Rectangle((int)(State.Position.X + sprite.Width / 10),
+				(int)(State.Position.Y + sprite.Height / 10),
+				(int)(sprite.Width * .8f), (int)(sprite.Height * .8f));
 			base.LoadContent();
 		}
 
@@ -56,18 +54,20 @@ namespace tacocopterbase
 			float timeInterval = (float)gameTime.ElapsedGameTime.TotalSeconds;
 			State.Position += State.Velocity * timeInterval;
 			State.Velocity += State.Acceleration * timeInterval;
+			// bounding box handling is pretty inefficient
+			if (!Box.IsEmpty)
+			{
+				Box = new Rectangle((int)(State.Position.X + sprite.Width / 10),
+				(int)(State.Position.Y + sprite.Height / 10),
+				(int)(sprite.Width * .8f), (int)(sprite.Height * .8f));
+			}
 			base.Update(gameTime);
 		}
 
-        // Checks for collisions between GameObjects
-        static void CheckForCollisions()
-        {
-            
-        }
-
-		// return a new copy of the Object with the same attributes
-		public Object Copy() {
-			return new Object(State, thisGame);
+		// check collision method - static
+		public static bool AreColliding(Object a, Object b)
+		{
+			return Rectangle.Intersect(a.Box, b.Box) != Rectangle.Empty;
 		}
 	}
 
@@ -78,36 +78,31 @@ namespace tacocopterbase
 		public List<Taco> tacos = new List<Taco>();
 		public int Speed { get; set; }
 
-        private AnimatedTexture SpriteTexture;
-        private const float Rotation = 0;
-        private const float Scale = 0.5f;
-        private const float Depth = 0.5f;
+		private AnimatedTexture SpriteTexture;
 
 		public Tacocopter(State2D s, Game g)
 			: base(g)
 		{
 			thisGame = g;
 			State = s;
-			Speed = 5;
+			Speed = 200;
 
-            SpriteTexture = new AnimatedTexture(Vector2.Zero,
-                Rotation, Scale, Depth);
+			SpriteTexture = new AnimatedTexture(Vector2.Zero, 0, .5f, .5f);
 		}
 		
 
 		protected override void LoadContent()
 		{
-			//sprite = this.Game.Content.Load<Texture2D>("helicopter1");
-			//origin = new Vector2(sprite.Height / 2, sprite.Width / 2);
-            SpriteTexture.Load(thisGame.Content, "main_helicopter", 5, 5, new Vector2(3, 2));
+			SpriteTexture.Load(thisGame.Content, "main_helicopter", 5, 5, new Vector2(3, 2));
 		}
 
 		protected void FireTaco(GameTime gameTime)
 		{
-		    if (gameTime.TotalGameTime.Subtract(lastFire).TotalMilliseconds >= fireRate)
+			if (gameTime.TotalGameTime.Subtract(lastFire).TotalMilliseconds >= fireRate)
 			{
 				Taco taco = null;
-				taco = new Taco(thisGame, new State2D(State.Position.X, State.Position.Y, 0, 120, 0, 200, 0));
+				taco = new Taco(thisGame, new State2D(State.Position.X + 120, State.Position.Y + 125,
+					0, 400, State.Velocity.X, 200, 0));
 				
 				tacos.Add(taco);
 				Game.Components.Add(taco);
@@ -116,7 +111,8 @@ namespace tacocopterbase
 			}
 		}
 
-		protected void CheckTacos() {
+		protected void CheckTacos() 
+		{
 			List<Taco> removed = new List<Taco>();
 
 			foreach (Taco taco in tacos) {
@@ -129,51 +125,42 @@ namespace tacocopterbase
 				tacos.Remove(taco);
 			}
 		}
-        public override void Draw(SpriteBatch batch,GameTime gameTime)
-        {
-            SpriteTexture.DrawFrame(batch, State.Position);
-        }
 
+		public override void Draw(SpriteBatch batch,GameTime gameTime)
+		{
+			SpriteTexture.DrawFrame(batch, State.Position);
+		}
 
-		// Matt, I've rewritten this to be compatible with the gameTime
-		// style of Update functions
 		public override void Update(GameTime gameTime) {
 
 			KeyboardState k = Keyboard.GetState();
-			Vector2 nextPosition = new Vector2(0,0);
+			Vector2 nextVelocity = new Vector2(0,0);
 			
-            if (k.IsKeyDown(Keys.Left) && State.Position.X > 10) {
-				nextPosition.X += -Speed;
+			if (k.IsKeyDown(Keys.Left) && State.Position.X > 10) {
+				nextVelocity.X += -Speed;
 			}
 			if (k.IsKeyDown(Keys.Right) && State.Position.X <640) {
-				nextPosition.X += Speed;
+				nextVelocity.X += Speed;
 			}
 			if (k.IsKeyDown(Keys.Up) && State.Position.Y > 10) {
-				nextPosition.Y += -Speed;
+				nextVelocity.Y += -Speed;
 			}
 			if (k.IsKeyDown(Keys.Down) && State.Position.Y < 360) {
-				nextPosition.Y += Speed;
+				nextVelocity.Y += Speed;
 			}
+
+			State.Velocity = nextVelocity;
+
 			if (k.IsKeyDown(Keys.Space)){
 				FireTaco(gameTime);
 			}
 
-            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            
-            SpriteTexture.UpdateFrame(elapsed);
-           
+			float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+			SpriteTexture.UpdateFrame(elapsed);
+		   
 			// delete offscreen tacos
 			CheckTacos();
 
-			// Tacos are already updated because they're in Components
-			
-			/*foreach (Taco taco in tacos) {
-				taco.Update(gameTime);
-			} */
-			
-
-			State.Position += nextPosition;
 			base.Update(gameTime);
 		}
 	}
@@ -206,14 +193,14 @@ namespace tacocopterbase
 	/// The way I have Object generation set up, many of these
 	/// classes will just be placeholders for sprites, essentially. 
 	/// </summary>
-    class Burrito : Object
-    {
+	class Burrito : Object
+	{
 		public Burrito(State2D s, Game g) : base(s, g) { }
 
-        protected override void LoadContent() 
-        {
-            sprite = this.Game.Content.Load<Texture2D>("burritomissile");
-            origin = new Vector2(sprite.Height / 2, sprite.Width / 2);
-        }
-    }
+		protected override void LoadContent() 
+		{
+			sprite = this.Game.Content.Load<Texture2D>("burritomissile");
+			origin = new Vector2(sprite.Height / 2, sprite.Width / 2);
+		}
+	}
 }
