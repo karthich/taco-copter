@@ -185,6 +185,8 @@ namespace tacocopterbase
             Object o, p;
             Taco ct;
             Customer cc;
+            Tacocopter tc;
+            Burrito br;
             var toRemove = new List<Object>();
             foreach (var c in Components)
             {
@@ -204,6 +206,18 @@ namespace tacocopterbase
                                 {
                                     toRemove.Add(ct);
                                     toRemove.Add(cc);
+                                }
+                            }
+
+                            br = o as Burrito;
+                            tc = p as Tacocopter;
+
+                            if (br != null && tc != null)
+                            {
+                                if (Vector2.Distance(br.State.Position, tc.State.Position) < 10)
+                                {
+                                    toRemove.Add(tc);
+                                    toRemove.Add(br);
                                 }
                             }
                         }
