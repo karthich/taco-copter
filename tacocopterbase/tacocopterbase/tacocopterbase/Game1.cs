@@ -72,10 +72,10 @@ namespace tacocopterbase
 				genState, 2, this));
 
 			// test out Burrito missiles
-			genState = new State2D(windowWidth - 50, windowHeight - 230, 0, 0, -700, 0, 0);
+			genState = new State2D(windowWidth - 50, windowHeight - 230, 0, 0, -300, 0, 0);
 			Components.Add(new BurritoGenerator<Burrito>(
 				(a, b) => new Burrito(a, b),
-				genState, .1f, 10, windowHeight, this));
+				genState, 3, 10, windowHeight, this));
             
             //player class to hold score ---- very rudimentary
             p1 = new Player();
