@@ -1,4 +1,0 @@
-Content\shipanimated.xnb
-Content\explosion1.xnb
-Content\helicopter.xnb
-Content\main_helicopter.xnb
