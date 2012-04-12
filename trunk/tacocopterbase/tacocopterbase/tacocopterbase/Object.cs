@@ -59,6 +59,12 @@ namespace tacocopterbase
 			base.Update(gameTime);
 		}
 
+        // Checks for collisions between GameObjects
+        static void CheckForCollisions()
+        {
+            int size = 
+        }
+
 		// return a new copy of the Object with the same attributes
 		public Object Copy() {
 			return new Object(State, thisGame);
