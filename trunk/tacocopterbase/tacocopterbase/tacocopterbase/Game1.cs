@@ -17,7 +17,9 @@ namespace tacocopterbase
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		State2D genState;
-			
+
+        ScrollingBackground myBackground;
+        
 		const int windowHeight = 720, windowWidth = 1280;
 
 		/** this is the place we will declare the object classes**/
@@ -59,6 +61,9 @@ namespace tacocopterbase
 			Components.Add(new ObjectGenerator<Customer>(
 				(a, b) => new Customer(a, b),
 				genState, 2, this));
+            
+            myBackground = new ScrollingBackground();
+            
 		}
 
 
@@ -81,9 +86,10 @@ namespace tacocopterbase
 		protected override void LoadContent() {
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-			//baseObject.LoadContent();
 
-			// TODO: use this.Content to load your game content here
+
+            Texture2D backgroundTexture = Content.Load<Texture2D>("chic_final");
+            myBackground.Load(GraphicsDevice, backgroundTexture);
 		}
 
 		/// <summary>
@@ -104,7 +110,11 @@ namespace tacocopterbase
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 				this.Exit();
 
-			// TODO: Add your update logic here
+            // The time since Update was called last.
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            myBackground.Update(elapsed * 100);
+
 			ClearOffscreenObjects();
 			base.Update(gameTime);
 		}
@@ -118,6 +128,7 @@ namespace tacocopterbase
 
 			// is this a kludge?
 			spriteBatch.Begin();
+            myBackground.Draw(spriteBatch);
 			Object o;
 			foreach (var c in Components)
 			{
@@ -130,7 +141,7 @@ namespace tacocopterbase
 			spriteBatch.End();
 
 			// TODO: Add your drawing code here
-			base.Draw(gameTime);
+		base.Draw(gameTime);
 		}
 
 		// destroy offscreen objects
