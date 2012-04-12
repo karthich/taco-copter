@@ -68,7 +68,7 @@ namespace tacocopterbase
 	class Tacocopter : Object
 	{
 		private TimeSpan lastFire;
-		private int fireRate = 100;
+		private int fireRate = 500;
 		public List<Taco> tacos = new List<Taco>();
 		public int Speed { get; set; }
 
@@ -96,9 +96,9 @@ namespace tacocopterbase
             SpriteTexture.Load(thisGame.Content, "main_helicopter", 5, 5, new Vector2(3, 2));
 		}
 
-		protected void FireTaco()
+		protected void FireTaco(GameTime gameTime)
 		{
-		   // if (gameTime.TotalGameTime.Subtract(lastFire).TotalMilliseconds >= fireRate)
+		    if (gameTime.TotalGameTime.Subtract(lastFire).TotalMilliseconds >= fireRate)
 			{
 				Taco taco = null;
 				taco = new Taco(thisGame, new State2D(State.Position.X, State.Position.Y, 0, 120, 0, 200, 0));
@@ -106,11 +106,11 @@ namespace tacocopterbase
 				tacos.Add(taco);
 				Game.Components.Add(taco);
 
-				//lastFire = gameTime.TotalGameTime;
+				lastFire = gameTime.TotalGameTime;
 			}
 		}
 
-		protected void CheckTacos() {/*
+		protected void CheckTacos() {
 			List<Taco> removed = new List<Taco>();
 
 			foreach (Taco taco in tacos) {
@@ -121,7 +121,7 @@ namespace tacocopterbase
 			}
 			foreach (Taco taco in removed) {
 				tacos.Remove(taco);
-			}*/
+			}
 		}
         public override void Draw(SpriteBatch batch,GameTime gameTime)
         {
@@ -149,7 +149,7 @@ namespace tacocopterbase
 				nextPosition.Y += Speed;
 			}
 			if (k.IsKeyDown(Keys.Space)){
-				FireTaco();
+				FireTaco(gameTime);
 			}
 
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -161,11 +161,11 @@ namespace tacocopterbase
 			CheckTacos();
 
 			// Tacos are already updated because they're in Components
-			/*
-			foreach (Taco taco in tacos) {
+			
+			/*foreach (Taco taco in tacos) {
 				taco.Update(gameTime);
-			}
-			*/
+			} */
+			
 
 			State.Position += nextPosition;
 			base.Update(gameTime);
@@ -185,9 +185,9 @@ namespace tacocopterbase
 		}
 
 		protected override void LoadContent() {
-			sprite = this.Game.Content.Load<Texture2D>("black_box");
+			sprite = this.Game.Content.Load<Texture2D>("taco-sprite");
 			offset = new Vector2(sprite.Height / 2, sprite.Width / 2);
-			base.LoadContent();
+			
 		}
 
 		public override void Update(GameTime gameTime) {
