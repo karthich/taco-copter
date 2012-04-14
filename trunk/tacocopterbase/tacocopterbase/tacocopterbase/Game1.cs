@@ -62,7 +62,7 @@ namespace tacocopterbase
 			Components.Add(new Tacocopter(new State2D(400, 200), this));
 
 			// generate some sidewalk
-			genState = new State2D(windowWidth , windowHeight, 0, 0, -100, 0, 0);
+			genState = new State2D(0, windowHeight, 0, 0, -100, 0, 0);
 			Components.Add(new ObjectGenerator<Sidewalk>(
 				(a, b) => new Sidewalk(a, b),
 				genState, .1f, this));
@@ -237,7 +237,11 @@ namespace tacocopterbase
 
                             if (br != null && tc != null)
                             {
+
+                                if (Vector2.Distance(br.State.Position, tc.State.Position) < 20)
+
                                 if (Object.AreColliding(br, tc))
+
                                 {
                                     toRemove.Add(tc);
                                     toRemove.Add(br);
