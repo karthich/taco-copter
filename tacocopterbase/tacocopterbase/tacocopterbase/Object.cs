@@ -37,6 +37,8 @@ namespace tacocopterbase
 		public virtual void Draw(SpriteBatch batch, GameTime gametime) {
 			batch.Draw(sprite, State.Position, null, Color.White, 0,
 				origin, 0.3f, SpriteEffects.None, 0);
+           //batch.Draw(sprite,Stat
+            
 		}
 
 		protected override void LoadContent() {

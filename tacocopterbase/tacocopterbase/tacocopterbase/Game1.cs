@@ -19,11 +19,12 @@ namespace tacocopterbase
 		SpriteBatch spriteBatch;
 		State2D genState;
         Player p1;
+        Texture2D healthBar;
 
 
         ScrollingBackground myBackground;
         bool youLose = false;
-        int numScore;
+        
 
 		// for drawing on screen
 		SpriteFont Arial;
@@ -66,8 +67,7 @@ namespace tacocopterbase
 			Components.Add(new ObjectGenerator<Sidewalk>(
 				(a, b) => new Sidewalk(a, b),
 				genState, .1f, this));*/
-            for (int i = 0; i < 1280 / 181; i++)
-            { Components.Add(new Sidewalk(new State2D(0+ i*181, windowHeight, 0, 0, 0, 0, 0), this)); }
+            Components.Add(new Sidewalk(new State2D(0,windowHeight, 0, 0, 0, 0, 0), this));
             
 
 			// generate some generic people
@@ -112,6 +112,7 @@ namespace tacocopterbase
 
 			// load Arial font for writing on screen
 			Arial = Content.Load<SpriteFont>("Arial");
+            healthBar = Content.Load<Texture2D>("HealthBar2");
 
 			// load scrolling background
             Texture2D backgroundTexture = Content.Load<Texture2D>("chic2");
@@ -161,6 +162,17 @@ namespace tacocopterbase
 			// is this a kludge?
 			spriteBatch.Begin();
             myBackground.Draw(spriteBatch);
+            
+            spriteBatch.Draw(healthBar, new Rectangle(this.Window.ClientBounds.Width / 2 - healthBar.Width / 2,
+                              15, healthBar.Width, 44), new Rectangle(0,21, healthBar.Width, 37), Color.Red);
+            
+            
+
+
+            //Draw the box around the health bar
+            spriteBatch.Draw(healthBar, new Rectangle(this.Window.ClientBounds.Width / 2 - healthBar.Width / 2,
+                  15, healthBar.Width, 44), new Rectangle(0, 0, healthBar.Width, 44), Color.White);
+            
 
 			// draw the game over condition
             if (youLose)
