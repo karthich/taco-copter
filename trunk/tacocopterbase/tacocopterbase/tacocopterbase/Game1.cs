@@ -162,16 +162,16 @@ namespace tacocopterbase
 			// is this a kludge?
 			spriteBatch.Begin();
             myBackground.Draw(spriteBatch);
-            
+
             spriteBatch.Draw(healthBar, new Rectangle(this.Window.ClientBounds.Width / 2 - healthBar.Width / 2,
-                              15, healthBar.Width, 44), new Rectangle(0,21, healthBar.Width, 37), Color.Red);
-            
+
+                  30, healthBar.Width, 44), new Rectangle(0, 45, healthBar.Width, 44), Color.Red);
             
 
 
             //Draw the box around the health bar
             spriteBatch.Draw(healthBar, new Rectangle(this.Window.ClientBounds.Width / 2 - healthBar.Width / 2,
-                  15, healthBar.Width, 44), new Rectangle(0, 0, healthBar.Width, 44), Color.White);
+                  30, healthBar.Width, 44), new Rectangle(0, 0, healthBar.Width, 44), Color.White);
             
 
 			// draw the game over condition
