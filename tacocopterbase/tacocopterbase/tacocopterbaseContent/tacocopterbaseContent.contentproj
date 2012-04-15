@@ -126,15 +126,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="chic_final2.png">
-      <Name>chic_final2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="chic3.png">
-      <Name>chic3</Name>
+    <Compile Include="generic_explosion.png">
+      <Name>generic_explosion</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

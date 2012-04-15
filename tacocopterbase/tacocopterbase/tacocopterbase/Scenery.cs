@@ -9,24 +9,13 @@ using WindowsGame1;
 
 namespace tacocopterbase
 {
-	class Scenery : Object
-	{
-		// protected int ZIndex;
-
-		public Scenery(State2D s, Game g)
-			: base(s, g)
-		{
-
-		}
-	}
-
-	class Sidewalk : Scenery
+	class Sidewalk : Object
 	{
 		public Sidewalk(State2D s, Game g) : base(s, g) { }
 
 		protected override void LoadContent()
 		{
-			sprite = thisGame.Content.Load<Texture2D>("sidewalk");
+			sprite = thisGame.Content.Load<Texture2D>("badsidewalk1");
 			origin = new Vector2(sprite.Height / 2, sprite.Width / 2);
 		}
 	}
