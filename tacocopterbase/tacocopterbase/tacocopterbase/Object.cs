@@ -139,7 +139,7 @@ namespace tacocopterbase
 			if (k.IsKeyDown(Keys.Left) && State.Position.X > 10) {
 				nextVelocity.X += -Speed;
 			}
-			if (k.IsKeyDown(Keys.Right) && State.Position.X <640) {
+			if (k.IsKeyDown(Keys.Right) && State.Position.X <950) {
 				nextVelocity.X += Speed;
 			}
 			if (k.IsKeyDown(Keys.Up) && State.Position.Y > 10) {
