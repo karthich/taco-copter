@@ -85,7 +85,7 @@ namespace tacocopterbase
 		{
 			thisGame = g;
 			State = s;
-			Speed = 200;
+			Speed = 300;
 
 			SpriteTexture = new AnimatedTexture(Vector2.Zero, 0, .5f, .5f);
 		}

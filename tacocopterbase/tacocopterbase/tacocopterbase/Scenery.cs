@@ -26,7 +26,7 @@ namespace tacocopterbase
 
 		protected override void LoadContent()
 		{
-			sprite = thisGame.Content.Load<Texture2D>("badsidewalk1");
+			sprite = thisGame.Content.Load<Texture2D>("sidewalk");
 			origin = new Vector2(sprite.Height / 2, sprite.Width / 2);
 		}
 	}
