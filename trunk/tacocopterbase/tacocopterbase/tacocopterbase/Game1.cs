@@ -137,8 +137,20 @@ namespace tacocopterbase
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 				this.Exit();
             KeyboardState k = Keyboard.GetState();
-            if (k.IsKeyDown(Keys.F)) ;
+
+            if (k.IsKeyDown(Keys.F)) 
             this.graphics.IsFullScreen = !this.graphics.IsFullScreen;
+
+            /*if (k.IsKeyDown(Keys.Up) == true)
+            {
+                p1.currentHealth += 1;
+            }
+
+            //If the Down Arrowis pressed, decrease the Health bar
+            if (k.IsKeyDown(Keys.Down) == true)
+            {
+                p1.currentHealth-= 1;
+            }*/
 
             // The time since Update was called last.
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -165,13 +177,18 @@ namespace tacocopterbase
 
             spriteBatch.Draw(healthBar, new Rectangle(this.Window.ClientBounds.Width / 2 - healthBar.Width / 2,
 
-                  30, healthBar.Width, 44), new Rectangle(0, 45, healthBar.Width, 44), Color.Red);
-            
+                 30, healthBar.Width, 44), new Rectangle(0, 45, healthBar.Width, 44), Color.Gray);
 
+
+            //Draw the current health level based on the current Health
+            spriteBatch.Draw(healthBar, new Rectangle(this.Window.ClientBounds.Width / 2 - healthBar.Width / 2,
+                 30, (int)(healthBar.Width * ((double)p1.currentHealth/ 100)), 44),
+                 new Rectangle(0, 45, healthBar.Width, 44), Color.Red);
 
             //Draw the box around the health bar
             spriteBatch.Draw(healthBar, new Rectangle(this.Window.ClientBounds.Width / 2 - healthBar.Width / 2,
-                  30, healthBar.Width, 44), new Rectangle(0, 0, healthBar.Width, 44), Color.White);
+
+                30, healthBar.Width, 44), new Rectangle(0, 0, healthBar.Width, 44), Color.White);
             
 
 			// draw the game over condition
