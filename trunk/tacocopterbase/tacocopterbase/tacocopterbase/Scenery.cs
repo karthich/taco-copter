@@ -18,5 +18,6 @@ namespace tacocopterbase
 			sprite = thisGame.Content.Load<Texture2D>("badsidewalk1");
 			origin = new Vector2(sprite.Height / 2, sprite.Width / 2);
 		}
-	}
+    }
 }
+
