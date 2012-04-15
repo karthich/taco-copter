@@ -42,9 +42,6 @@ namespace tacocopterbase
 		protected override void LoadContent() {
 			sprite = thisGame.Content.Load<Texture2D>("black_box"); // the default sprite
 			origin = new Vector2(sprite.Height, sprite.Width) / 2;
-			Box = new Rectangle((int)(State.Position.X + sprite.Width / 10),
-				(int)(State.Position.Y + sprite.Height / 10),
-				(int)(sprite.Width * .8f), (int)(sprite.Height * .8f));
 			base.LoadContent();
 		}
 
@@ -55,12 +52,9 @@ namespace tacocopterbase
 			State.Position += State.Velocity * timeInterval;
 			State.Velocity += State.Acceleration * timeInterval;
 			// bounding box handling is pretty inefficient
-			if (!Box.IsEmpty)
-			{
-				Box = new Rectangle((int)(State.Position.X + sprite.Width / 10),
-				(int)(State.Position.Y + sprite.Height / 10),
-				(int)(sprite.Width * .8f), (int)(sprite.Height * .8f));
-			}
+			Box = new Rectangle((int)(State.Position.X + origin.X / 5),
+				(int)(State.Position.Y + origin.Y / 5),
+				(int)(origin.X * 1.6f), (int)(origin.Y * 1.6f));
 			base.Update(gameTime);
 		}
 
@@ -80,20 +74,19 @@ namespace tacocopterbase
 
 		private AnimatedTexture SpriteTexture;
 
-		public Tacocopter(State2D s, Game g)
-			: base(g)
+		public Tacocopter(State2D s, Game g) : base(g)
 		{
 			thisGame = g;
 			State = s;
 			Speed = 300;
-
-			SpriteTexture = new AnimatedTexture(Vector2.Zero, 0, .5f, .5f);
+			SpriteTexture = new AnimatedTexture(new Vector2(225, 150), 0, .5f, .5f);
 		}
 		
 
 		protected override void LoadContent()
 		{
 			SpriteTexture.Load(thisGame.Content, "main_helicopter", 5, 5, new Vector2(3, 2));
+			origin = new Vector2(90, 100);
 		}
 
 		protected void FireTaco(GameTime gameTime)
@@ -101,8 +94,8 @@ namespace tacocopterbase
 			if (gameTime.TotalGameTime.Subtract(lastFire).TotalMilliseconds >= fireRate)
 			{
 				Taco taco = null;
-				taco = new Taco(thisGame, new State2D(State.Position.X + 120, State.Position.Y + 125,
-					0, 400, State.Velocity.X, 200, 0));
+				taco = new Taco(new State2D(State.Position.X + 10, State.Position.Y + 50,
+					0, 800, State.Velocity.X, 200, 0), thisGame);
 				
 				tacos.Add(taco);
 				Game.Components.Add(taco);
@@ -171,14 +164,11 @@ namespace tacocopterbase
 			get { return offscreen;} 
 		}
 
-		public Taco(Game g, State2D s)
-			: base(s, g) {
-		}
+		public Taco(State2D s, Game g) : base(s, g) { }
 
 		protected override void LoadContent() {
 			sprite = this.Game.Content.Load<Texture2D>("taco-sprite");
 			origin = new Vector2(sprite.Height / 2, sprite.Width / 2);
-			
 		}
 
 		public override void Update(GameTime gameTime) {
