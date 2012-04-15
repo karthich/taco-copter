@@ -29,7 +29,7 @@ namespace tacocopterbase
 		SpriteFont Arial;
 
      
-		const int windowHeight = 720, windowWidth = 1280;
+		const int windowHeight = 700, windowWidth = 1280;
 
 		/** this is the place we will declare the object classes**/
 
@@ -62,10 +62,13 @@ namespace tacocopterbase
 			Components.Add(new Tacocopter(new State2D(400, 200), this));
 
 			// generate some sidewalk
-			genState = new State2D(0, windowHeight, 0, 0, -100, 0, 0);
+			/*genState = new State2D(windowWidth/2, windowHeight/2, 0, 0, -100, 0, 0);
 			Components.Add(new ObjectGenerator<Sidewalk>(
 				(a, b) => new Sidewalk(a, b),
-				genState, .1f, this));
+				genState, .1f, this));*/
+            for (int i = 0; i < 1280 / 181; i++)
+            { Components.Add(new Sidewalk(new State2D(0+ i*181, windowHeight, 0, 0, 0, 0, 0), this)); }
+            
 
 			// generate some generic people
 			genState = new State2D(windowWidth - 50, windowHeight - 47, 0, 0, -100, 0, 0);
@@ -132,6 +135,9 @@ namespace tacocopterbase
 			// Allows the game to exit
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 				this.Exit();
+            KeyboardState k = Keyboard.GetState();
+            if (k.IsKeyDown(Keys.F)) ;
+            this.graphics.IsFullScreen = !this.graphics.IsFullScreen;
 
             // The time since Update was called last.
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
