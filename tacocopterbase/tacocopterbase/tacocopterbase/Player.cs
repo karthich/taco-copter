@@ -4,7 +4,7 @@ namespace tacocopterbase
 {
     public class Player
     {
-        int score { get; set; }
+        public int score { get; set; }
         int currentHealth;
         public Player()
         {
