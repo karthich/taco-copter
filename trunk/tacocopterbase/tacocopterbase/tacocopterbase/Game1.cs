@@ -19,7 +19,7 @@ namespace tacocopterbase
 		SpriteBatch spriteBatch;
 		State2D genState;
 		Player p1;
-        Texture2D healthBar;
+        Texture2D healthBar,pauseButton;
 
         ScrollingBackground myBackground;
         bool youLose = false;
@@ -85,9 +85,11 @@ namespace tacocopterbase
             //player class to hold score ---- very rudimentary
             p1 = new Player();
 
-            myBackground = new ScrollingBackground();
+            
 
 			myBackground = new ScrollingBackground();
+            
+            
 
 		}
 
@@ -120,6 +122,8 @@ namespace tacocopterbase
 
 			// load scrolling background
             Texture2D backgroundTexture = Content.Load<Texture2D>("chic3");
+            pauseButton = Content.Load<Texture2D>("pause_button");
+
             myBackground.Load(GraphicsDevice, backgroundTexture);
 		}
 
@@ -150,16 +154,7 @@ namespace tacocopterbase
 
 
 
-            /*if (k.IsKeyDown(Keys.Up) == true)
-            {
-                p1.currentHealth += 1;
-            }
-
-            //If the Down Arrowis pressed, decrease the Health bar
-            if (k.IsKeyDown(Keys.Down) == true)
-            {
-                p1.currentHealth-= 1;
-            }*/
+            
 
             // The time since Update was called last.
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -184,6 +179,9 @@ namespace tacocopterbase
 			// is this a kludge?
 			spriteBatch.Begin();
 			myBackground.Draw(spriteBatch);
+
+            spriteBatch.Draw(pauseButton, new Vector2(20, 20), Color.White);
+
 
             spriteBatch.Draw(healthBar, new Rectangle(this.Window.ClientBounds.Width / 2 - healthBar.Width / 2,
 
