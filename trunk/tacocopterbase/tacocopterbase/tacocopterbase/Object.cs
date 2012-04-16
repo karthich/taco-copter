@@ -61,7 +61,7 @@ namespace tacocopterbase
 		// check collision method - static
 		public static bool AreColliding(Object a, Object b)
 		{
-			return Vector2.Distance(a.State.Position + a.origin, b.State.Position + b.origin) < (a.Radius + b.Radius);
+			return Vector2.Distance(a.State.Position + a.origin, b.State.Position + b.origin) < (a.Radius  + b.Radius);
 		}
 	}
 
