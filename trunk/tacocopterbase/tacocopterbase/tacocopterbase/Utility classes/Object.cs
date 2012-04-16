@@ -9,7 +9,7 @@ using WindowsGame1;
 
 namespace tacocopterbase
 {
-	class Object : DrawableGameComponent {
+	public class Object : DrawableGameComponent {
 		public State2D State { get; set; }
 		protected Texture2D sprite;
 		protected SpriteBatch spriteBatch { get; set; }
