@@ -13,7 +13,7 @@ namespace tacocopterbase
 	/// The way I have Object generation set up, many of these
 	/// classes will just be placeholders for sprites, essentially. 
 	/// </summary>
-	class Burrito : Object
+	public class Burrito : Object
 	{
 		public Burrito(State2D s, Game g) : base(s, g) { }
 

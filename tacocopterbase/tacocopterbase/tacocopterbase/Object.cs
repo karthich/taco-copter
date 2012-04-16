@@ -9,7 +9,7 @@ using WindowsGame1;
 
 namespace tacocopterbase
 {
-	class Object : DrawableGameComponent {
+	public class Object : DrawableGameComponent {
 		public State2D State { get; set; }
 		protected Texture2D sprite;
 		protected SpriteBatch spriteBatch { get; set; }
@@ -65,7 +65,7 @@ namespace tacocopterbase
 		}
 	}
 
-	class Tacocopter : Object
+	public class Tacocopter : Object
 	{
 		private TimeSpan lastFire;
 		private int fireRate = 500;
@@ -125,7 +125,7 @@ namespace tacocopterbase
 			SpriteTexture.DrawFrame(batch, State.Position);
 		}
 
-		public override void Update(GameTime gameTime) {
+		public override void Update(GameTime gameTime, Player p1) {
 
 			KeyboardState k = Keyboard.GetState();
 			Vector2 nextVelocity = new Vector2(0,0);
@@ -159,7 +159,7 @@ namespace tacocopterbase
 		}
 	}
 
-	class Taco : Object {
+	public class Taco : Object {
 		private bool offscreen;
 		public bool Offscreen { 
 			get { return offscreen;} 
@@ -185,7 +185,7 @@ namespace tacocopterbase
 	/// The way I have Object generation set up, many of these
 	/// classes will just be placeholders for sprites, essentially. 
 	/// </summary>
-	class Burrito : Object
+	public class Burrito : Object
 	{
 		public Burrito(State2D s, Game g) : base(s, g) { }
 

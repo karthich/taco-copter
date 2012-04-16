@@ -13,7 +13,7 @@ namespace tacocopterbase {
 	/// This basic version generates objects with constructors that take a State2D only. 
 	/// </summary>
 	/// <typeparam name="T">Should be an Object constructed with a State2D (and a Game).</typeparam>
-	class ObjectGenerator<T> : GameComponent
+	public class ObjectGenerator<T> : GameComponent
 		where T : IGameComponent 
 	{
 
@@ -23,7 +23,7 @@ namespace tacocopterbase {
 		// interval in seconds at which to generate the object
 		// state of object to be generated at interval Interval
 		// need thisGame to add Objects to the game
-		protected float Interval;
+		public float Interval;
 		protected State2D GenState;
 		protected Game thisGame;
 		
@@ -62,11 +62,11 @@ namespace tacocopterbase {
 	/// Y-coordinates, at a somewhat random interval. 
 	/// </summary>
 	/// <typeparam name="T">Should be a burrito missile or powerup.</typeparam>
-	class BurritoGenerator<T> : GameComponent
+	public class BurritoGenerator<T> : GameComponent
 		where T : IGameComponent
 	{
 		private Func<State2D, Game, T> factory;
-		protected float Interval;
+		public float Interval;
 		protected State2D GenState;
 		protected Game thisGame;
 		private float generateTime;
@@ -117,7 +117,7 @@ namespace tacocopterbase {
 	/// Generates Customers at random but controlled intervals. 
 	/// </summary>
 	/// <typeparam name="T">Should be a customer.</typeparam>
-	class CustomerGenerator<T> : GameComponent
+	public class CustomerGenerator<T> : GameComponent
 		where T : IGameComponent
 	{
 		private Func<State2D, Game, T> factory;
