@@ -23,6 +23,8 @@ namespace tacocopterbase
 		{
 			g = game;
 			youLose = false;
+            Health = 100;
+            CustomerSatisfaction = 0;
 		}
 
 		public override void Initialize()
