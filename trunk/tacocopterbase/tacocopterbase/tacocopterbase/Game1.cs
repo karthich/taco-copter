@@ -86,7 +86,7 @@ namespace tacocopterbase
 			genState = new State2D(windowWidth + 50, windowHeight /* doesn't matter */, 0, 0, -800, 0, 0);
 			Components.Add(new BurritoGenerator<Burrito>(
 				(a, b) => new Burrito(a, b),
-				genState, 4f, 25, windowHeight - 100, this));
+				genState, 4f, 140, windowHeight - 220, this));
             
             //player class to hold score ---- very rudimentary
             p1 = new Player();
