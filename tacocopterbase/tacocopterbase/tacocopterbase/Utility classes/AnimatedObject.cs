@@ -23,8 +23,8 @@ namespace tacocopterbase
 		{
 			// must load the resource with a child
 			origin = SpriteTexture.Origin;
-			boundLeft = (int)SpriteTexture.Origin.X;
-			boundTop = (int)SpriteTexture.Origin.Y;
+			boundWidth = (int)(origin.X*2f);
+			boundHeight = (int)(origin.Y*2f);
 		}
 
 		public override void Draw(SpriteBatch batch, GameTime gameTime)

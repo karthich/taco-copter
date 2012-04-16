@@ -19,25 +19,20 @@ namespace tacocopterbase
 		SpriteBatch spriteBatch;
 		State2D genState;
 		Player p1;
+        public ScrollingBackground myBackground;
         Texture2D pauseButton;
 
         HealthBar myHealthBar;
 
-
-
-
-        ScrollingBackground myBackground;
-
-        bool youLose = false;
-        
-
 		// for drawing on screen
-		SpriteFont textOnScreen;
+		SpriteFont Arial;
 
+		// define game dimensions
 		const int windowHeight = 700, windowWidth = 1280;
 
-		/** this is the place we will declare the object classes**/
-
+		/// <summary>
+		/// 
+		/// </summary>
 		public Game1()
 		{
 			// set screen Size
@@ -46,11 +41,11 @@ namespace tacocopterbase
 			graphics.PreferredBackBufferHeight = windowHeight;
 			graphics.PreferredBackBufferWidth = windowWidth;
 
-			
+			//this.graphics.IsFullScreen = true;
 
 			// show Mouse cursor for debugging
 			this.IsMouseVisible = true;
-            
+
 			// create an object with a person sprite moving left
 			// create an objectgenerator to test its functionality
 			// genState = new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -100, 0, 0);
@@ -68,16 +63,14 @@ namespace tacocopterbase
 			Components.Add(new Tacocopter(new State2D(400, 200), this));
 
 			// generate some sidewalk
-
-            /*
-			genState = new State2D(0, windowHeight, 0, 0, -100, 0, 0);
+            /*genState = new State2D(0, windowHeight, 0, 0, -100, 0, 0);
 			Components.Add(new ObjectGenerator<Sidewalk>(
 				(a, b) => new Sidewalk(a, b),
 				genState, .1f, this));
 				genState, .1f, this));*/
 
 			// generate some generic people
-			genState = new State2D(windowWidth - 50, windowHeight - 45, 0, 0, -100, 0, 0);
+			genState = new State2D(windowWidth, windowHeight - 50, 0, 0, -100, 0, 0);
 			Components.Add(new CustomerGenerator<Customer>(
 				(a, b) => new Customer(a, b),
 				genState, 1, 4, this));
@@ -86,17 +79,14 @@ namespace tacocopterbase
 			genState = new State2D(windowWidth + 50, windowHeight /* doesn't matter */, 0, 0, -800, 0, 0);
 			Components.Add(new BurritoGenerator<Burrito>(
 				(a, b) => new Burrito(a, b),
-				genState, 4f, 140, windowHeight - 220, this));
+				genState, .4f, 25, windowHeight - 200, this));
             
             //player class to hold score ---- very rudimentary
-            p1 = new Player();
-
+			p1 = new Player(this);
+			Components.Add(p1);
 
             myHealthBar = new HealthBar();
 			myBackground = new ScrollingBackground();
-            
-            
-
 		}
 
 
@@ -123,7 +113,7 @@ namespace tacocopterbase
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			// load Arial font for writing on screen
-			textOnScreen = Content.Load<SpriteFont>("Arial");
+			Arial = Content.Load<SpriteFont>("Arial");
 
             Texture2D healthBar = Content.Load<Texture2D>("HealthBar2");
             myHealthBar.Load(GraphicsDevice, healthBar);
@@ -155,23 +145,18 @@ namespace tacocopterbase
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 				this.Exit();
 
+			// Hit F to toggle fullscreen
             KeyboardState k = Keyboard.GetState();
-
             if (k.IsKeyDown(Keys.F)) 
-            this.graphics.IsFullScreen = !this.graphics.IsFullScreen;
+				this.graphics.IsFullScreen = !this.graphics.IsFullScreen;
+			if (k.IsKeyDown(Keys.R))
+				p1.UnLose();
 
-            /**using keyboard arrows to change player health - PURELY DEBUGGING PURPOSES**/
-            /*if(k.IsKeyDown(Keys.Down))
-                p1.currentHealth--;
-            if (k.IsKeyDown(Keys.Up))
-                p1.currentHealth++;*/
+			// scroll the background
+			myBackground.Update((float)gameTime.ElapsedGameTime.TotalSeconds * 50);
 
-            p1.currentHealth = (int)MathHelper.Clamp(p1.currentHealth, 0, 100);
-
-            // The time since Update was called last.
-            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-			myBackground.Update(elapsed * 50);
+			// update player's health
+            p1.Health = (int)MathHelper.Clamp(p1.Health, 0, 100);
 
 			// Check for collisions and remove and unnecessary objects
 			CheckCollisions();
@@ -188,26 +173,11 @@ namespace tacocopterbase
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			// is this a kludge?
+			//  Begin sprite batch ------------------------------
 			spriteBatch.Begin();
+
+			// draw the scrolling background first
 			myBackground.Draw(spriteBatch);
-
-            spriteBatch.Draw(pauseButton, new Vector2(20, 20), Color.White);
-
-
-            myHealthBar.Draw(spriteBatch, p1);
-
-            
-
-			// draw the game over condition
-			if (youLose)
-			{
-				string endGame = "GAME OVER";
-				spriteBatch.DrawString(Content.Load<SpriteFont>("gameOver"), endGame, new Vector2(450, 50), Color.Blue);
-			}
-			string score = "Profit: $" + p1.score.ToString();
-			spriteBatch.DrawString(Content.Load<SpriteFont>("playerScore"), score, new Vector2(1000, 25), Color.Blue);
-
 
 			Object o;
 			foreach (var c in Components)
@@ -219,12 +189,15 @@ namespace tacocopterbase
 				}
 			}
 			spriteBatch.End();
+			// End sprite batch -------------------------------
 
 			// TODO: Add your drawing code here
 			base.Draw(gameTime);
 		}
 
-		// destroy offscreen objects
+		/// <summary>
+		/// Destroy offscreen objects
+		/// </summary>
 		private void ClearOffscreenObjects()
 		{
 			Object o;
@@ -247,6 +220,9 @@ namespace tacocopterbase
 				Components.Remove(r);
 		}
 
+		/// <summary>
+		/// Detect and handle colliding objects. 
+		/// </summary>
 		private void CheckCollisions()
 		{
 			Object o, p;
@@ -271,7 +247,7 @@ namespace tacocopterbase
 							{
 								if (Object.AreColliding(ct, cc))
 								{
-									p1.score++;
+									p1.Score++;
 									toRemove.Add(ct);
 									toRemove.Add(cc);
 								}
@@ -285,7 +261,7 @@ namespace tacocopterbase
 								{
 									toRemove.Add(tc);
 									toRemove.Add(br);
-									youLose = true;
+									p1.Lose();
 								}
 							}
 						}

@@ -87,7 +87,7 @@ namespace tacocopterbase {
 			minY = min;
 			maxY = max;
 			// don't want a burrito right away
-			generateTime = 4f;
+			generateTime = i;
 			random = new Random();
 		}
 
