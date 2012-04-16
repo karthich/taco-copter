@@ -73,10 +73,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game objects\Burritos.cs" />
+    <Compile Include="Game objects\HealthBar.cs" />
     <Compile Include="Game objects\Tacos.cs" />
     <Compile Include="Game objects\Tacocopter.cs" />
     <Compile Include="Utility classes\AnimatedTexture.cs" />
     <Compile Include="Utility classes\AnimatedObject.cs" />
+    <Compile Include="Utility classes\MouseHandler.cs" />
     <Compile Include="Utility classes\Particle.cs" />
     <Compile Include="Utility classes\Player.cs" />
     <Compile Include="Game objects\Scenery.cs" />

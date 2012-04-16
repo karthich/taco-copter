@@ -19,9 +19,15 @@ namespace tacocopterbase
 		SpriteBatch spriteBatch;
 		State2D genState;
 		Player p1;
-        Texture2D healthBar,pauseButton;
+        Texture2D pauseButton;
+
+        HealthBar myHealthBar;
+
+
+
 
         ScrollingBackground myBackground;
+
         bool youLose = false;
         
 
@@ -85,8 +91,8 @@ namespace tacocopterbase
             //player class to hold score ---- very rudimentary
             p1 = new Player();
 
-            
 
+            myHealthBar = new HealthBar();
 			myBackground = new ScrollingBackground();
             
             
@@ -118,7 +124,9 @@ namespace tacocopterbase
 
 			// load Arial font for writing on screen
 			Arial = Content.Load<SpriteFont>("Arial");
-            healthBar = Content.Load<Texture2D>("HealthBar2");
+
+            Texture2D healthBar = Content.Load<Texture2D>("HealthBar2");
+            myHealthBar.Load(GraphicsDevice, healthBar);
 
 			// load scrolling background
             Texture2D backgroundTexture = Content.Load<Texture2D>("chic3");
@@ -152,9 +160,13 @@ namespace tacocopterbase
             if (k.IsKeyDown(Keys.F)) 
             this.graphics.IsFullScreen = !this.graphics.IsFullScreen;
 
+            /**using keyboard arrows to change player health - PURELY DEBUGGING PURPOSES**/
+            /*if(k.IsKeyDown(Keys.Down))
+                p1.currentHealth--;
+            if (k.IsKeyDown(Keys.Up))
+                p1.currentHealth++;*/
 
-
-            
+            p1.currentHealth = (int)MathHelper.Clamp(p1.currentHealth, 0, 100);
 
             // The time since Update was called last.
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -183,20 +195,8 @@ namespace tacocopterbase
             spriteBatch.Draw(pauseButton, new Vector2(20, 20), Color.White);
 
 
-            spriteBatch.Draw(healthBar, new Rectangle(this.Window.ClientBounds.Width / 2 - healthBar.Width / 2,
+            myHealthBar.Draw(spriteBatch, p1);
 
-                 30, healthBar.Width, 44), new Rectangle(0, 45, healthBar.Width, 44), Color.Gray);
-
-
-            //Draw the current health level based on the current Health
-            spriteBatch.Draw(healthBar, new Rectangle(this.Window.ClientBounds.Width / 2 - healthBar.Width / 2,
-                 30, (int)(healthBar.Width * ((double)p1.currentHealth/ 100)), 44),
-                 new Rectangle(0, 45, healthBar.Width, 44), Color.Red);
-
-            //Draw the box around the health bar
-            spriteBatch.Draw(healthBar, new Rectangle(this.Window.ClientBounds.Width / 2 - healthBar.Width / 2,
-
-                30, healthBar.Width, 44), new Rectangle(0, 0, healthBar.Width, 44), Color.White);
             
 
 			// draw the game over condition
