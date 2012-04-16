@@ -15,7 +15,7 @@ namespace tacocopterbase
 		protected SpriteBatch spriteBatch { get; set; }
 		protected Vector2 origin;
 		protected Game thisGame;
-		protected int boundLeft, boundTop;
+		protected int boundWidth, boundHeight;
 
 		public Object(Game g) : base(g) {
 			State = new State2D();
@@ -27,23 +27,17 @@ namespace tacocopterbase
 			thisGame = g;
 		}
 
-		public override void Initialize() {
-			spriteBatch = new SpriteBatch(this.Game.GraphicsDevice);
-			LoadContent();
-			base.Initialize();
-		}
-
 		// draw the Object at State.Position with origin
 		public virtual void Draw(SpriteBatch batch, GameTime gametime) {
 			batch.Draw(sprite, State.Position, null, Color.White, 0,
 				origin, 0.3f, SpriteEffects.None, 0);
 		}
 
+		// you MUST load a sprite before calling this parent function
 		protected override void LoadContent() {
-			//sprite = thisGame.Content.Load<Texture2D>("black_box"); // the default sprite
 			origin = new Vector2(sprite.Width, sprite.Height) / 2;
-			boundLeft = sprite.Width / 2;
-			boundTop = sprite.Height / 2;
+			boundWidth = sprite.Width;
+			boundHeight = sprite.Height;
 			base.LoadContent();
 		}
 
@@ -60,7 +54,17 @@ namespace tacocopterbase
 		// check collision method - static
 		public static bool AreColliding(Object a, Object b)
 		{
-			return false;
+			Rectangle aBox = new Rectangle(
+				(int)(a.State.Position.X + .2f*a.boundWidth),
+				(int)(a.State.Position.Y + .2f*a.boundHeight), 
+				(int)(a.boundWidth*.6f), 
+				(int)(a.boundHeight*.6f));
+			Rectangle bBox = new Rectangle(
+				(int)(b.State.Position.X + .2f * b.boundWidth),
+				(int)(b.State.Position.Y + .2f * b.boundHeight),
+				(int)(b.boundWidth * .6f),
+				(int)(b.boundHeight * .6f));
+			return Rectangle.Intersect(aBox, bBox) != Rectangle.Empty;
 		}
 	}
 }

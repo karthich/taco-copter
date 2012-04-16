@@ -34,7 +34,7 @@ namespace tacocopterbase
 
             //Draw the current health level based on the current Health
             batch.Draw(myTexture, new Rectangle((int)screenDims.X/2 - myTexture.Width / 2,
-                 30, (int)(myTexture.Width * ((double)p.currentHealth / 100)), 44),
+                 30, (int)(myTexture.Width * ((double)p.Health / 100)), 44),
                  new Rectangle(0, 45, myTexture.Width, 44), Color.Red);
 
             //Draw the box around the health bar
