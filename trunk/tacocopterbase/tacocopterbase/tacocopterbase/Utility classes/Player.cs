@@ -51,12 +51,15 @@ namespace tacocopterbase
 			if (youLose)
 			{
 				string endGame = "GAME OVER";
-				batch.DrawString(g.Content.Load<SpriteFont>("gameOver"), endGame, new Vector2(450, 50), Color.Blue);
+				batch.DrawString(g.Content.Load<SpriteFont>("gameOver"), endGame, new Vector2(450, 80), Color.Blue);
 			}
+            // draw customer satisfaction label
+            string health = "Customer Sastisfaction:";
+            batch.DrawString(g.Content.Load<SpriteFont>("playerScore"), health, new Vector2(410, 7), Color.Blue);
 
 			// draw the score
 			string score = "Profit: $" + Score.ToString();
-			batch.DrawString(g.Content.Load<SpriteFont>("Arial"), score, new Vector2(1000, 25), Color.Blue);
+			batch.DrawString(g.Content.Load<SpriteFont>("playerScore"), score, new Vector2(1000, 25), Color.Blue);
 			batch.End();
 
 			base.Draw(gameTime);
