@@ -33,6 +33,8 @@ namespace tacocopterbase {
 		protected override void LoadContent() 
 		{
 			SpriteTexture.Load(thisGame.Content, "gb_walk_left", 6, 4, new Vector2(1, 6));
+			origin = SpriteTexture.Origin;
+			Radius = SpriteTexture.Radius;
 		}
 
 		// draw the current frame given a ready SpriteBatch
