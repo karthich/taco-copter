@@ -83,7 +83,8 @@ namespace tacocopterbase
 			genState = new State2D(windowWidth + 50, windowHeight /* doesn't matter */, 0, 0, -800, 0, 0);
 			Components.Add(new BurritoGenerator<Burrito>(
 				(a, b) => new Burrito(a, b),
-				genState, 100f, 25, windowHeight - 200, this));
+				genState, 4f, 25, windowHeight - 200, this));
+
             
             //player class to hold score ---- very rudimentary
 			p1 = new Player(this);
@@ -123,7 +124,7 @@ namespace tacocopterbase
             myHealthBar.Load(GraphicsDevice, healthBar);
 
 			// load scrolling background
-            Texture2D backgroundTexture = Content.Load<Texture2D>("chic4");
+            Texture2D backgroundTexture = Content.Load<Texture2D>("chic3");
             pauseButton = Content.Load<Texture2D>("pause_button");
 
             myBackground.Load(GraphicsDevice, backgroundTexture);
@@ -158,7 +159,6 @@ namespace tacocopterbase
             // If the user hasn't paused, Update normally
             if (!paused)
             {
-
                 // Hit F to toggle fullscreen
                 if (k.IsKeyDown(Keys.F))
                     this.graphics.IsFullScreen = !this.graphics.IsFullScreen;
@@ -172,7 +172,7 @@ namespace tacocopterbase
                 p1.Health = (int)MathHelper.Clamp(p1.Health, 0, 100);
 
                 // Check for collisions and remove and unnecessary objects
-                //CheckCollisions();
+                CheckCollisions();
                 ClearOffscreenObjects();
 
                 base.Update(gameTime);

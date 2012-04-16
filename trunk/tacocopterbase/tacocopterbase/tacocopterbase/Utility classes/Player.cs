@@ -56,7 +56,7 @@ namespace tacocopterbase
 				batch.DrawString(g.Content.Load<SpriteFont>("gameOver"), endGame, new Vector2(450, 80), Color.Blue);
 			}
             // draw customer satisfaction label
-            string health = "Customer Sastisfaction:";
+            string health = "Customer Satisfaction:";
             batch.DrawString(g.Content.Load<SpriteFont>("playerScore"), health, new Vector2(410, 7), Color.Blue);
 
 			// draw the score
@@ -78,7 +78,7 @@ namespace tacocopterbase
 			{
 				youLose = false;
 				Score = 0;
-				g.Components.Add(new Tacocopter(new State2D(200, 200), g));
+				g.Components.Add(new Tacocopter(new State2D(400, 200), g));
 			}
 		}
     }

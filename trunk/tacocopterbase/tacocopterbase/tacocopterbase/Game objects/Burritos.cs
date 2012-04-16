@@ -21,7 +21,6 @@ namespace tacocopterbase
 		{
 			sprite = this.Game.Content.Load<Texture2D>("burritomissile");
 			base.LoadContent();
-			boundWidth = 50;
 		}
 	}
 }
