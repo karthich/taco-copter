@@ -69,7 +69,6 @@ namespace tacocopterbase
 				(a, b) => new Sidewalk(a, b),
 				genState, .1f, this));
 				genState, .1f, this));*/
-             */
 
 			// generate some generic people
 			genState = new State2D(windowWidth - 50, windowHeight - 63, 0, 0, -100, 0, 0);
