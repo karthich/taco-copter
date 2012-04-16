@@ -46,7 +46,7 @@ namespace tacocopterbase
 			graphics.PreferredBackBufferHeight = windowHeight;
 			graphics.PreferredBackBufferWidth = windowWidth;
 
-			//this.graphics.IsFullScreen = true;
+			
 
 			// show Mouse cursor for debugging
 			this.IsMouseVisible = true;
@@ -77,7 +77,7 @@ namespace tacocopterbase
 				genState, .1f, this));*/
 
 			// generate some generic people
-			genState = new State2D(windowWidth - 50, windowHeight - 63, 0, 0, -100, 0, 0);
+			genState = new State2D(windowWidth - 50, windowHeight - 45, 0, 0, -100, 0, 0);
 			Components.Add(new CustomerGenerator<Customer>(
 				(a, b) => new Customer(a, b),
 				genState, 1, 4, this));
