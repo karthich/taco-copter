@@ -119,7 +119,7 @@ namespace tacocopterbase
             myHealthBar.Load(GraphicsDevice, healthBar);
 
 			// load scrolling background
-            Texture2D backgroundTexture = Content.Load<Texture2D>("chic3");
+            Texture2D backgroundTexture = Content.Load<Texture2D>("chic4");
             pauseButton = Content.Load<Texture2D>("pause_button");
 
             myBackground.Load(GraphicsDevice, backgroundTexture);
