@@ -62,16 +62,17 @@ namespace tacocopterbase
 			Components.Add(new Tacocopter(new State2D(400, 200), this));
 
 			// generate some sidewalk
-			/*
-			genState = new State2D(windowWidth, windowHeight, 0, 0, -100, 0, 0);
+
+            /*
+			genState = new State2D(0, windowHeight, 0, 0, -100, 0, 0);
 			Components.Add(new ObjectGenerator<Sidewalk>(
 				(a, b) => new Sidewalk(a, b),
+				genState, .1f, this));
 				genState, .1f, this));*/
+             */
 
-            Components.Add(new Sidewalk(new State2D(0,windowHeight, 0, 0, 0, 0, 0), this));
-            
 			// generate some generic people
-			genState = new State2D(windowWidth, windowHeight - 47, 0, 0, -100, 0, 0);
+			genState = new State2D(windowWidth - 50, windowHeight - 63, 0, 0, -100, 0, 0);
 			Components.Add(new CustomerGenerator<Customer>(
 				(a, b) => new Customer(a, b),
 				genState, 1, 4, this));
@@ -81,9 +82,11 @@ namespace tacocopterbase
 			Components.Add(new BurritoGenerator<Burrito>(
 				(a, b) => new Burrito(a, b),
 				genState, 4f, 25, windowHeight - 100, this));
+            
+            //player class to hold score ---- very rudimentary
+            p1 = new Player();
 
-			//player class to hold score ---- very rudimentary
-			p1 = new Player();
+            myBackground = new ScrollingBackground();
 
 			myBackground = new ScrollingBackground();
 
@@ -117,8 +120,8 @@ namespace tacocopterbase
             healthBar = Content.Load<Texture2D>("HealthBar2");
 
 			// load scrolling background
-			Texture2D backgroundTexture = Content.Load<Texture2D>("chic2");
-			myBackground.Load(GraphicsDevice, backgroundTexture);
+            Texture2D backgroundTexture = Content.Load<Texture2D>("chic3");
+            myBackground.Load(GraphicsDevice, backgroundTexture);
 		}
 
 		/// <summary>
