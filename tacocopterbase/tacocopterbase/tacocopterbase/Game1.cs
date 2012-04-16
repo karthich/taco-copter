@@ -32,7 +32,7 @@ namespace tacocopterbase
         
 
 		// for drawing on screen
-		SpriteFont Arial;
+		SpriteFont textOnScreen;
 
 		const int windowHeight = 700, windowWidth = 1280;
 
@@ -50,7 +50,7 @@ namespace tacocopterbase
 
 			// show Mouse cursor for debugging
 			this.IsMouseVisible = true;
-
+            
 			// create an object with a person sprite moving left
 			// create an objectgenerator to test its functionality
 			// genState = new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -100, 0, 0);
@@ -123,7 +123,7 @@ namespace tacocopterbase
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			// load Arial font for writing on screen
-			Arial = Content.Load<SpriteFont>("Arial");
+			textOnScreen = Content.Load<SpriteFont>("Arial");
 
             Texture2D healthBar = Content.Load<Texture2D>("HealthBar2");
             myHealthBar.Load(GraphicsDevice, healthBar);
