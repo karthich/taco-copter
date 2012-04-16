@@ -30,7 +30,7 @@ namespace tacocopterbase
 		// draw the Object at State.Position with origin
 		public virtual void Draw(SpriteBatch batch, GameTime gametime) {
 			batch.Draw(sprite, State.Position, null, Color.White, 0,
-				origin, 0.3f, SpriteEffects.None, 0);
+				origin, 1f, SpriteEffects.None, 0);
 		}
 
 		// you MUST load a sprite before calling this parent function
@@ -55,16 +55,16 @@ namespace tacocopterbase
 		public static bool AreColliding(Object a, Object b)
 		{
 			Rectangle aBox = new Rectangle(
-				(int)(a.State.Position.X + .2f*a.boundWidth),
-				(int)(a.State.Position.Y + .2f*a.boundHeight), 
-				(int)(a.boundWidth*.6f), 
-				(int)(a.boundHeight*.6f));
+				(int)(a.State.Position.X /*+ .2f*a.boundWidth*/),
+				(int)(a.State.Position.Y /*+ .2f*a.boundHeight*/), 
+				(int)(a.boundWidth/**.6f*/), 
+				(int)(a.boundHeight/**.6f*/));
 			Rectangle bBox = new Rectangle(
-				(int)(b.State.Position.X + .2f * b.boundWidth),
-				(int)(b.State.Position.Y + .2f * b.boundHeight),
-				(int)(b.boundWidth * .6f),
-				(int)(b.boundHeight * .6f));
-			return Rectangle.Intersect(aBox, bBox) != Rectangle.Empty;
+				(int)(b.State.Position.X /*+ .2f*b.boundWidth*/),
+				(int)(b.State.Position.Y /*+ .2f*b.boundHeight*/),
+				(int)(b.boundWidth /** .6f*/),
+				(int)(b.boundHeight /** .6f*/));
+			return aBox.Intersects(bBox);
 		}
 	}
 }

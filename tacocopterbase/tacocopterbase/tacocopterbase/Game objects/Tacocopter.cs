@@ -9,7 +9,7 @@ using WindowsGame1;
 
 namespace tacocopterbase
 {
-	class Tacocopter : AnimatedObject
+	class Tacocopter : AnimatedObject 
 	{
 		private TimeSpan lastFire;
 		private int fireRate = 500;
@@ -21,7 +21,7 @@ namespace tacocopterbase
 		{
 			Speed = 300;
 		}
-
+		
 		protected override void LoadContent()
 		{
 			SpriteTexture.Load(thisGame.Content, "main_helicopter1", 5, 5, new Vector2(3, 2));
