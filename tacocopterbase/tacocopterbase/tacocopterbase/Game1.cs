@@ -18,9 +18,8 @@ namespace tacocopterbase
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		State2D genState;
-        Player p1;
+		Player p1;
         Texture2D healthBar;
-
 
         ScrollingBackground myBackground;
         bool youLose = false;
@@ -29,19 +28,19 @@ namespace tacocopterbase
 		// for drawing on screen
 		SpriteFont Arial;
 
-     
 		const int windowHeight = 700, windowWidth = 1280;
 
 		/** this is the place we will declare the object classes**/
 
-		public Game1() {
+		public Game1()
+		{
 			// set screen Size
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
 			graphics.PreferredBackBufferHeight = windowHeight;
 			graphics.PreferredBackBufferWidth = windowWidth;
 
-            //this.graphics.IsFullScreen = true;
+			//this.graphics.IsFullScreen = true;
 
 			// show Mouse cursor for debugging
 			this.IsMouseVisible = true;
@@ -58,20 +57,21 @@ namespace tacocopterbase
 				(a, b) => new Object(a, b),
 				genState, 0.2f, this));
 			*/
-			
+
 			// add a Tacocopter for the player to manipulate
 			Components.Add(new Tacocopter(new State2D(400, 200), this));
 
 			// generate some sidewalk
-			/*genState = new State2D(windowWidth/2, windowHeight/2, 0, 0, -100, 0, 0);
+			/*
+			genState = new State2D(windowWidth, windowHeight, 0, 0, -100, 0, 0);
 			Components.Add(new ObjectGenerator<Sidewalk>(
 				(a, b) => new Sidewalk(a, b),
 				genState, .1f, this));*/
+
             Components.Add(new Sidewalk(new State2D(0,windowHeight, 0, 0, 0, 0, 0), this));
             
-
 			// generate some generic people
-			genState = new State2D(windowWidth - 50, windowHeight - 47, 0, 0, -100, 0, 0);
+			genState = new State2D(windowWidth, windowHeight - 47, 0, 0, -100, 0, 0);
 			Components.Add(new CustomerGenerator<Customer>(
 				(a, b) => new Customer(a, b),
 				genState, 1, 4, this));
@@ -81,11 +81,11 @@ namespace tacocopterbase
 			Components.Add(new BurritoGenerator<Burrito>(
 				(a, b) => new Burrito(a, b),
 				genState, 4f, 25, windowHeight - 100, this));
-            
-            //player class to hold score ---- very rudimentary
-            p1 = new Player();
 
-            myBackground = new ScrollingBackground();
+			//player class to hold score ---- very rudimentary
+			p1 = new Player();
+
+			myBackground = new ScrollingBackground();
 
 		}
 
@@ -96,7 +96,8 @@ namespace tacocopterbase
 		/// related content.  Calling base.Initialize will enumerate through any components
 		/// and initialize them as well.
 		/// </summary>
-		protected override void Initialize() {
+		protected override void Initialize()
+		{
 			// TODO: Add your initialization logic here
 
 			base.Initialize();
@@ -106,7 +107,8 @@ namespace tacocopterbase
 		/// LoadContent will be called once per game and is the place to load
 		/// all of your content.
 		/// </summary>
-		protected override void LoadContent() {
+		protected override void LoadContent()
+		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -115,15 +117,16 @@ namespace tacocopterbase
             healthBar = Content.Load<Texture2D>("HealthBar2");
 
 			// load scrolling background
-            Texture2D backgroundTexture = Content.Load<Texture2D>("chic2");
-            myBackground.Load(GraphicsDevice, backgroundTexture);
+			Texture2D backgroundTexture = Content.Load<Texture2D>("chic2");
+			myBackground.Load(GraphicsDevice, backgroundTexture);
 		}
 
 		/// <summary>
 		/// UnloadContent will be called once per game and is the place to unload
 		/// all content.
 		/// </summary>
-		protected override void UnloadContent() {
+		protected override void UnloadContent()
+		{
 			// TODO: Unload any non ContentManager content here
 		}
 
@@ -132,14 +135,18 @@ namespace tacocopterbase
 		/// checking for collisions, gathering input, and playing audio.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		protected override void Update(GameTime gameTime) {
+		protected override void Update(GameTime gameTime)
+		{
 			// Allows the game to exit
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 				this.Exit();
+
             KeyboardState k = Keyboard.GetState();
 
             if (k.IsKeyDown(Keys.F)) 
             this.graphics.IsFullScreen = !this.graphics.IsFullScreen;
+
+
 
             /*if (k.IsKeyDown(Keys.Up) == true)
             {
@@ -155,10 +162,10 @@ namespace tacocopterbase
             // The time since Update was called last.
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            myBackground.Update(elapsed * 50);
+			myBackground.Update(elapsed * 50);
 
-            // Check for collisions and remove and unnecessary objects
-            CheckCollisions();
+			// Check for collisions and remove and unnecessary objects
+			CheckCollisions();
 			ClearOffscreenObjects();
 
 			base.Update(gameTime);
@@ -168,12 +175,13 @@ namespace tacocopterbase
 		/// This is called when the game should draw itself.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		protected override void Draw(GameTime gameTime) {
+		protected override void Draw(GameTime gameTime)
+		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			// is this a kludge?
 			spriteBatch.Begin();
-            myBackground.Draw(spriteBatch);
+			myBackground.Draw(spriteBatch);
 
             spriteBatch.Draw(healthBar, new Rectangle(this.Window.ClientBounds.Width / 2 - healthBar.Width / 2,
 
@@ -192,14 +200,14 @@ namespace tacocopterbase
             
 
 			// draw the game over condition
-            if (youLose)
-            {
-                string endGame = "GAME OVER";
-                spriteBatch.DrawString(Content.Load<SpriteFont>("gameOver"), endGame, new Vector2(450, 50), Color.Blue);
-            }
-            string score =  "Profit: $" + p1.score.ToString();
-            spriteBatch.DrawString(Content.Load<SpriteFont>("playerScore"), score, new Vector2(1000, 25), Color.Blue);
-            
+			if (youLose)
+			{
+				string endGame = "GAME OVER";
+				spriteBatch.DrawString(Content.Load<SpriteFont>("gameOver"), endGame, new Vector2(450, 50), Color.Blue);
+			}
+			string score = "Profit: $" + p1.score.ToString();
+			spriteBatch.DrawString(Content.Load<SpriteFont>("playerScore"), score, new Vector2(1000, 25), Color.Blue);
+
 
 			Object o;
 			foreach (var c in Components)
@@ -213,20 +221,24 @@ namespace tacocopterbase
 			spriteBatch.End();
 
 			// TODO: Add your drawing code here
-		base.Draw(gameTime);
+			base.Draw(gameTime);
 		}
 
 		// destroy offscreen objects
-		private void ClearOffscreenObjects() {
+		private void ClearOffscreenObjects()
+		{
 			Object o;
 			var toRemove = new List<Object>();
-			foreach (var c in Components) {
+			foreach (var c in Components)
+			{
 				o = c as Object;
-				if (o != null) {
+				if (o != null)
+				{
 					if (o.State.Position.X < -100 ||
 						o.State.Position.X > windowWidth + 200 ||
 						o.State.Position.Y < -100 ||
-						o.State.Position.Y > windowHeight + 100) {
+						o.State.Position.Y > windowHeight + 100)
+					{
 						toRemove.Add(o);
 					}
 				}
@@ -235,63 +247,56 @@ namespace tacocopterbase
 				Components.Remove(r);
 		}
 
-        private void CheckCollisions()
-        {
-            Object o, p;
-            Taco ct;
-            Customer cc;
-            Tacocopter tc;
-            Burrito br;
-            var toRemove = new List<Object>();
-            foreach (var c in Components)
-            {
-                o = c as Object;
-                if (o != null)
-                {
-                    foreach (var d in Components)
-                    {
-                        p = d as Object;
-                        if (d != null)
-                        {
-                            ct = o as Taco;
-                            cc = p as Customer;
-                            if (ct != null && cc != null)
-                            {
-                                if (Object.AreColliding(ct, cc))
-                                {
-                                    p1.score++;
-                                    toRemove.Add(ct);
-                                    toRemove.Add(cc);
-                                }
-                            }
+		private void CheckCollisions()
+		{
+			Object o, p;
+			Taco ct;
+			Customer cc;
+			Tacocopter tc;
+			Burrito br;
+			var toRemove = new List<Object>();
+			foreach (var c in Components)
+			{
+				o = c as Object;
+				if (o != null)
+				{
+					foreach (var d in Components)
+					{
+						p = d as Object;
+						if (d != null)
+						{
+							ct = o as Taco;
+							cc = p as Customer;
+							if (ct != null && cc != null)
+							{
+								if (Object.AreColliding(ct, cc))
+								{
+									p1.score++;
+									toRemove.Add(ct);
+									toRemove.Add(cc);
+								}
+							}
 
-                            br = o as Burrito;
-                            tc = p as Tacocopter;
+							br = o as Burrito;
+							tc = p as Tacocopter;
+							if (br != null && tc != null)
+							{
+								if (Object.AreColliding(br, tc))
+								{
+									toRemove.Add(tc);
+									toRemove.Add(br);
+									youLose = true;
+								}
+							}
+						}
+					}
+				}
+			}
 
-                            
-
-                            if (br != null && tc != null)
-                            {
-
-                                if (Vector2.Distance(br.State.Position, tc.State.Position) < 20)
-
-                                if (Object.AreColliding(br, tc))
-
-                                {
-                                    toRemove.Add(tc);
-                                    toRemove.Add(br);
-                                    youLose = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            
-            foreach (Object r in toRemove)
-                Components.Remove(r);
-            
-        }
+			foreach (var obj in toRemove)
+			{
+				Components.Remove(obj);
+			}
+		}
 	}
 }

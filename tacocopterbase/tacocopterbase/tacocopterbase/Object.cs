@@ -15,7 +15,7 @@ namespace tacocopterbase
 		protected SpriteBatch spriteBatch { get; set; }
 		protected Vector2 origin;
 		protected Game thisGame;
-		public Rectangle Box { get; set; } // the bounding box
+		protected int Radius; // for collisions
 
 		public Object(Game g) : base(g) {
 			State = new State2D();
@@ -42,8 +42,9 @@ namespace tacocopterbase
 		}
 
 		protected override void LoadContent() {
-			sprite = thisGame.Content.Load<Texture2D>("black_box"); // the default sprite
-			origin = new Vector2(sprite.Height, sprite.Width) / 2;
+			//sprite = thisGame.Content.Load<Texture2D>("black_box"); // the default sprite
+			origin = new Vector2(sprite.Width, sprite.Height) / 2;
+			Radius = (int)((sprite.Height + sprite.Width) / 7f);
 			base.LoadContent();
 		}
 
@@ -54,16 +55,13 @@ namespace tacocopterbase
 			State.Position += State.Velocity * timeInterval;
 			State.Velocity += State.Acceleration * timeInterval;
 			// bounding box handling is pretty inefficient
-			Box = new Rectangle((int)(State.Position.X + origin.X / 5),
-				(int)(State.Position.Y + origin.Y / 5),
-				(int)(origin.X * 1.6f), (int)(origin.Y * 1.6f));
 			base.Update(gameTime);
 		}
 
 		// check collision method - static
 		public static bool AreColliding(Object a, Object b)
 		{
-			return Rectangle.Intersect(a.Box, b.Box) != Rectangle.Empty;
+			return Vector2.Distance(a.State.Position + a.origin, b.State.Position + b.origin) < (a.Radius + b.Radius);
 		}
 	}
 
@@ -88,7 +86,8 @@ namespace tacocopterbase
 		protected override void LoadContent()
 		{
 			SpriteTexture.Load(thisGame.Content, "main_helicopter", 5, 5, new Vector2(3, 2));
-			origin = new Vector2(90, 100);
+			origin = SpriteTexture.Origin;
+			Radius = SpriteTexture.Radius;
 		}
 
 		protected void FireTaco(GameTime gameTime)
@@ -170,7 +169,8 @@ namespace tacocopterbase
 
 		protected override void LoadContent() {
 			sprite = this.Game.Content.Load<Texture2D>("taco-sprite");
-			origin = new Vector2(sprite.Height / 2, sprite.Width / 2);
+			//origin = new Vector2(sprite.Height / 2, sprite.Width / 2);
+			base.LoadContent();
 		}
 
 		public override void Update(GameTime gameTime) {
@@ -192,7 +192,7 @@ namespace tacocopterbase
 		protected override void LoadContent() 
 		{
 			sprite = this.Game.Content.Load<Texture2D>("burritomissile");
-			origin = new Vector2(sprite.Height / 2, sprite.Width / 2);
+			base.LoadContent();
 		}
 	}
 }
