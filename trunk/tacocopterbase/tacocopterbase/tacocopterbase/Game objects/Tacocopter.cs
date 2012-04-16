@@ -66,19 +66,19 @@ namespace tacocopterbase
 			KeyboardState k = Keyboard.GetState();
 			Vector2 nextVelocity = new Vector2(0, 0);
 
-			if (k.IsKeyDown(Keys.Left) && State.Position.X > 20)
+			if (k.IsKeyDown(Keys.Left) && State.Position.X > 100)
 			{
 				nextVelocity.X += -Speed;
 			}
-			if (k.IsKeyDown(Keys.Right) && State.Position.X < 950)
+			if (k.IsKeyDown(Keys.Right) && State.Position.X < 960)
 			{
 				nextVelocity.X += Speed;
 			}
-			if (k.IsKeyDown(Keys.Up) && State.Position.Y > 10)
+			if (k.IsKeyDown(Keys.Up) && State.Position.Y > 140)
 			{
 				nextVelocity.Y += -Speed;
 			}
-			if (k.IsKeyDown(Keys.Down) && State.Position.Y < 360)
+			if (k.IsKeyDown(Keys.Down) && State.Position.Y < 500)
 			{
 				nextVelocity.Y += Speed;
 			}
