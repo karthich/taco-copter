@@ -22,6 +22,10 @@ namespace tacocopterbase
         public ScrollingBackground myBackground;
         Texture2D pauseButton;
 
+        private bool paused = false;
+        private bool pauseKeyDown = false;
+        private bool pausedForGuide = false;
+
         HealthBar myHealthBar;
 
 		// for drawing on screen
@@ -141,28 +145,38 @@ namespace tacocopterbase
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
+
+            KeyboardState k = Keyboard.GetState();
+
 			// Allows the game to exit
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 				this.Exit();
 
-			// Hit F to toggle fullscreen
-            KeyboardState k = Keyboard.GetState();
-            if (k.IsKeyDown(Keys.F)) 
-				this.graphics.IsFullScreen = !this.graphics.IsFullScreen;
-			if (k.IsKeyDown(Keys.R))
-				p1.UnLose();
+            checkPauseKey(k);
 
-			// scroll the background
-			myBackground.Update((float)gameTime.ElapsedGameTime.TotalSeconds * 50);
+            
+            // If the user hasn't paused, Update normally
+            if (!paused)
+            {
 
-			// update player's health
-            p1.Health = (int)MathHelper.Clamp(p1.Health, 0, 100);
+                // Hit F to toggle fullscreen
+                if (k.IsKeyDown(Keys.F))
+                    this.graphics.IsFullScreen = !this.graphics.IsFullScreen;
+                if (k.IsKeyDown(Keys.R))
+                    p1.UnLose();
 
-			// Check for collisions and remove and unnecessary objects
-			//CheckCollisions();
-			ClearOffscreenObjects();
+                // scroll the background
+                myBackground.Update((float)gameTime.ElapsedGameTime.TotalSeconds * 50);
 
-			base.Update(gameTime);
+                // update player's health
+                p1.Health = (int)MathHelper.Clamp(p1.Health, 0, 100);
+
+                // Check for collisions and remove and unnecessary objects
+                //CheckCollisions();
+                ClearOffscreenObjects();
+
+                base.Update(gameTime);
+            }
 		}
 
 		/// <summary>
@@ -274,5 +288,33 @@ namespace tacocopterbase
 				Components.Remove(obj);
 			}
 		}
+        
+        private void BeginPause(bool UserInitiated)
+        {
+            paused = true;
+            pausedForGuide = !UserInitiated;
+        }
+
+        private void EndPause()
+        {
+            pausedForGuide = false;
+            paused = false;
+        }
+
+        private void checkPauseKey(KeyboardState keyboardState)
+        {
+            bool pauseKeyDownThisFrame = (keyboardState.IsKeyDown(Keys.P));
+            // If key was not down before, but is down now, we toggle the
+            // pause setting
+            if (!pauseKeyDown && pauseKeyDownThisFrame)
+            {
+                if (!paused)
+                    BeginPause(true);
+                else
+                    EndPause();
+            }
+            pauseKeyDown = pauseKeyDownThisFrame;
+        }
+       
 	}
 }
