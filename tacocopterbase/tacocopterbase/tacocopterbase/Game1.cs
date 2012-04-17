@@ -206,6 +206,8 @@ namespace tacocopterbase
 				enemy.Interval *= 0.99935f;
 				basiccustomers.IntervalMin *= 0.9999f;
 				basiccustomers.IntervalMax *= 0.9999f;
+				fastcustomers.IntervalMin *= 0.9999f;
+				fastcustomers.IntervalMax *= 0.9999f;
 			
 				// If the user hasn't paused, Update normally
 				if (!paused)
@@ -222,6 +224,8 @@ namespace tacocopterbase
 						enemy.Interval = 4f;
 						basiccustomers.IntervalMin = 1f;
 						basiccustomers.IntervalMax = 4f;
+						fastcustomers.IntervalMin = 1f;
+						fastcustomers.IntervalMax = 4f;
 						ClearGame();
 						this.ResetElapsedTime();
 						Components.Add(new Tacocopter(new State2D(400, 200), this));
