@@ -172,6 +172,7 @@ namespace tacocopterbase
             {
                 Init();
                 mainMenuisRunning = false;
+                firstTime = false;
             }
 
             if(!mainMenuisRunning)
@@ -221,7 +222,7 @@ namespace tacocopterbase
                     p1.Health = (int)MathHelper.Clamp(p1.Health, 0, 100);
 
                     // Check for collisions and remove and unnecessary objects
-                    //CheckCollisions();
+                    CheckCollisions();
                     ClearOffscreenObjects();
 
                     base.Update(gameTime);
