@@ -100,7 +100,7 @@ namespace tacocopterbase
 			genState = new State2D(windowWidth + 50, windowHeight /* doesn't matter */, 0, 0, -800, 0, 0);
 			enemy = new BurritoGenerator<Burrito>(
 				(a, b) => new Burrito(a, b),
-				genState, 4f, 140, windowHeight - 220, this);
+				genState, 3f, 140, windowHeight - 220, this);
 			Components.Add(enemy);
 
 			// no fast customers at start
