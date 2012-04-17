@@ -231,7 +231,7 @@ namespace tacocopterbase
 
 					base.Update(gameTime);
 
-					if (p1.Score < 0)
+					if (p1.Score < 0 || p1.Health == 0 || p1.youLose)
 					{
 						p1.Lose();
 						ClearGame();
