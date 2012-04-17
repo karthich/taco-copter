@@ -18,9 +18,11 @@ namespace tacocopterbase
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		State2D genState;
-		Player p1;
+		public Player p1;
         public ScrollingBackground myBackground;
         Texture2D pauseButton;
+
+        BurritoGenerator<Burrito> enemy;
 
         private bool paused = false;
         private bool pauseKeyDown = false;
@@ -81,9 +83,11 @@ namespace tacocopterbase
 
 			// test out Burrito missiles
 			genState = new State2D(windowWidth + 50, windowHeight /* doesn't matter */, 0, 0, -800, 0, 0);
-			Components.Add(new BurritoGenerator<Burrito>(
+			enemy = new BurritoGenerator<Burrito>(
 				(a, b) => new Burrito(a, b),
-				genState, 4f, 25, windowHeight - 200, this));
+				genState, 4f, 25, windowHeight - 200, this);
+
+            Components.Add(enemy);
 
             
             //player class to hold score ---- very rudimentary
@@ -155,6 +159,7 @@ namespace tacocopterbase
 
             checkPauseKey(k);
 
+            enemy.Interval = enemy.Interval * 0.9999f;
             
             // If the user hasn't paused, Update normally
             if (!paused)

@@ -101,6 +101,8 @@ namespace tacocopterbase
 				tacos.Add(taco);
 				Game.Components.Add(taco);
 
+                p1.Score = p1.Score - 1;
+
 				lastFire = gameTime.TotalGameTime;
 			}
 		}
