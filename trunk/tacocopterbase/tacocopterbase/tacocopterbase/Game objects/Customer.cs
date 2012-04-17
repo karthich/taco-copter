@@ -30,12 +30,6 @@ namespace tacocopterbase {
 			base.LoadContent();
 		}
 
-		public override void Update(GameTime gameTime)
-		{
-			
-			base.Update(gameTime);
-		}
-
 		public Object CollideWith(Object obj)
 		{
 			var taco = obj as Taco;
@@ -44,10 +38,21 @@ namespace tacocopterbase {
 				Satisfied = true;
 				return new SpeechBubble(
 					new State2D(State.Position + new Vector2(25, -62),
-						new Vector2(0, 0), State.Velocity, 0), 500,
+						new Vector2(0, 0), State.Velocity, 0), 1,
 						"CHOMP", thisGame);
 			}
 			return null;
+		}
+	}
+
+	class FastCustomer : Customer
+	{
+		public FastCustomer(State2D s, Game g) : base(s, g) { }
+
+		protected override void LoadContent()
+		{
+			base.LoadContent();
+			SpriteTexture.Load(thisGame.Content, "fastcustomer1", 8, 8, new Vector2(1, 8));
 		}
 	}
 }

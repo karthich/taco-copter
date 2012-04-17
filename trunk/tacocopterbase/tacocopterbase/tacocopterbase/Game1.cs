@@ -27,6 +27,7 @@ namespace tacocopterbase
 
 		BurritoGenerator<Burrito> enemy;
 		CustomerGenerator<Customer> basiccustomers;
+		CustomerGenerator<FastCustomer> fastcustomers;
 
 		private bool paused = false;
 		private bool pauseKeyDown = false;
@@ -102,6 +103,13 @@ namespace tacocopterbase
 				genState, 4f, 140, windowHeight - 220, this);
 			Components.Add(enemy);
 
+			// no fast customers at start
+			fastcustomers = null;
+			genState = new State2D(windowWidth, windowHeight - 45, 0, 0, -220, 0, 0);
+			fastcustomers = new CustomerGenerator<FastCustomer>(
+				(a, b) => new FastCustomer(a, b),
+				genState, 1, 4, this);
+			Components.Add(fastcustomers);
 
 			//player class to hold score ---- very rudimentary
 			p1 = new Player(this);
@@ -191,6 +199,16 @@ namespace tacocopterbase
 				enemy.Interval *= 0.99935f;
 				basiccustomers.IntervalMin *= 0.99995f;
 				basiccustomers.IntervalMax *= 0.99995f;
+
+				// add fast customers 12 seconds into game
+				if (gameTime.TotalGameTime.TotalMinutes > 12 && fastcustomers == null)
+				{
+					genState = new State2D(windowWidth, windowHeight - 45, 0, 0, -220, 0, 0);
+					fastcustomers = new CustomerGenerator<FastCustomer>(
+						(a, b) => new FastCustomer(a, b),
+						genState, 1, 4, this);
+					Components.Add(fastcustomers);
+				}
 			
 				// If the user hasn't paused, Update normally
 				if (!paused)
@@ -208,6 +226,7 @@ namespace tacocopterbase
 						basiccustomers.IntervalMin = 1f;
 						basiccustomers.IntervalMax = 4f;
 						ClearGame();
+						this.ResetElapsedTime();
 						Components.Add(new Tacocopter(new State2D(400, 200), this));
 
 					}
@@ -230,7 +249,7 @@ namespace tacocopterbase
 					ClearOffscreenObjects();
 
 					base.Update(gameTime);
-
+					
 					if (p1.Score < 0 || p1.Health == 0 || p1.youLose)
 					{
 						p1.Lose();
@@ -360,7 +379,8 @@ namespace tacocopterbase
 							{
 								if (Object.AreColliding(ct, cc) && cc.Satisfied == false)
 								{
-									p1.Score = p1.Score + 3;
+									p1.Score += 3;
+									p1.Health += 5;
 									toRemove.Add(ct);
 									toAdd.Add(cc.CollideWith(ct));
 								}
