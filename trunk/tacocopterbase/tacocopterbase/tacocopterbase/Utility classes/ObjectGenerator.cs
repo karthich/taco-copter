@@ -100,10 +100,10 @@ namespace tacocopterbase {
 		// TODO: fix this so there's no risk of overflow
 		public override void Update(GameTime gameTime) 
 		{
-			counter += (float)gameTime.ElapsedGameTime.TotalSeconds;
+			counter += (float)(gameTime.ElapsedGameTime.TotalSeconds);
 			if (counter > generateTime)
 			{
-				var stateCopy = GenState.Copy();
+			    var stateCopy = GenState.Copy();
 				// change the Position.Y of this State2D to 
 				// random y where minY <= y <= maxY
 				stateCopy.Position = new Vector2(GenState.Position.X, random.Next(minY, maxY));
@@ -111,7 +111,7 @@ namespace tacocopterbase {
 
 				// don't generate at regular intervals
 				float newInterval = Interval * ((float)random.NextDouble() + .5f);
-				generateTime += newInterval;
+				generateTime = newInterval;
 				counter = 0;
 			}
 			base.Update(gameTime);
