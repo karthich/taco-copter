@@ -96,6 +96,7 @@ namespace tacocopterbase
                 (a, b) => new Burrito(a, b),
                 genState, 4f, 140, windowHeight - 220, this);
 
+
             Components.Add(enemy);
 
 
@@ -204,7 +205,7 @@ namespace tacocopterbase
                 p1.Health = (int)MathHelper.Clamp(p1.Health, 0, 100);
 
                 // Check for collisions and remove and unnecessary objects
-                CheckCollisions();
+                //CheckCollisions();
                 ClearOffscreenObjects();
 
                 base.Update(gameTime);

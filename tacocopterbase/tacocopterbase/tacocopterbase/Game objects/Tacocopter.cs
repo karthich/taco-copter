@@ -20,7 +20,7 @@ namespace tacocopterbase
 			: base(s, g)
 		{
             State = s;
-			Speed = 300;
+			Speed = 500;
 		}
 		
 		protected override void LoadContent()
@@ -67,25 +67,40 @@ namespace tacocopterbase
 		public override void Update(GameTime gameTime)
 		{
 			KeyboardState k = Keyboard.GetState();
-			Vector2 nextVelocity = new Vector2(0, 0);
+			Vector2 nextAcc = new Vector2(0, 0);
+			Vector2 nextVelocity = new Vector2(State.Velocity.X, State.Velocity.Y);
 
-			if (k.IsKeyDown(Keys.Left) && State.Position.X > 100)
+			if (k.IsKeyDown(Keys.Left))
 			{
-				nextVelocity.X += -Speed;
+				nextAcc.X += -Speed/2;
+				nextVelocity.X += -Speed / 20;
 			}
-			if (k.IsKeyDown(Keys.Right) && State.Position.X < 960)
+			if (k.IsKeyDown(Keys.Right))
 			{
-				nextVelocity.X += Speed;
+				nextAcc.X += Speed/2;
+				nextVelocity.X += Speed / 20;
 			}
-			if (k.IsKeyDown(Keys.Up) && State.Position.Y > 140)
+			if (k.IsKeyDown(Keys.Up))
 			{
-				nextVelocity.Y += -Speed;
+				nextAcc.Y += -Speed/2;
+				nextVelocity.Y += -Speed / 20;
 			}
-			if (k.IsKeyDown(Keys.Down) && State.Position.Y < 500)
+			if (k.IsKeyDown(Keys.Down))
 			{
-				nextVelocity.Y += Speed;
+				nextAcc.Y += Speed/2;
+				nextVelocity.Y += Speed / 20;
 			}
+
+			State.Acceleration = nextAcc;
 			State.Velocity = nextVelocity;
+
+			nextVelocity = new Vector2(State.Velocity.X, State.Velocity.Y);
+			if (Math.Abs(State.Velocity.X) > Speed)
+				nextVelocity.X = State.Velocity.X / Math.Abs(State.Velocity.X) * Speed;
+			if (Math.Abs(State.Velocity.Y) > Speed)
+				nextVelocity.Y = State.Velocity.Y / Math.Abs(State.Velocity.Y) * Speed;
+			State.Velocity = nextVelocity;
+
 			if (k.IsKeyDown(Keys.Space))
 			{
 				FireTaco(gameTime);
@@ -94,7 +109,34 @@ namespace tacocopterbase
 			// delete offscreen tacos
 			CheckTacos();
 
+			// update position
 			base.Update(gameTime);
+
+			// constrain position
+			Vector2 nextPosition = new Vector2(State.Position.X, State.Position.Y);
+			nextVelocity = new Vector2(State.Velocity.X, State.Velocity.Y);
+			if (State.Position.X < 100)
+			{
+				nextPosition.X = 100;
+				nextVelocity.X = 0;
+			}
+			if (State.Position.X > 960)
+			{
+				nextPosition.X = 960;
+				nextVelocity.X = 0;
+			}
+			if (State.Position.Y < 140)
+			{
+				nextPosition.Y = 140;
+				nextVelocity.Y = 0;
+			}
+			if (State.Position.Y > 500)
+			{
+				nextPosition.Y = 500;
+				nextVelocity.Y = 0;
+			}
+			State.Position = nextPosition;
+			State.Velocity = nextVelocity;
 		}
 	}
 }

@@ -54,6 +54,18 @@ namespace tacocopterbase
 		// check collision method - static
 		public static bool AreColliding(Object a, Object b)
 		{
+			/*
+			Rectangle aBox = new Rectangle(
+				(int)(a.State.Position.X),
+				(int)(a.State.Position.Y), 
+				(int)(a.boundWidth), 
+				(int)(a.boundHeight));
+			Rectangle bBox = new Rectangle(
+				(int)(b.State.Position.X),
+				(int)(b.State.Position.Y),
+				(int)(b.boundWidth),
+				(int)(b.boundHeight));
+			return aBox.Intersects(bBox);*/
             return Vector2.Distance(a.State.Position, b.State.Position) < 30;
 		}
 	}
