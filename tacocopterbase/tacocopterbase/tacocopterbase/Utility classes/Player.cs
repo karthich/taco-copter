@@ -24,7 +24,6 @@ namespace tacocopterbase
 			g = game;
 			youLose = false;
             Health = 100;
-            CustomerSatisfaction = 0;
 		}
 
 		public override void Initialize()
@@ -81,7 +80,7 @@ namespace tacocopterbase
 			{
 				youLose = false;
 				Score = 10;
-				g.Components.Add(new Tacocopter(new State2D(400, 200), g));
+				
 			}
 		}
     }

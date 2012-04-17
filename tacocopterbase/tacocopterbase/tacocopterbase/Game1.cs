@@ -184,10 +184,11 @@ namespace tacocopterbase
                 if (k.IsKeyDown(Keys.R))
                 {
                     p1.UnLose();
+                    p1.Score = 10;
                     p1.Health = 100;
                     enemy.Interval = 4f;
                     ClearGame();
-                    p1.Score = 10;
+                    Components.Add(new Tacocopter(new State2D(400, 200), this));
 
                 }
                 if (k.IsKeyDown(Keys.Space))
