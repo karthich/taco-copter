@@ -101,8 +101,6 @@ namespace tacocopterbase
 				tacos.Add(taco);
 				Game.Components.Add(taco);
 
-                p1.Score = p1.Score - 1;
-
 				lastFire = gameTime.TotalGameTime;
 			}
 		}
@@ -127,7 +125,7 @@ namespace tacocopterbase
 			SpriteTexture.DrawFrame(batch, State.Position);
 		}
 
-		public override void Update(GameTime gameTime, Player p1) {
+		public override void Update(GameTime gameTime) {
 
 			KeyboardState k = Keyboard.GetState();
 			Vector2 nextVelocity = new Vector2(0,0);
@@ -149,6 +147,7 @@ namespace tacocopterbase
 
 			if (k.IsKeyDown(Keys.Space)){
 				FireTaco(gameTime);
+                
 			}
 
 			float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;

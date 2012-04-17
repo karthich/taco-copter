@@ -22,6 +22,9 @@ namespace tacocopterbase
         public ScrollingBackground myBackground;
         Texture2D pauseButton;
 
+        private TimeSpan lastFire;
+        private int firerate = 500;
+
         BurritoGenerator<Burrito> enemy;
 
         private bool paused = false;
@@ -41,6 +44,7 @@ namespace tacocopterbase
 		/// </summary>
 		public Game1()
 		{
+            
 			// set screen Size
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
@@ -101,6 +105,7 @@ namespace tacocopterbase
 
             myHealthBar = new HealthBar();
             myBackground = new ScrollingBackground();
+            p1.Score = 10;
         }
 
 
@@ -179,18 +184,17 @@ namespace tacocopterbase
                 {
                     p1.UnLose();
                     enemy.Interval = 4f;
-                    Object o;
-                    List<Object> toRemove = new List<Object>();
-                    foreach (var c in Components)
-                    {
-                        o  = c as Object;
-                        if (o != null)
-                        { toRemove.Add(o); }
-                    }
-                    foreach (Object r in toRemove)
-                        Components.Remove(r);
+                    ClearGame();
                     Components.Add(new Tacocopter(new State2D(400, 200), this));
 
+                }
+                if (k.IsKeyDown(Keys.Space))
+                {
+                    if (gameTime.TotalGameTime.Subtract(lastFire).TotalMilliseconds >= firerate)
+                    {
+                        p1.Score = p1.Score - 1;
+                        lastFire = gameTime.TotalGameTime;
+                    }
                 }
                 // scroll the background
                 myBackground.Update((float)gameTime.ElapsedGameTime.TotalSeconds * 50);
@@ -199,10 +203,16 @@ namespace tacocopterbase
                 p1.Health = (int)MathHelper.Clamp(p1.Health, 0, 100);
 
                 // Check for collisions and remove and unnecessary objects
-                //CheckCollisions();
+                CheckCollisions();
                 ClearOffscreenObjects();
 
                 base.Update(gameTime);
+
+                if (p1.Score < 0)
+                {
+                    p1.Lose();
+                    ClearGame();   
+                }
             }
 		}
 
@@ -236,12 +246,28 @@ namespace tacocopterbase
 			base.Draw(gameTime);
 		}
 
+        private void ClearGame()
+            // Clears the game of all objects
+        {
+            Object o;
+            List<Object> toRemove = new List<Object>();
+            foreach (var c in Components)
+            {
+                o = c as Object;
+                if (o != null)
+                { toRemove.Add(o); }
+            }
+            foreach (Object r in toRemove)
+                Components.Remove(r);
+        }
+
 		/// <summary>
 		/// Destroy offscreen objects
 		/// </summary>
 		private void ClearOffscreenObjects()
 		{
 			Object o;
+            Customer fail;
 			var toRemove = new List<Object>();
 			foreach (var c in Components)
 			{
@@ -254,6 +280,12 @@ namespace tacocopterbase
 						o.State.Position.Y > windowHeight + 100)
 					{
 						toRemove.Add(o);
+                        fail = o as Customer;
+                        if (fail != null)
+                        {
+                            p1.Health = p1.Health - 10;
+                        }
+
 					}
 				}
 			}
