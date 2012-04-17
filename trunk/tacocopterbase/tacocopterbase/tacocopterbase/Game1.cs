@@ -372,8 +372,7 @@ namespace tacocopterbase
 								if (Object.AreColliding(ct, cc) && cc.Satisfied == false)
 								{
 									p1.Score += 3;
-									if (p1.Health < 100)
-										p1.Health += 5;
+								    p1.Health += 2;
 									toRemove.Add(ct);
 									toAdd.Add(cc.CollideWith(ct));
 								}

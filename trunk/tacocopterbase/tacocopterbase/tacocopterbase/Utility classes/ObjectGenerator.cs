@@ -153,7 +153,7 @@ namespace tacocopterbase {
 		// TODO: fix this so there's no risk of overflow
 		public override void Update(GameTime gameTime)
 		{
-			counter += (float)gameTime.ElapsedGameTime.TotalSeconds;
+			counter += (float)(gameTime.ElapsedGameTime.TotalSeconds*3);
 			if (counter > generateTime)
 			{
 				thisGame.Components.Add(factory(GenState.Copy(), thisGame));
