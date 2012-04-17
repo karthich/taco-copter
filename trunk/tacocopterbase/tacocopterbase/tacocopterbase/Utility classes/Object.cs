@@ -66,7 +66,9 @@ namespace tacocopterbase
 				(int)(b.boundWidth),
 				(int)(b.boundHeight));
 			return aBox.Intersects(bBox);*/
-            return Vector2.Distance(a.State.Position, b.State.Position) < 30;
+			float aRadius = Math.Min(a.boundHeight, a.boundWidth)/1.6f;
+			float bRadius = Math.Min(b.boundWidth, b.boundHeight)/1.6f;
+			return Vector2.Distance(a.State.Position, b.State.Position) < (aRadius + bRadius);
 		}
 	}
 }

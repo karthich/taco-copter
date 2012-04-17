@@ -19,34 +19,34 @@ namespace tacocopterbase
 		SpriteBatch spriteBatch;
 		State2D genState;
 		public Player p1;
-        public ScrollingBackground myBackground;
-        Texture2D pauseButton;
-        Texture2D mainMenu;
-        private TimeSpan lastFire;
-        private int firerate = 500;
-        GameTime t;
-        BurritoGenerator<Burrito> enemy;
+		public ScrollingBackground myBackground;
+		Texture2D pauseButton;
+		Texture2D mainMenu;
+		private TimeSpan lastFire;
+		private int firerate = 500;
+
+		BurritoGenerator<Burrito> enemy;
 		CustomerGenerator<Customer> basiccustomers;
 
-        private bool paused = false;
-        private bool pauseKeyDown = false;
-        private bool pausedForGuide = false;
+		private bool paused = false;
+		private bool pauseKeyDown = false;
+		private bool pausedForGuide = false;
 
-        HealthBar myHealthBar;
+		HealthBar myHealthBar;
 
 		// for drawing on screen
 		SpriteFont Arial;
 
 		// define game dimensions
 		const int windowHeight = 700, windowWidth = 1280;
-        private bool mainMenuisRunning;
-        private bool firstTime = true;
+		private bool mainMenuisRunning;
+		private bool firstTime = true;
 		/// <summary>
 		/// 
 		/// </summary>
 		public Game1()
 		{
-            
+			
 			// set screen Size
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
@@ -54,67 +54,66 @@ namespace tacocopterbase
 			graphics.PreferredBackBufferWidth = windowWidth;
 
 			//this.graphics.IsFullScreen = true;
-            myHealthBar = new HealthBar();
-            myBackground = new ScrollingBackground();
+			myHealthBar = new HealthBar();
+			myBackground = new ScrollingBackground();
 			// show Mouse cursor for debugging
 			this.IsMouseVisible = true;
-            mainMenuisRunning = true;
-            t = new GameTime();
-            if(!mainMenuisRunning)
-            Init(); 
+			mainMenuisRunning = true;
+			if(!mainMenuisRunning)
+			Init(); 
 		}
 
-        private void Init()
-        {
-            // create an object with a person sprite moving left
-            // create an objectgenerator to test its functionality
-            // genState = new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -100, 0, 0);
+		private void Init()
+		{
+			// create an object with a person sprite moving left
+			// create an objectgenerator to test its functionality
+			// genState = new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -100, 0, 0);
 
-            // to use an ObjectGenerator, you must show it how to 
-            // use the constructor for the type T that you want to generate
-            // e.g. (a, b) => new Object(a, b) [shown below]
-            /*
-            Components.Add(new ObjectGenerator<Object>(
-                (a, b) => new Object(a, b),
-                genState, 0.2f, this));
-            */
+			// to use an ObjectGenerator, you must show it how to 
+			// use the constructor for the type T that you want to generate
+			// e.g. (a, b) => new Object(a, b) [shown below]
+			/*
+			Components.Add(new ObjectGenerator<Object>(
+				(a, b) => new Object(a, b),
+				genState, 0.2f, this));
+			*/
 
-            // add a Tacocopter for the player to manipulate
-            Components.Add(new Tacocopter(new State2D(400, 200), this));
+			// add a Tacocopter for the player to manipulate
+			Components.Add(new Tacocopter(new State2D(400, 200), this));
 
-            // generate some sidewalk
-            /*genState = new State2D(0, windowHeight, 0, 0, -100, 0, 0);
+			// generate some sidewalk
+			/*genState = new State2D(0, windowHeight, 0, 0, -100, 0, 0);
 			Components.Add(new ObjectGenerator<Sidewalk>(
 				(a, b) => new Sidewalk(a, b),
 				genState, .1f, this));
 				genState, .1f, this));*/
 
-            // generate some generic people
-            genState = new State2D(windowWidth, windowHeight - 45, 0, 0, -120, 0, 0);
-            basiccustomers = new CustomerGenerator<Customer>(
-                (a, b) => new Customer(a, b),
-                genState, 1, 4, this);
+			// generate some generic people
+			genState = new State2D(windowWidth, windowHeight - 45, 0, 0, -120, 0, 0);
+			basiccustomers = new CustomerGenerator<Customer>(
+				(a, b) => new Customer(a, b),
+				genState, 1, 4, this);
 			Components.Add(basiccustomers);
 
-            // test out Burrito missiles
-            genState = new State2D(windowWidth + 50, windowHeight /* doesn't matter */, 0, 0, -800, 0, 0);
-            enemy = new BurritoGenerator<Burrito>(
-                (a, b) => new Burrito(a, b),
-                genState, 4f, 140, windowHeight - 220, this);
-            Components.Add(enemy);
+			// test out Burrito missiles
+			genState = new State2D(windowWidth + 50, windowHeight /* doesn't matter */, 0, 0, -800, 0, 0);
+			enemy = new BurritoGenerator<Burrito>(
+				(a, b) => new Burrito(a, b),
+				genState, 4f, 140, windowHeight - 220, this);
+			Components.Add(enemy);
 
 
-            //player class to hold score ---- very rudimentary
-            p1 = new Player(this);
-            Components.Add(p1);
+			//player class to hold score ---- very rudimentary
+			p1 = new Player(this);
+			Components.Add(p1);
 
-            
-            p1.Score = 10;
-        }
+			
+			p1.Score = 10;
+		}
 
 
 
-        
+		
 
 		/// <summary>
 		/// Allows the game to perform any initialization it needs to before starting to run.
@@ -141,15 +140,15 @@ namespace tacocopterbase
 			// load Arial font for writing on screen
 			Arial = Content.Load<SpriteFont>("Arial");
 
-            Texture2D healthBar = Content.Load<Texture2D>("HealthBar2");
-            myHealthBar.Load(GraphicsDevice, healthBar);
+			Texture2D healthBar = Content.Load<Texture2D>("HealthBar2");
+			myHealthBar.Load(GraphicsDevice, healthBar);
 
 			// load scrolling background
-            Texture2D backgroundTexture = Content.Load<Texture2D>("chic4");
-            pauseButton = Content.Load<Texture2D>("pause_button");
-            mainMenu = Content.Load<Texture2D>("main_menu");
+			Texture2D backgroundTexture = Content.Load<Texture2D>("chic4");
+			pauseButton = Content.Load<Texture2D>("pause_button");
+			mainMenu = Content.Load<Texture2D>("main_menu");
 
-            myBackground.Load(GraphicsDevice, backgroundTexture);
+			myBackground.Load(GraphicsDevice, backgroundTexture);
 		}
 
 		/// <summary>
@@ -169,78 +168,77 @@ namespace tacocopterbase
 		protected override void Update(GameTime gameTime)
 		{
 
-            KeyboardState key = Keyboard.GetState();
-            if (key.IsKeyDown(Keys.N)&&mainMenuisRunning && firstTime)
-            {
-                Init();
-                mainMenuisRunning = false;
-                firstTime = false;
-                
-            }
+			KeyboardState key = Keyboard.GetState();
+			if (key.IsKeyDown(Keys.N)&&mainMenuisRunning && firstTime)
+			{
+				Init();
+				mainMenuisRunning = false;
+				firstTime = false;
+			}
 
-            if(!mainMenuisRunning)
-            {
-                    KeyboardState k = Keyboard.GetState();
+			if(!mainMenuisRunning)
+			{
+				KeyboardState k = Keyboard.GetState();
 
-			    // Allows the game to exit
-			    if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-				    this.Exit();
+				// Allows the game to exit
+				if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+					this.Exit();
 
-			    // pause game with P
-                checkPauseKey(k);
+				// pause game with P
+				checkPauseKey(k);
 
-			    // scale the difficulty
-                enemy.Interval *= 0.99935f;
-			    basiccustomers.IntervalMin *= 0.9999f;
-			    basiccustomers.IntervalMax *= 0.9999f;
-            
-                // If the user hasn't paused, Update normally
-                if (!paused)
-                {
+				// scale the difficulty
+				enemy.Interval *= 0.99935f;
+				basiccustomers.IntervalMin *= 0.99995f;
+				basiccustomers.IntervalMax *= 0.99995f;
+			
+				// If the user hasn't paused, Update normally
+				if (!paused)
+				{
 
-                    // Hit F to toggle fullscreen
-                    if (k.IsKeyDown(Keys.F))
-                        this.graphics.IsFullScreen = !this.graphics.IsFullScreen;
-                    if (k.IsKeyDown(Keys.R))
-                    {
-                        p1.UnLose();
-                        p1.Score = 10;
-                        p1.Health = 100;
-                        enemy.Interval = 4f;
+					// Hit F to toggle fullscreen
+					if (k.IsKeyDown(Keys.F))
+						this.graphics.IsFullScreen = !this.graphics.IsFullScreen;
+					if (k.IsKeyDown(Keys.R))
+					{
+						p1.UnLose();
+						p1.Score = 10;
+						p1.Health = 100;
+						enemy.Interval = 4f;
 						basiccustomers.IntervalMin = 1f;
 						basiccustomers.IntervalMax = 4f;
-                        ClearGame();
-                        Components.Add(new Tacocopter(new State2D(400, 200), this));
+						ClearGame();
+						Components.Add(new Tacocopter(new State2D(400, 200), this));
 
-                    }
-                    if (k.IsKeyDown(Keys.Space))
-                    {
-                        if (gameTime.TotalGameTime.Subtract(lastFire).TotalMilliseconds >= firerate)
-                        {
-                            p1.Score = p1.Score - 1;
-                            lastFire = gameTime.TotalGameTime;
-                        }
-                    }
-                    // scroll the background
-                    myBackground.Update((float)gameTime.ElapsedGameTime.TotalSeconds * 50);
+					}
+					if (k.IsKeyDown(Keys.Space))
+					{
+						if (gameTime.TotalGameTime.Subtract(lastFire).TotalMilliseconds >= firerate)
+						{
+							p1.Score = p1.Score - 1;
+							lastFire = gameTime.TotalGameTime;
+						}
+					}
+					// scroll the background
+					myBackground.Update((float)gameTime.ElapsedGameTime.TotalSeconds * 50);
 
-                    // update player's health
-                    p1.Health = (int)MathHelper.Clamp(p1.Health, 0, 100);
+					// update player's health
+					p1.Health = (int)MathHelper.Clamp(p1.Health, 0, 100);
 
-                    // Check for collisions and remove and unnecessary objects
-                    CheckCollisions();
-                    ClearOffscreenObjects();
+					// Check for collisions and remove and unnecessary objects
+					CheckCollisions();
+					ClearOffscreenObjects();
 
-                    base.Update(gameTime);
+					base.Update(gameTime);
 
-                    if (p1.Score < 0 || p1.Health == 0 || p1.youLose)
-                    {
-                        p1.Lose();
-                        ClearGame();
-                    }
-                }
+					if (p1.Score < 0)
+					{
+						p1.Lose();
+						ClearGame();
+					}
+				}
 
-            }
+			}
 		}
 
 		/// <summary>
@@ -253,25 +251,25 @@ namespace tacocopterbase
 
 			//  Begin sprite batch ------------------------------
 			spriteBatch.Begin();
-                if (mainMenuisRunning)
-                    spriteBatch.Draw(mainMenu, new Rectangle(0, 0, windowWidth,windowHeight), Color.White);
+				if (mainMenuisRunning)
+					spriteBatch.Draw(mainMenu, new Rectangle(0, 0, windowWidth,windowHeight), Color.White);
 
-            
-                if (!mainMenuisRunning)
-                {
-                    // draw the scrolling background first
-                    myBackground.Draw(spriteBatch);
+			
+				if (!mainMenuisRunning)
+				{
+					// draw the scrolling background first
+					myBackground.Draw(spriteBatch);
 
-                    Object o;
-                    foreach (var c in Components)
-                    {
-                        o = c as Object;
-                        if (o != null)
-                        {
-                            o.Draw(spriteBatch, gameTime);
-                        }
-                    } 
-                }
+					Object o;
+					foreach (var c in Components)
+					{
+						o = c as Object;
+						if (o != null)
+						{
+							o.Draw(spriteBatch, gameTime);
+						}
+					} 
+				}
 			spriteBatch.End();
 			// End sprite batch -------------------------------
 
@@ -279,20 +277,20 @@ namespace tacocopterbase
 			base.Draw(gameTime);
 		}
 
-        public void ClearGame()
-            // Clears the game of all objects
-        {
-            Object o;
-            List<Object> toRemove = new List<Object>();
-            foreach (var c in Components)
-            {
-                o = c as Object;
-                if (o != null)
-                { toRemove.Add(o); }
-            }
-            foreach (Object r in toRemove)
-                Components.Remove(r);
-        }
+		public void ClearGame()
+			// Clears the game of all objects
+		{
+			Object o;
+			List<Object> toRemove = new List<Object>();
+			foreach (var c in Components)
+			{
+				o = c as Object;
+				if (o != null)
+				{ toRemove.Add(o); }
+			}
+			foreach (Object r in toRemove)
+				Components.Remove(r);
+		}
 
 		/// <summary>
 		/// Destroy offscreen objects and old particles.
@@ -300,7 +298,7 @@ namespace tacocopterbase
 		private void ClearOffscreenObjects()
 		{
 			Object o;
-            Customer fail;
+			Customer fail;
 			Particle p;
 			var toRemove = new List<Object>();
 			foreach (var c in Components)
@@ -314,11 +312,11 @@ namespace tacocopterbase
 						o.State.Position.Y > windowHeight + 100)
 					{
 						toRemove.Add(o);
-                        fail = o as Customer;
-                        if (fail != null && fail.Satisfied == false)
-                        {
-                            p1.Health = p1.Health - 10;
-                        }
+						fail = o as Customer;
+						if (fail != null && fail.Satisfied == false)
+						{
+							p1.Health = p1.Health - 10;
+						}
 
 						p = c as Particle;
 						if (p != null)
@@ -376,8 +374,7 @@ namespace tacocopterbase
 								{
 									toRemove.Add(tc);
 									toRemove.Add(br);
-                                    p1.Lose();
-                                    
+									p1.Lose();
 								}
 							}
 						}
@@ -395,33 +392,33 @@ namespace tacocopterbase
 				Components.Add(obj);
 			}
 		}
-        
-        private void BeginPause(bool UserInitiated)
-        {
-            paused = true;
-            pausedForGuide = !UserInitiated;
-        }
+		
+		private void BeginPause(bool UserInitiated)
+		{
+			paused = true;
+			pausedForGuide = !UserInitiated;
+		}
 
-        private void EndPause()
-        {
-            pausedForGuide = false;
-            paused = false;
-        }
+		private void EndPause()
+		{
+			pausedForGuide = false;
+			paused = false;
+		}
 
-        private void checkPauseKey(KeyboardState keyboardState)
-        {
-            bool pauseKeyDownThisFrame = (keyboardState.IsKeyDown(Keys.P));
-            // If key was not down before, but is down now, we toggle the
-            // pause setting
-            if (!pauseKeyDown && pauseKeyDownThisFrame)
-            {
-                if (!paused)
-                    BeginPause(true);
-                else
-                    EndPause();
-            }
-            pauseKeyDown = pauseKeyDownThisFrame;
-        }
-       
+		private void checkPauseKey(KeyboardState keyboardState)
+		{
+			bool pauseKeyDownThisFrame = (keyboardState.IsKeyDown(Keys.P));
+			// If key was not down before, but is down now, we toggle the
+			// pause setting
+			if (!pauseKeyDown && pauseKeyDownThisFrame)
+			{
+				if (!paused)
+					BeginPause(true);
+				else
+					EndPause();
+			}
+			pauseKeyDown = pauseKeyDownThisFrame;
+		}
+	   
 	}
 }
