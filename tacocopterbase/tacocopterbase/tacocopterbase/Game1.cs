@@ -26,6 +26,9 @@ namespace tacocopterbase
 		private TimeSpan lastFire;
 		private int firerate = 500;
 
+		Song gameMusic;
+		Song menuMusic;
+
 		BurritoGenerator<Burrito> enemy;
 		CustomerGenerator<Customer> basiccustomers;
 		CustomerGenerator<FastCustomer> fastcustomers;
@@ -114,8 +117,6 @@ namespace tacocopterbase
 			//player class to hold score ---- very rudimentary
 			p1 = new Player(this);
 			Components.Add(p1);
-
-			
 			p1.Score = 10;
 		}
 
@@ -132,7 +133,6 @@ namespace tacocopterbase
 		protected override void Initialize()
 		{
 			// TODO: Add your initialization logic here
-
 			base.Initialize();
 		}
 
@@ -155,6 +155,10 @@ namespace tacocopterbase
 			Texture2D backgroundTexture = Content.Load<Texture2D>("chic4");
 			pauseButton = Content.Load<Texture2D>("pause_button");
 			mainMenu = Content.Load<Texture2D>("main_menu");
+
+			gameMusic = Content.Load<Song>("Wayback");
+			menuMusic = Content.Load<Song>("Jenka");
+			MediaPlayer.Play(menuMusic);
 
 			myBackground.Load(GraphicsDevice, backgroundTexture);
 		}
@@ -183,7 +187,8 @@ namespace tacocopterbase
 				mainMenuisRunning = false;
 				firstTime = false;
                 paused = false;
-                
+				MediaPlayer.Stop();
+				MediaPlayer.Play(gameMusic);
 			}
 
 			if(!mainMenuisRunning)
@@ -220,7 +225,6 @@ namespace tacocopterbase
 						ClearGame();
 						this.ResetElapsedTime();
 						Components.Add(new Tacocopter(new State2D(400, 200), this));
-
 					}
 					if (k.IsKeyDown(Keys.Space))
 					{
@@ -279,7 +283,11 @@ namespace tacocopterbase
 						{
 							o.Draw(spriteBatch, gameTime);
 						}
-					} 
+					}
+					// draw pause indicator if paused
+					if (paused)
+						spriteBatch.DrawString(Content.Load<SpriteFont>("gameOver"), "    Game paused.\nPress \"P\" to resume.",
+							new Vector2(250, 150), Color.Black);
 				}
 			spriteBatch.End();
 			// End sprite batch -------------------------------
