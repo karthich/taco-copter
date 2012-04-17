@@ -8,37 +8,15 @@ using WindowsGame1;
 
 namespace tacocopterbase
 {
-	class Particle : DrawableGameComponent
+	class Particle : Object
 	{
-		protected State2D State;
-        protected AnimatedTexture SpriteTexture;
-		protected Game thisGame;
+		private float BirthTime;
+		private float LifeTime;
 
-		public Particle(State2D s, Game g) : base(g)
+		public Particle(State2D s, float time, Game g)
+			: base(s, g)
 		{
-			State = s;
-			thisGame = g;
-        }
-
-		// load a generic particle animation (explosion)
-		protected override void LoadContent() 
-		{
-			SpriteTexture = new AnimatedTexture(0, 0.5f, 0.5f);
-			SpriteTexture.Load(thisGame.Content, "generic_explosion", 12, 5, new Vector2(4, 3));
+			LifeTime = time;
 		}
-
-		// draw the current frame given a ready SpriteBatch
-		public void Draw(SpriteBatch batch, GameTime gameTime)
-		{
-			SpriteTexture.DrawFrame(batch, State.Position);
-		}
-
-		// update the frame number
-        public override void Update(GameTime gameTime)
-        {
-            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            SpriteTexture.UpdateFrame(elapsed);
-            base.Update(gameTime);
-        }
 	}
 }

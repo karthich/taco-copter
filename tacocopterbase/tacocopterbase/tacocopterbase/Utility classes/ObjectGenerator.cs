@@ -121,8 +121,8 @@ namespace tacocopterbase {
 		where T : IGameComponent
 	{
 		private Func<State2D, Game, T> factory;
-		protected float IntervalMin;
-		protected float IntervalMax;
+		public float IntervalMin;
+		public float IntervalMax;
 		protected State2D GenState;
 		protected Game thisGame;
 		private float generateTime;
