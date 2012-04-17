@@ -80,7 +80,7 @@ namespace tacocopterbase
 			if (youLose)
 			{
 				youLose = false;
-				Score = 0;
+				Score = 10;
 				g.Components.Add(new Tacocopter(new State2D(400, 200), g));
 			}
 		}

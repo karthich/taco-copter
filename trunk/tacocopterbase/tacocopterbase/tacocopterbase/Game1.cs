@@ -186,7 +186,7 @@ namespace tacocopterbase
                     p1.Health = 100;
                     enemy.Interval = 4f;
                     ClearGame();
-                    Components.Add(new Tacocopter(new State2D(400, 200), this));
+                    p1.Score = 10;
 
                 }
                 if (k.IsKeyDown(Keys.Space))
@@ -212,9 +212,6 @@ namespace tacocopterbase
                 if (p1.Score < 0)
                 {
                     p1.Lose(); 
-                }
-                if (p1.youLose)
-                {
                     ClearGame();
                 }
 
