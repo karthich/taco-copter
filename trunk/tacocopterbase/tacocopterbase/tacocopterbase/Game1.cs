@@ -24,7 +24,7 @@ namespace tacocopterbase
         Texture2D mainMenu;
         private TimeSpan lastFire;
         private int firerate = 500;
-
+        GameTime t;
         BurritoGenerator<Burrito> enemy;
 		CustomerGenerator<Customer> basiccustomers;
 
@@ -59,6 +59,7 @@ namespace tacocopterbase
 			// show Mouse cursor for debugging
 			this.IsMouseVisible = true;
             mainMenuisRunning = true;
+            t = new GameTime();
             if(!mainMenuisRunning)
             Init(); 
 		}
@@ -174,6 +175,7 @@ namespace tacocopterbase
                 Init();
                 mainMenuisRunning = false;
                 firstTime = false;
+                
             }
 
             if(!mainMenuisRunning)
