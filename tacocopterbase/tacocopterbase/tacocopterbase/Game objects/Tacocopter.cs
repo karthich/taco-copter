@@ -26,6 +26,7 @@ namespace tacocopterbase
 		protected override void LoadContent()
 		{
 			SpriteTexture.Load(thisGame.Content, "main_helicopter1", 5, 5, new Vector2(3, 2));
+            
 			base.LoadContent();
 		}
 
