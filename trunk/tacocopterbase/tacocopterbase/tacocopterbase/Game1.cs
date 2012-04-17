@@ -52,52 +52,60 @@ namespace tacocopterbase
 			// show Mouse cursor for debugging
 			this.IsMouseVisible = true;
 
-			// create an object with a person sprite moving left
-			// create an objectgenerator to test its functionality
-			// genState = new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -100, 0, 0);
+            Init();
+		}
 
-			// to use an ObjectGenerator, you must show it how to 
-			// use the constructor for the type T that you want to generate
-			// e.g. (a, b) => new Object(a, b) [shown below]
-			/*
-			Components.Add(new ObjectGenerator<Object>(
-				(a, b) => new Object(a, b),
-				genState, 0.2f, this));
-			*/
+        private void Init()
+        {
+            // create an object with a person sprite moving left
+            // create an objectgenerator to test its functionality
+            // genState = new State2D(windowWidth - 100, windowHeight - 100, 0, 0, -100, 0, 0);
 
-			// add a Tacocopter for the player to manipulate
-			Components.Add(new Tacocopter(new State2D(400, 200), this));
+            // to use an ObjectGenerator, you must show it how to 
+            // use the constructor for the type T that you want to generate
+            // e.g. (a, b) => new Object(a, b) [shown below]
+            /*
+            Components.Add(new ObjectGenerator<Object>(
+                (a, b) => new Object(a, b),
+                genState, 0.2f, this));
+            */
 
-			// generate some sidewalk
+            // add a Tacocopter for the player to manipulate
+            Components.Add(new Tacocopter(new State2D(400, 200), this));
+
+            // generate some sidewalk
             /*genState = new State2D(0, windowHeight, 0, 0, -100, 0, 0);
 			Components.Add(new ObjectGenerator<Sidewalk>(
 				(a, b) => new Sidewalk(a, b),
 				genState, .1f, this));
 				genState, .1f, this));*/
 
-			// generate some generic people
-			genState = new State2D(windowWidth, windowHeight - 50, 0, 0, -100, 0, 0);
-			Components.Add(new CustomerGenerator<Customer>(
-				(a, b) => new Customer(a, b),
-				genState, 1, 4, this));
+            // generate some generic people
+            genState = new State2D(windowWidth, windowHeight - 50, 0, 0, -100, 0, 0);
+            Components.Add(new CustomerGenerator<Customer>(
+                (a, b) => new Customer(a, b),
+                genState, 1, 4, this));
 
-			// test out Burrito missiles
-			genState = new State2D(windowWidth + 50, windowHeight /* doesn't matter */, 0, 0, -800, 0, 0);
-			enemy = new BurritoGenerator<Burrito>(
-				(a, b) => new Burrito(a, b),
-				genState, 4f, 25, windowHeight - 200, this);
+            // test out Burrito missiles
+            genState = new State2D(windowWidth + 50, windowHeight /* doesn't matter */, 0, 0, -800, 0, 0);
+            enemy = new BurritoGenerator<Burrito>(
+                (a, b) => new Burrito(a, b),
+                genState, 4f, 25, windowHeight - 200, this);
 
             Components.Add(enemy);
 
-            
+
             //player class to hold score ---- very rudimentary
-			p1 = new Player(this);
-			Components.Add(p1);
+            p1 = new Player(this);
+            Components.Add(p1);
 
             myHealthBar = new HealthBar();
-			myBackground = new ScrollingBackground();
-		}
+            myBackground = new ScrollingBackground();
+        }
 
+
+
+        
 
 		/// <summary>
 		/// Allows the game to perform any initialization it needs to before starting to run.
@@ -168,8 +176,22 @@ namespace tacocopterbase
                 if (k.IsKeyDown(Keys.F))
                     this.graphics.IsFullScreen = !this.graphics.IsFullScreen;
                 if (k.IsKeyDown(Keys.R))
+                {
                     p1.UnLose();
+                    enemy.Interval = 4f;
+                    Object o;
+                    List<Object> toRemove = new List<Object>();
+                    foreach (var c in Components)
+                    {
+                        o  = c as Object;
+                        if (o != null)
+                        { toRemove.Add(o); }
+                    }
+                    foreach (Object r in toRemove)
+                        Components.Remove(r);
+                    Components.Add(new Tacocopter(new State2D(400, 200), this));
 
+                }
                 // scroll the background
                 myBackground.Update((float)gameTime.ElapsedGameTime.TotalSeconds * 50);
 
@@ -177,7 +199,7 @@ namespace tacocopterbase
                 p1.Health = (int)MathHelper.Clamp(p1.Health, 0, 100);
 
                 // Check for collisions and remove and unnecessary objects
-                CheckCollisions();
+                //CheckCollisions();
                 ClearOffscreenObjects();
 
                 base.Update(gameTime);
