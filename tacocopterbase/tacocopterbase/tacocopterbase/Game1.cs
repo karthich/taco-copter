@@ -105,7 +105,7 @@ namespace tacocopterbase
 
 			// no fast customers at start
 			fastcustomers = null;
-			genState = new State2D(windowWidth, windowHeight - 45, 0, 0, -220, 0, 0);
+			genState = new State2D(windowWidth, windowHeight - 40, 0, 0, -250, 0, 0);
 			fastcustomers = new CustomerGenerator<FastCustomer>(
 				(a, b) => new FastCustomer(a, b),
 				genState, 1, 4, this);
@@ -199,18 +199,8 @@ namespace tacocopterbase
 
 				// scale the difficulty
 				enemy.Interval *= 0.99935f;
-				basiccustomers.IntervalMin *= 0.99995f;
-				basiccustomers.IntervalMax *= 0.99995f;
-
-				// add fast customers 12 seconds into game
-				if (gameTime.TotalGameTime.TotalMinutes > 12 && fastcustomers == null)
-				{
-					genState = new State2D(windowWidth, windowHeight - 45, 0, 0, -220, 0, 0);
-					fastcustomers = new CustomerGenerator<FastCustomer>(
-						(a, b) => new FastCustomer(a, b),
-						genState, 1, 4, this);
-					Components.Add(fastcustomers);
-				}
+				basiccustomers.IntervalMin *= 0.9999f;
+				basiccustomers.IntervalMax *= 0.9999f;
 			
 				// If the user hasn't paused, Update normally
 				if (!paused)
@@ -382,7 +372,8 @@ namespace tacocopterbase
 								if (Object.AreColliding(ct, cc) && cc.Satisfied == false)
 								{
 									p1.Score += 3;
-									p1.Health += 5;
+									if (p1.Health < 100)
+										p1.Health += 5;
 									toRemove.Add(ct);
 									toAdd.Add(cc.CollideWith(ct));
 								}

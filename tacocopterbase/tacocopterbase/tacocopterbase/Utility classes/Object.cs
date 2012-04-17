@@ -68,9 +68,7 @@ namespace tacocopterbase
 			return aBox.Intersects(bBox);*/
             Object tco = a as Taco;
             Object ct = b as Customer;
-
             if (tco != null && ct != null)
-            {
                 //Purely Hardcoded shit dont touch
                 Vector2 offset1 = new Vector2(40/ 2, 22/ 2);
                 Vector2 a_prime = a.State.Position - offset1;
@@ -78,11 +76,10 @@ namespace tacocopterbase
                 Vector2 offset2 = new Vector2(52/ 2, 75/ 2);
                 Vector2 b_prime = b.State.Position;
                 return Vector2.Distance(a_prime, b_prime) < 50;
-            }
+
             Object br = a as Burrito;
             Object tc = b as Tacocopter;
             if (br != null && tc != null)
-            {
                 //Purely Hardcoded shit dont touch
                 //Vector2 offset1 = new Vector2(225 / 2, 143/ 2);
                 Vector2 a_prime = a.State.Position;//- offset1;
@@ -91,7 +88,7 @@ namespace tacocopterbase
                 Vector2 b_prime = b.State.Position - offset2;
 
                 return Vector2.Distance(a_prime, b_prime) < 80;
-            }
+
             return false;
 			
 		}

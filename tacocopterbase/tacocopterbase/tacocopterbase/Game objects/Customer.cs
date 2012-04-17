@@ -52,7 +52,7 @@ namespace tacocopterbase {
 		protected override void LoadContent()
 		{
 			base.LoadContent();
-			SpriteTexture.Load(thisGame.Content, "fastcustomer1", 8, 8, new Vector2(1, 8));
+			SpriteTexture.Load(thisGame.Content, "fastcustomer", 16, 30, new Vector2(1, 16));
 		}
 	}
 }
