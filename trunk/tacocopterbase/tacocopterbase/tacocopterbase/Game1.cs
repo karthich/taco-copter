@@ -26,6 +26,7 @@ namespace tacocopterbase
         private int firerate = 500;
 
         BurritoGenerator<Burrito> enemy;
+		CustomerGenerator<Customer> basiccustomers;
 
         private bool paused = false;
         private bool pauseKeyDown = false;
@@ -85,18 +86,17 @@ namespace tacocopterbase
 				genState, .1f, this));*/
 
             // generate some generic people
-            genState = new State2D(windowWidth, windowHeight - 50, 0, 0, -180, 0, 0);
-            Components.Add(new CustomerGenerator<Customer>(
+            genState = new State2D(windowWidth, windowHeight - 45, 0, 0, -120, 0, 0);
+            basiccustomers = new CustomerGenerator<Customer>(
                 (a, b) => new Customer(a, b),
-                genState, 1, 4, this));
+                genState, 1, 4, this);
+			Components.Add(basiccustomers);
 
             // test out Burrito missiles
             genState = new State2D(windowWidth + 50, windowHeight /* doesn't matter */, 0, 0, -800, 0, 0);
             enemy = new BurritoGenerator<Burrito>(
                 (a, b) => new Burrito(a, b),
                 genState, 4f, 140, windowHeight - 220, this);
-
-
             Components.Add(enemy);
 
 
@@ -171,9 +171,13 @@ namespace tacocopterbase
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 				this.Exit();
 
+			// pause game with P
             checkPauseKey(k);
 
-            enemy.Interval = enemy.Interval * 0.99935f;
+			// scale the difficulty
+            enemy.Interval *= 0.99935f;
+			basiccustomers.IntervalMin *= 0.99935f;
+			basiccustomers.IntervalMax *= 0.99935f;
             
             // If the user hasn't paused, Update normally
             if (!paused)

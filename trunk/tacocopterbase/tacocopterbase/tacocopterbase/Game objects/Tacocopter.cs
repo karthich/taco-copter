@@ -20,7 +20,7 @@ namespace tacocopterbase
 			: base(s, g)
 		{
             State = s;
-			Speed = 500;
+			Speed = 400;
 		}
 		
 		protected override void LoadContent()
