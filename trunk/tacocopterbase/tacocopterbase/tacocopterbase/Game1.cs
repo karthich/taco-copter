@@ -189,8 +189,8 @@ namespace tacocopterbase
 
 			    // scale the difficulty
                 enemy.Interval *= 0.99935f;
-			    basiccustomers.IntervalMin *= 0.99935f;
-			    basiccustomers.IntervalMax *= 0.99935f;
+			    basiccustomers.IntervalMin *= 0.9999f;
+			    basiccustomers.IntervalMax *= 0.9999f;
             
                 // If the user hasn't paused, Update normally
                 if (!paused)
@@ -231,7 +231,7 @@ namespace tacocopterbase
 
                     base.Update(gameTime);
 
-                    if (p1.Score < 0)
+                    if (p1.Score < 0 || p1.Health == 0 || p1.youLose)
                     {
                         p1.Lose();
                         ClearGame();
