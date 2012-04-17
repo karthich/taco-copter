@@ -167,6 +167,7 @@ namespace tacocopterbase
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
+
             KeyboardState key = Keyboard.GetState();
             if (key.IsKeyDown(Keys.N)&&mainMenuisRunning && firstTime)
             {
@@ -194,6 +195,7 @@ namespace tacocopterbase
                 // If the user hasn't paused, Update normally
                 if (!paused)
                 {
+
                     // Hit F to toggle fullscreen
                     if (k.IsKeyDown(Keys.F))
                         this.graphics.IsFullScreen = !this.graphics.IsFullScreen;
@@ -203,6 +205,8 @@ namespace tacocopterbase
                         p1.Score = 10;
                         p1.Health = 100;
                         enemy.Interval = 4f;
+						basiccustomers.IntervalMin = 1f;
+						basiccustomers.IntervalMax = 4f;
                         ClearGame();
                         Components.Add(new Tacocopter(new State2D(400, 200), this));
 
@@ -289,12 +293,13 @@ namespace tacocopterbase
         }
 
 		/// <summary>
-		/// Destroy offscreen objects
+		/// Destroy offscreen objects and old particles.
 		/// </summary>
 		private void ClearOffscreenObjects()
 		{
 			Object o;
             Customer fail;
+			Particle p;
 			var toRemove = new List<Object>();
 			foreach (var c in Components)
 			{
@@ -308,13 +313,20 @@ namespace tacocopterbase
 					{
 						toRemove.Add(o);
                         fail = o as Customer;
-                        if (fail != null)
+                        if (fail != null && fail.Satisfied == false)
                         {
                             p1.Health = p1.Health - 10;
                         }
 
+						p = c as Particle;
+						if (p != null)
+						{
+							if (p.DestroyThis)
+								toRemove.Add(p);
+						}
 					}
 				}
+
 			}
 			foreach (Object r in toRemove)
 				Components.Remove(r);
@@ -331,6 +343,7 @@ namespace tacocopterbase
 			Tacocopter tc;
 			Burrito br;
 			var toRemove = new List<Object>();
+			var toAdd = new List<Object>();
 			foreach (var c in Components)
 			{
 				o = c as Object;
@@ -345,11 +358,11 @@ namespace tacocopterbase
 							cc = p as Customer;
 							if (ct != null && cc != null)
 							{
-								if (Object.AreColliding(ct, cc))
+								if (Object.AreColliding(ct, cc) && cc.Satisfied == false)
 								{
 									p1.Score = p1.Score + 3;
 									toRemove.Add(ct);
-									toRemove.Add(cc);
+									toAdd.Add(cc.CollideWith(ct));
 								}
 							}
 
@@ -372,6 +385,11 @@ namespace tacocopterbase
 			foreach (var obj in toRemove)
 			{
 				Components.Remove(obj);
+			}
+
+			foreach (var obj in toAdd)
+			{
+				Components.Add(obj);
 			}
 		}
         
