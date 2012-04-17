@@ -19,6 +19,7 @@ namespace tacocopterbase
 		public Tacocopter(State2D s, Game g)
 			: base(s, g)
 		{
+            State = s;
 			Speed = 300;
 		}
 		
@@ -35,6 +36,8 @@ namespace tacocopterbase
 				Taco taco = null;
 				taco = new Taco(new State2D(State.Position.X + 10, State.Position.Y + 50,
 					0, 800, State.Velocity.X, 200, 0), thisGame);
+
+                
 
 				tacos.Add(taco);
 				Game.Components.Add(taco);

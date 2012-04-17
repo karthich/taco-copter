@@ -15,7 +15,9 @@ namespace tacocopterbase
 	/// </summary>
 	public class Burrito : Object
 	{
-		public Burrito(State2D s, Game g) : base(s, g) { }
+		public Burrito(State2D s, Game g) : base(s, g) {
+            State = s;
+        }
 
 		protected override void LoadContent()
 		{
