@@ -54,7 +54,7 @@ namespace tacocopterbase {
 			if (counter > generateTime) {
 				// must deep copy the state for each new object
 				thisGame.Components.Add(factory(GenState.Copy(), thisGame));
-				generateTime += Interval;
+				generateTime = Interval;
 				counter = 0;
 			}
 			base.Update(gameTime);
@@ -158,7 +158,7 @@ namespace tacocopterbase {
 			{
 				thisGame.Components.Add(factory(GenState.Copy(), thisGame));
 				// generate objects at an interval between IntervalMin and IntervalMax
-				generateTime += (IntervalMax - IntervalMin) * (float)random.NextDouble() + IntervalMin;
+				generateTime = (IntervalMax - IntervalMin) * (float)random.NextDouble() + IntervalMin;
 				counter = 0;
 			}
 			base.Update(gameTime);
