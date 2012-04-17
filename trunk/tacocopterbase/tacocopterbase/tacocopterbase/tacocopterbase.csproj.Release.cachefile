@@ -8,9 +8,6 @@ Content\gb_walk_right.xnb
 Content\burritomissile.xnb
 Content\chic_final.xnb
 Content\chic2.xnb
-Content\Arial.xnb
-Content\gameOver.xnb
-Content\playerScore.xnb
 Content\generic_explosion.xnb
 Content\sidewalk.xnb
 Content\HealthBar2.xnb
@@ -19,3 +16,6 @@ Content\pause_button.xnb
 Content\chic4.xnb
 Content\main_helicopter1.xnb
 Content\black_box.xnb
+Content\Arial.xnb
+Content\gameOver.xnb
+Content\playerScore.xnb
