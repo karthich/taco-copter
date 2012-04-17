@@ -9,8 +9,8 @@ namespace tacocopterbase
 {
     public class HealthBar
     {
-        
-        private Vector2 screenpos, origin, texturesize;
+
+		private Vector2 origin;
         private Texture2D myTexture;
         //private int screenheight;
         private Vector2 screenDims;

@@ -15,7 +15,7 @@ namespace tacocopterbase {
 		// that describes objects that need animated sprites
 		// but this isn't too bad. 
 
-		protected bool Satisfied { get; set; }
+		public bool Satisfied { get; set; }
 
 		// nothing special about a Customer yet
 		public Customer(State2D s,Game g) : base(s, g) 
@@ -28,6 +28,26 @@ namespace tacocopterbase {
 		{
 			SpriteTexture.Load(thisGame.Content, "gb_walk_left", 6, 4, new Vector2(1, 6));
 			base.LoadContent();
+		}
+
+		public override void Update(GameTime gameTime)
+		{
+			
+			base.Update(gameTime);
+		}
+
+		public Object CollideWith(Object obj)
+		{
+			var taco = obj as Taco;
+			if (taco != null)
+			{
+				Satisfied = true;
+				return new SpeechBubble(
+					new State2D(State.Position + new Vector2(25, -62),
+						new Vector2(0, 0), State.Velocity, 0), 500,
+						"CHOMP", thisGame);
+			}
+			return null;
 		}
 	}
 }
