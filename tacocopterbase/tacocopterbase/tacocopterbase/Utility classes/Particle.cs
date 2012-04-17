@@ -11,24 +11,25 @@ namespace tacocopterbase
 {
 	class Particle : Object
 	{
-		private long BirthTime;
-		private long LifeTime;
+		private float BirthTime;
+		private float LifeTime;
 		public bool DestroyThis;
 		protected SpriteFont Arial;
 
-		/// <param name="time">Lifetime of the object in milliseconds</param>
+		/// <param name="time">Lifetime of the object in seconds</param>
 		public Particle(State2D s, int time, Game g)
 			: base(s, g)
 		{
-			LifeTime = time*10000000;
-			BirthTime = DateTime.Now.Ticks;
+			LifeTime = time;
+			BirthTime = 0;
 			DestroyThis = false;
 			Arial = g.Content.Load<SpriteFont>("Arial");
 		}
 
 		public override void Update(GameTime gameTime)
 		{
-			if ((DateTime.Now.Ticks) > (LifeTime + BirthTime))
+			BirthTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+			if (BirthTime > LifeTime)
 				DestroyThis = true;
 			base.Update(gameTime);
 		}
@@ -73,6 +74,17 @@ namespace tacocopterbase
 		{
 			base.Draw(batch, gameTime);
 			batch.DrawString(Arial, speechText, State.Position + new Vector2(-30, -12), Color.Black);
+		}
+	}
+
+	class Explosion : Particle
+	{
+		public Explosion(State2D s, int time, Game g) : base(s, time, g) { }
+
+		protected override void LoadContent()
+		{
+			sprite = this.Game.Content.Load<Texture2D>("generic_explosion");
+			base.LoadContent();
 		}
 	}
 }

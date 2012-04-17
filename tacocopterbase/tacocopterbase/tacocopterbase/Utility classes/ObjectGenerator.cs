@@ -26,6 +26,8 @@ namespace tacocopterbase {
 		public float Interval;
 		protected State2D GenState;
 		protected Game thisGame;
+
+		float counter;
 		
 		// this variable is used to determine when to generate the Obj
 		// when TotalGameTime > generateTime, add a copy of Obj to the game
@@ -48,10 +50,12 @@ namespace tacocopterbase {
 		// at a maximum frequency of the refresh rate
 		// TODO: fix this so there's no risk of overflow
 		public override void Update(GameTime gameTime) {
-			if (gameTime.TotalGameTime.TotalSeconds > generateTime) {
+			counter += (float)gameTime.ElapsedGameTime.TotalSeconds;
+			if (counter > generateTime) {
 				// must deep copy the state for each new object
 				thisGame.Components.Add(factory(GenState.Copy(), thisGame));
 				generateTime += Interval;
+				counter = 0;
 			}
 			base.Update(gameTime);
 		}
@@ -75,7 +79,7 @@ namespace tacocopterbase {
 		// in which the Burritos will be randomly generated
 		private int minY, maxY;
 		Random random;
-
+		float counter;
 		public BurritoGenerator(Func<State2D, Game, T> f, State2D st, float i,
 			int min, int max, Game g)
 			: base(g)
@@ -96,7 +100,8 @@ namespace tacocopterbase {
 		// TODO: fix this so there's no risk of overflow
 		public override void Update(GameTime gameTime) 
 		{
-			if (gameTime.TotalGameTime.TotalSeconds > generateTime) 
+			counter += (float)gameTime.ElapsedGameTime.TotalSeconds;
+			if (counter > generateTime)
 			{
 				var stateCopy = GenState.Copy();
 				// change the Position.Y of this State2D to 
@@ -107,6 +112,7 @@ namespace tacocopterbase {
 				// don't generate at regular intervals
 				float newInterval = Interval * ((float)random.NextDouble() + .5f);
 				generateTime += newInterval;
+				counter = 0;
 			}
 			base.Update(gameTime);
 		}
@@ -127,6 +133,7 @@ namespace tacocopterbase {
 		protected Game thisGame;
 		private float generateTime;
 		Random random;
+		float counter;
 
 		public CustomerGenerator(Func<State2D, Game, T> f, State2D st, float minI,
 			float maxI, Game g)
@@ -146,11 +153,13 @@ namespace tacocopterbase {
 		// TODO: fix this so there's no risk of overflow
 		public override void Update(GameTime gameTime)
 		{
-			if (gameTime.TotalGameTime.TotalSeconds > generateTime)
+			counter += (float)gameTime.ElapsedGameTime.TotalSeconds;
+			if (counter > generateTime)
 			{
 				thisGame.Components.Add(factory(GenState.Copy(), thisGame));
 				// generate objects at an interval between IntervalMin and IntervalMax
 				generateTime += (IntervalMax - IntervalMin) * (float)random.NextDouble() + IntervalMin;
+				counter = 0;
 			}
 			base.Update(gameTime);
 		}
