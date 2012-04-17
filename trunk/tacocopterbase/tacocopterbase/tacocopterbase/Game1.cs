@@ -375,6 +375,7 @@ namespace tacocopterbase
 									toRemove.Add(tc);
 									toRemove.Add(br);
                                     p1.Lose();
+                                    
 								}
 							}
 						}
