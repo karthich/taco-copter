@@ -90,7 +90,7 @@ namespace tacocopterbase
                 Vector2 offset2 = new Vector2(br.sprite.Width / 2, br.sprite.Height / 2);
                 Vector2 b_prime = b.State.Position - offset2;
 
-                return Vector2.Distance(a_prime, b_prime) < 70;
+                return Vector2.Distance(a_prime, b_prime) < 80;
             }
             return false;
 			

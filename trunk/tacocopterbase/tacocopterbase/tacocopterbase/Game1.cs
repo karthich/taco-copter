@@ -13,6 +13,7 @@ using WindowsGame1;
 
 namespace tacocopterbase
 {
+    
 	public class Game1 : Microsoft.Xna.Framework.Game
 	{
 		GraphicsDeviceManager graphics;
@@ -60,8 +61,7 @@ namespace tacocopterbase
 			// show Mouse cursor for debugging
 			this.IsMouseVisible = true;
 			mainMenuisRunning = true;
-			if(!mainMenuisRunning)
-			Init(); 
+            paused = true;
 		}
 
 		private void Init()
@@ -182,6 +182,8 @@ namespace tacocopterbase
 				Init();
 				mainMenuisRunning = false;
 				firstTime = false;
+                paused = false;
+                
 			}
 
 			if(!mainMenuisRunning)
@@ -242,7 +244,6 @@ namespace tacocopterbase
 					myBackground.Update((float)gameTime.ElapsedGameTime.TotalSeconds * 50);
 
 					// update player's health
-					p1.Health = (int)MathHelper.Clamp(p1.Health, 0, 100);
 
 					// Check for collisions and remove and unnecessary objects
 					CheckCollisions();
@@ -267,6 +268,7 @@ namespace tacocopterbase
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
+            
 
 			//  Begin sprite batch ------------------------------
 			spriteBatch.Begin();
@@ -278,7 +280,7 @@ namespace tacocopterbase
 				{
 					// draw the scrolling background first
 					myBackground.Draw(spriteBatch);
-
+                    p1.Health = (int)MathHelper.Clamp(p1.Health, 0, 100);
 					Object o;
 					foreach (var c in Components)
 					{
