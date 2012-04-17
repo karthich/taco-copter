@@ -85,7 +85,7 @@ namespace tacocopterbase
 				genState, .1f, this));*/
 
             // generate some generic people
-            genState = new State2D(windowWidth, windowHeight - 50, 0, 0, -100, 0, 0);
+            genState = new State2D(windowWidth, windowHeight - 50, 0, 0, -180, 0, 0);
             Components.Add(new CustomerGenerator<Customer>(
                 (a, b) => new Customer(a, b),
                 genState, 1, 4, this));
@@ -94,7 +94,7 @@ namespace tacocopterbase
             genState = new State2D(windowWidth + 50, windowHeight /* doesn't matter */, 0, 0, -800, 0, 0);
             enemy = new BurritoGenerator<Burrito>(
                 (a, b) => new Burrito(a, b),
-                genState, 4f, 25, windowHeight - 200, this);
+                genState, 4f, 140, windowHeight - 220, this);
 
             Components.Add(enemy);
 
@@ -141,7 +141,7 @@ namespace tacocopterbase
             myHealthBar.Load(GraphicsDevice, healthBar);
 
 			// load scrolling background
-            Texture2D backgroundTexture = Content.Load<Texture2D>("chic3");
+            Texture2D backgroundTexture = Content.Load<Texture2D>("chic4");
             pauseButton = Content.Load<Texture2D>("pause_button");
 
             myBackground.Load(GraphicsDevice, backgroundTexture);
@@ -172,7 +172,7 @@ namespace tacocopterbase
 
             checkPauseKey(k);
 
-            enemy.Interval = enemy.Interval * 0.9999f;
+            enemy.Interval = enemy.Interval * 0.99935f;
             
             // If the user hasn't paused, Update normally
             if (!paused)
@@ -210,9 +210,13 @@ namespace tacocopterbase
 
                 if (p1.Score < 0)
                 {
-                    p1.Lose();
-                    ClearGame();   
+                    p1.Lose(); 
                 }
+                if (p1.youLose)
+                {
+                    ClearGame();
+                }
+
             }
 		}
 
@@ -246,7 +250,7 @@ namespace tacocopterbase
 			base.Draw(gameTime);
 		}
 
-        private void ClearGame()
+        public void ClearGame()
             // Clears the game of all objects
         {
             Object o;
@@ -334,7 +338,7 @@ namespace tacocopterbase
 								{
 									toRemove.Add(tc);
 									toRemove.Add(br);
-									p1.Lose();
+                                    p1.Lose();
 								}
 							}
 						}

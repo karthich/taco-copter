@@ -16,7 +16,7 @@ namespace tacocopterbase
 		public int CustomerSatisfaction { get; set; }
 		private Texture2D healthBar;
 		private Game g;
-		private bool youLose;
+		public bool youLose;
 		private SpriteBatch batch;
 
 		public Player(Game game) : base(game)
@@ -54,6 +54,8 @@ namespace tacocopterbase
 			{
 				string endGame = "GAME OVER";
 				batch.DrawString(g.Content.Load<SpriteFont>("gameOver"), endGame, new Vector2(450, 80), Color.Blue);
+                string restart = "Press the 'R' Key to Restart";
+                batch.DrawString(g.Content.Load<SpriteFont>("playerScore"), restart, new Vector2(480, 150), Color.Blue);
 			}
             // draw customer satisfaction label
             string health = "Customer Satisfaction:";
@@ -70,6 +72,7 @@ namespace tacocopterbase
 		public void Lose()
 		{
 			youLose = true;
+     
 		}
 
 		public void UnLose()
