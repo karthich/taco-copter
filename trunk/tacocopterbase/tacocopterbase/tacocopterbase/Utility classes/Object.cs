@@ -71,17 +71,13 @@ namespace tacocopterbase
 
             if (tco != null && ct != null)
             {
-                float aRadius = Math.Min(a.boundHeight, a.boundWidth) / 1.6f;
-                float bRadius = Math.Min(b.boundWidth, b.boundHeight) / 1.6f;
                 return Vector2.Distance(a.State.Position, b.State.Position) < 50;
             }
             Object br = a as Burrito;
             Object tc = b as Tacocopter;
             if (br != null && tc != null)
             {
-                float aRadius = Math.Min(a.boundHeight, a.boundWidth) / 1.6f;
-                float bRadius = Math.Min(b.boundWidth, b.boundHeight) / 1.6f;
-                return Vector2.Distance(a.State.Position, b.State.Position) < 100;
+                return Vector2.Distance(a.State.Position, b.State.Position) < 80;
             }
             return false;
 			
