@@ -188,6 +188,7 @@ namespace tacocopterbase
 				firstTime = false;
                 paused = false;
 				MediaPlayer.Stop();
+				MediaPlayer.Volume = .3f;
 				MediaPlayer.Play(gameMusic);
 			}
 
