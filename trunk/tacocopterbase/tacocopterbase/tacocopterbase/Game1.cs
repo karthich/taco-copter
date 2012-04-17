@@ -387,6 +387,10 @@ namespace tacocopterbase
 									toAdd.Add(cc.CollideWith(ct));
 								}
 							}
+                            else if ((ct != null) && (ct.State.Position.Y > windowHeight -20))
+                            {
+                                toRemove.Add(ct);
+                            }
 
 							br = o as Burrito;
 							tc = p as Tacocopter;
