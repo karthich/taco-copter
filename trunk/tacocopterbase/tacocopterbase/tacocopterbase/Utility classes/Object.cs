@@ -71,13 +71,26 @@ namespace tacocopterbase
 
             if (tco != null && ct != null)
             {
-                return Vector2.Distance(a.State.Position, b.State.Position) < 50;
+                //Purely Hardcoded shit dont touch
+                Vector2 offset1 = new Vector2(40/ 2, 22/ 2);
+                Vector2 a_prime = a.State.Position - offset1;
+
+                Vector2 offset2 = new Vector2(52/ 2, 75/ 2);
+                Vector2 b_prime = b.State.Position;
+                return Vector2.Distance(a_prime, b_prime) < 50;
             }
             Object br = a as Burrito;
             Object tc = b as Tacocopter;
             if (br != null && tc != null)
             {
-                return Vector2.Distance(a.State.Position, b.State.Position) < 80;
+                //Purely Hardcoded shit dont touch
+                //Vector2 offset1 = new Vector2(225 / 2, 143/ 2);
+                Vector2 a_prime = a.State.Position;//- offset1;
+
+                Vector2 offset2 = new Vector2(br.sprite.Width / 2, br.sprite.Height / 2);
+                Vector2 b_prime = b.State.Position - offset2;
+
+                return Vector2.Distance(a_prime, b_prime) < 70;
             }
             return false;
 			
